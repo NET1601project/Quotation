@@ -25,9 +25,9 @@ builder.Services.AddTransient<ICustomerRepository, CustomerRepositoryImp>();
 builder.Services.AddTransient<IEquipmentRepository, EquipmentRepositoryImp>();
 builder.Services.AddTransient<IMaterialRepository, MaterialRepositoryImp>();
 builder.Services.AddTransient<IProjectRepository, ProjectRepositoryImp>();
-//builder.Services.AddTransient<IQuoteDetailRepository, QuoteRepositoryImp>();
-//builder.Services.AddTransient<IRoomRepository, RoomRepositoryImp>();
-//builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
+builder.Services.AddTransient<IQuoteDetailRepository, QuoteRepositoryImp>();
+builder.Services.AddTransient<IRoomRepository, RoomRepositoryImp>();
+builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
 
 
 builder.Services.AddControllers();
