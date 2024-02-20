@@ -1,11 +1,17 @@
 using Application.IRepository;
 using Application.IRepository.Imp;
+using Domain;
+using Infrastructure.IUnitOfWork;
+using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using Infrastructure.Service;
 using Infrastructure.Service.Imp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<AppDBContext>();
+builder.Services.AddTransient<IUnitofWork, UnitofWork>();
+
 builder.Services.AddTransient<IAccountService, AccountServiceImp>();
 builder.Services.AddTransient<ICustomerService, CustomerServiceImp>();
 builder.Services.AddTransient<IEquipmentService, EquipmentServiceImp>();
