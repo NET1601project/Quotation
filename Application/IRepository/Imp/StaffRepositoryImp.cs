@@ -14,5 +14,41 @@ namespace Application.IRepository.Imp
         public StaffRepositoryImp(AppDBContext context) : base(context)
         {
         }
+
+        public Staff CreateStaff(Staff staff)
+        {
+            _context.Staff.Add(staff);
+            return staff;
+        }
+
+        public void DeleteStaff(Guid id)
+        {
+            var staff = _context.Staff.FirstOrDefault(c => c.StaffId == id);
+            _context.Staff.Remove(staff);
+            SaveChange();
+        }
+
+        public List<Staff> GetAll()
+        {
+            var list =_context.Staff.ToList();
+            return list;
+        }
+
+        public Staff GetStaffById(Guid id)
+        {
+            return _context.Staff.FirstOrDefault(c => c.StaffId == id);
+        }
+
+        public void SaveChange()
+        {
+            _context.SaveChanges();
+        }
+
+        public void UpdateStaff(Guid id)
+        {
+            var staff = _context.Staff.FirstOrDefault( c => c.StaffId == id);
+            _context.Staff.Update(staff);
+            SaveChange();
+        }
     }
 }

@@ -19,5 +19,6 @@ namespace Infrastructure.IUnitOfWork
         IStaffRepository StaffRepositoryImp { get; }
         void Commit();
         void CommitAsync();
+        
     }
 }

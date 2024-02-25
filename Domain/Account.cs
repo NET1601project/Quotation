@@ -9,7 +9,7 @@ namespace Domain
 {
     public class Account
     {
-        protected Account()
+        public Account()
         {
         }
         [Key]
