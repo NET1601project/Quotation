@@ -1,0 +1,23 @@
+﻿using Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.ConfigurationDB
+{
+    public class QuoteConfiguration : IEntityTypeConfiguration<QuoteDetail>
+    {
+        public void Configure(EntityTypeBuilder<QuoteDetail> builder)
+        {
+            builder.HasKey(c => c.QuoteID);
+            builder.Property(e => e.QuoteID)
+                    .ValueGeneratedOnAdd();
+            builder.Property(e => e.QuoteDate)
+                .HasColumnType("datetime");
+        }
+    }
+}

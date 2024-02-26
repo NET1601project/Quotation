@@ -18,13 +18,6 @@ namespace Infrastructure.Service.Imp
         }
 
 
-        public Task CreateCustomerAccount(CreateCustomer account)
-        {
-            var account = _unitofWork.AccountRepositoryImp.Add(account);
-            _unitofWork.Commit();
-            return account;
-        }
-
         public Task<Account> Login(string UserName, string Pass)
         {
             throw new NotImplementedException();

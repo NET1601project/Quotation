@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,9 @@ namespace Domain
         public string Status { get; set; }
         public Guid StaffId { get; set; }
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
         public Staff Staff { get; set; }
+
+        public Customer Customer { get; set; }
         public ICollection<Room> Rooms { get; set; }
         public ICollection<QuoteDetail> QuoteDetail { get; set; }
 

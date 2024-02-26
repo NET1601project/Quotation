@@ -1,3 +1,4 @@
+using Application;
 using Application.IRepository;
 using Application.IRepository.Imp;
 using Domain;
@@ -5,8 +6,21 @@ using Infrastructure.IUnitOfWork;
 using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using Infrastructure.Service;
 using Infrastructure.Service.Imp;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
+ODataConventionModelBuilder oData = new ODataConventionModelBuilder();
+oData.EntitySet<Customer>("Customers");
+oData.EntitySet<Account>("Accounts");
+oData.EntitySet<Equipment>("Equipments");
+oData.EntitySet<Project>("Projects");
+oData.EntitySet<QuoteDetail>("QuoteDetails");
+oData.EntitySet<Room>("Rooms");
+oData.EntitySet<Staff>("Staffs");
+var edmModel = oData.GetEdmModel();
+
+builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDBContext>();
@@ -34,7 +48,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors(c => c
+            .AddDefaultPolicy(b => b
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()));
 
 var app = builder.Build();
 
@@ -44,6 +62,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseODataBatching();
 
 app.UseHttpsRedirection();
 

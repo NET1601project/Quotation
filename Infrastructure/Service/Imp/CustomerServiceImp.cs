@@ -60,15 +60,22 @@ namespace Infrastructure.Service.Imp
             return _unitofWork.CustomerRepositoryImp.GetCustomerById(id);
         }
 
-        //public void SaveChange()
-        //{
-        //    throw new NotImplementedException();
-        //}
+      
 
         public void UpdateCustomer(Guid id)
         {
             _unitofWork.CustomerRepositoryImp.UpdateCustomer(id);
             _unitofWork.Commit();
+        }
+
+        Task<Customer> ICustomerService.DeleteCustomer(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Customer> ICustomerService.UpdateCustomer(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Domain
 
         public Guid MaterialID { get; set; }
         public string MaterialName { get; set; }
-
         public string Description { get; set; }
         public double UnitPrice { get; set; }
         public int Stock { get; set; }

@@ -10,7 +10,6 @@ namespace Infrastructure.Service
 {
     public interface IAccountService
     {
-        Task CreateCustomerAccount(CreateCustomer account);
 
         Task<Account> Login(String UserName, String Pass);
     }
