@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Infrastructure.Common.Model.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Infrastructure.Service
     public interface IStaffService
     {
         Staff GetStaffById(Guid id);
-        Staff CreateStaff(Staff staff);
-        void UpdateStaff(Guid id);
-        void DeleteStaff(Guid id);
-        List<Staff> GetAll();
+        Task<Staff> Add(CreateStaff create);
+        Task<Staff> UpdateStaff(Guid id);
+        Task<Staff> DeleteStaff(Guid id);
+        Task<List<Staff>> GetAll();
     }
 }
