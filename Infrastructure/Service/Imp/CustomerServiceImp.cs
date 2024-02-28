@@ -44,38 +44,6 @@ namespace Infrastructure.Service.Imp
             return ass;
         }
 
-        public void DeleteCustomer(Guid id)
-        {
-            _unitofWork.CustomerRepositoryImp.DeleteCustomer(id);
-            _unitofWork.Commit();
-        }
-
-        public  async Task<List<Customer>> GetAll()
-        {
-            return _unitofWork.CustomerRepositoryImp.GetAll();
-        }
-
-        public Customer GetCustomerById(Guid id)
-        {
-            return _unitofWork.CustomerRepositoryImp.GetCustomerById(id);
-        }
-
-      
-
-        public void UpdateCustomer(Guid id)
-        {
-            _unitofWork.CustomerRepositoryImp.UpdateCustomer(id);
-            _unitofWork.Commit();
-        }
-
-        Task<Customer> ICustomerService.DeleteCustomer(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Customer> ICustomerService.UpdateCustomer(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

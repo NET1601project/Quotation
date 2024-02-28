@@ -41,26 +41,6 @@ namespace Infrastructure.Service.Imp
             _unitofWork.Commit();
             return ass;
         }
-       
-
-        public Task<Staff> DeleteStaff(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Staff>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Staff GetStaffById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Staff> UpdateStaff(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

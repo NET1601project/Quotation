@@ -23,11 +23,11 @@ namespace QuotionSystemSolution.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
-        {
-            return Ok(await _customerService.GetAll());
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        //{
+        //    return Ok(await _customerService.GetAll());
+        //}
         
        
         [HttpPost]

@@ -10,10 +10,6 @@ namespace Infrastructure.Service
 {
     public interface ICustomerService
     {
-        Customer GetCustomerById(Guid id);
         Task <Customer> Add(CreateCustomer create);
-        Task<Customer> UpdateCustomer(Guid id );
-        Task<Customer>  DeleteCustomer(Guid id);
-        Task<List<Customer>> GetAll();
     }
 }

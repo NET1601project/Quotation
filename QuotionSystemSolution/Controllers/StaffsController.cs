@@ -24,11 +24,11 @@ namespace QuotionSystemSolution.Controllers
         }
 
         // GET: api/Staffs
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Staff>>> GetStaff()
-        {
-            return Ok(await _staffService.GetAll());
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Staff>>> GetStaff()
+        //{
+        //    return Ok(await _staffService.GetAll());
+        //}
         [HttpPost]
         public async Task<ActionResult<Staff>> PostStaff(CreateStaff staff)
         {

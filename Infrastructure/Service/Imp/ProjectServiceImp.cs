@@ -32,27 +32,8 @@ namespace Infrastructure.Service.Imp
             _unitofWork.Commit();
             return ass;
         }
+        
 
-        public void DeleteProject(Guid id)
-        {
-            _unitofWork.ProjectRepositoryImp.DeleteProject(id);
-            _unitofWork.Commit();
-        }
-
-        public List<Project> GetAll()
-        {
-            return _unitofWork.ProjectRepositoryImp.GetAll();
-        }
-
-        public Project GetProjectById(Guid id)
-        {
-            return _unitofWork.ProjectRepositoryImp.GetProjectById(id);
-        }
-
-        public void UpdateProject(Guid id)
-        {
-            _unitofWork.ProjectRepositoryImp.UpdateProject(id);
-            _unitofWork.Commit();
-        }
+        
     }
 }

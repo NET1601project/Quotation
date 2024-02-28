@@ -10,10 +10,6 @@ namespace Infrastructure.Service
 {
     public interface IStaffService
     {
-        Staff GetStaffById(Guid id);
         Task<Staff> Add(CreateStaff create);
-        Task<Staff> UpdateStaff(Guid id);
-        Task<Staff> DeleteStaff(Guid id);
-        Task<List<Staff>> GetAll();
     }
 }

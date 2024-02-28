@@ -10,10 +10,6 @@ namespace Infrastructure.Service
 {
     public interface IProjectService
     {
-        List<Project> GetAll();
-        void UpdateProject(Guid id);
-        void DeleteProject(Guid id);
         Task<Project> Add(CreateProject project);
-        Project GetProjectById(Guid id);
     }
 }
