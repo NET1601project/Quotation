@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Infrastructure.Common.Model.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Infrastructure.Service
         List<Project> GetAll();
         void UpdateProject(Guid id);
         void DeleteProject(Guid id);
-        Project CreateProject(Project project);
+        Task<Project> Add(CreateProject project);
         Project GetProjectById(Guid id);
     }
 }

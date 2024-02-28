@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.IUnitOfWork;
+using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,27 @@ namespace Infrastructure.Service.Imp
             _unitofWork = unitofWork;
         }
 
-
-        public Task<Account> Login(string UserName, string Pass)
+        public async Task<Account> Add(CreateAccount account)
         {
-            throw new NotImplementedException();
+            Account a = new Account
+            {
+                Username = account.Username,
+                Password = account.Password,
+                Role = account.Role,
+            };
+            var ass = _unitofWork.AccountRepositoryImp.Add(a);
+            _unitofWork.Commit();
+            return ass;
+        }
+
+        public Task<Account> GetAccountById(Guid id, string UserName, string Pass)
+        {
+            return _unitofWork.AccountRepositoryImp.GetAccountById(id, UserName, Pass);
+        }
+
+        public async Task<Account> Login(string UserName, string Pass)
+        {
+            throw new NotImplementedException();   
         }
     }
 }

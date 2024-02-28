@@ -1,5 +1,7 @@
 ﻿using Domain;
 using Infrastructure.IUnitOfWork;
+using Infrastructure.Common.Model.Request;
+using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,24 @@ namespace Infrastructure.Service.Imp
     public class ProjectServiceImp : IProjectService
     {
         private readonly IUnitofWork _unitofWork;
-        public Project CreateProject(Project project)
+        public ProjectServiceImp(IUnitofWork unitofWork)
         {
-            throw new NotImplementedException();
+            _unitofWork = unitofWork;
+        }
+        public async  Task<Project> Add(CreateProject project)
+        {
+            Project p = new Project
+            {
+                ProjectName = project.ProjectName,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Status = project.Status,
+                StaffId = project.StaffId,
+                CustomerId = project.CustomerId,
+            };
+            var ass = _unitofWork.ProjectRepositoryImp.Add(p);
+            _unitofWork.Commit();
+            return ass;
         }
 
         public void DeleteProject(Guid id)

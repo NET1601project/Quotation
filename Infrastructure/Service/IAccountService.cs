@@ -12,5 +12,7 @@ namespace Infrastructure.Service
     {
 
         Task<Account> Login(String UserName, String Pass);
+        Task<Account> Add(CreateAccount create);
+        Task<Account> GetAccountById(Guid id , String UserName, String Pass);
     }
 }
