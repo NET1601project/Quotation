@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace Infrastructure.Service
 {
     public interface IMaterialService
     {
+        Task<ResponseMaterial> Add(CreateMaterial create);
+
     }
 }

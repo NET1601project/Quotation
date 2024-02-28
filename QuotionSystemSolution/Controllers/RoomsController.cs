@@ -12,7 +12,7 @@ using Infrastructure.Common.Model.Request;
 
 namespace QuotionSystemSolution.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoomsController : ControllerBase
     {

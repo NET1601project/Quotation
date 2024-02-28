@@ -35,12 +35,12 @@ namespace Infrastructure.Service.Imp
                 Role = staff.Role,
                 Staff = s,
             };
-            var ass = _unitofWork.StaffRepositoryImp.Add(s);
-            _unitofWork.AccountRepositoryImp.Add(a);
+            var ass = await _unitofWork.StaffRepositoryImp.Add(s);
+            await _unitofWork.AccountRepositoryImp.Add(a);
 
-            _unitofWork.Commit();
+             await _unitofWork.Commit();
             return ass;
         }
-        
+
     }
 }

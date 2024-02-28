@@ -22,12 +22,12 @@ namespace Infrastructure.Service.Imp
             Room r = new Room
             {
                 RoomName = room.RoomName,
-                Size = room.Size, 
+                Size = room.Size,
                 Description = room.Description,
                 ProjectId = room.ProjectId,
             };
-            var ass = _unitofWork.RoomRepositoryImp.Add(r);
-            _unitofWork.Commit();
+            var ass = await _unitofWork.RoomRepositoryImp.Add(r);
+            await _unitofWork.Commit();
             return ass;
         }
     }

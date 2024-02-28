@@ -19,18 +19,18 @@ namespace Application.IGenericRepository.Imp
             _entitiySet = _context.Set<T>();
         }
 
-        public T Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            _context.AddAsync(entity);
-            return entity;
+          var add =  await _context.Set<T>().AddAsync(entity);
+            return add.Entity;
         }
 
         public void Remove(T entity)
               => _context.Remove(entity);
 
-        public T Update(T entity)
+        public async Task<T> Update(T entity)
         {
-            _context.Update(entity);
+            _context.Set<T>().Update(entity);
             return entity;
         }
     }

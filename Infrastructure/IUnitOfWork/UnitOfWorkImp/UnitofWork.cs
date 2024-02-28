@@ -50,11 +50,10 @@ namespace Infrastructure.IUnitOfWork.UnitOfWorkImp
 
         public IStaffRepository StaffRepositoryImp => _staffRepositoryImp;
 
-        public void Commit()
-                       => _context.SaveChanges();
+        public async Task Commit()
+                       => await _context.SaveChangesAsync();
 
-        public void CommitAsync()
-                              => _context.SaveChangesAsync();
+
 
     }
 }

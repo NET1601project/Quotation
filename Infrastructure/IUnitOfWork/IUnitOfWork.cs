@@ -17,8 +17,7 @@ namespace Infrastructure.IUnitOfWork
         IQuoteDetailRepository QuoteRepositoryImp { get; }
         IRoomRepository RoomRepositoryImp { get; }
         IStaffRepository StaffRepositoryImp { get; }
-        void Commit();
-        void CommitAsync();
+        Task Commit();
         
     }
 }

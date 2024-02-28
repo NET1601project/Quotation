@@ -28,8 +28,8 @@ namespace Infrastructure.Service.Imp
                 StaffId = project.StaffId,
                 CustomerId = project.CustomerId,
             };
-            var ass = _unitofWork.ProjectRepositoryImp.Add(p);
-            _unitofWork.Commit();
+            var ass = await _unitofWork.ProjectRepositoryImp.Add(p);
+            await _unitofWork.Commit();
             return ass;
         }
         

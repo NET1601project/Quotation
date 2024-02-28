@@ -8,8 +8,8 @@ namespace Application.IGenericRepository
 {
     public interface IGenericRepository<T> where T : class
     {
-        T Add(T entity);
-        T Update(T entity);
+        Task<T> Add(T entity);
+        Task<T> Update(T entity);
         void Remove(T entity);
     }
 }

@@ -19,7 +19,7 @@ namespace Infrastructure.Service.Imp
         }
         public async Task<Customer> Add(CreateCustomer customer)
         {
-            Customer c= new Customer
+            Customer c = new Customer
             {
                 Address = customer.Address,
                 CreateDate = DateTime.Now,
@@ -27,7 +27,7 @@ namespace Infrastructure.Service.Imp
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Phone = customer.Phone,
-               
+
             };
             Account a = new Account
             {
@@ -37,13 +37,13 @@ namespace Infrastructure.Service.Imp
                 Customer = c
             };
 
-         var  ass =  _unitofWork.CustomerRepositoryImp.Add(c);
-             _unitofWork.AccountRepositoryImp.Add(a);
+            var ass = await _unitofWork.CustomerRepositoryImp.Add(c);
+            await _unitofWork.AccountRepositoryImp.Add(a);
 
-            _unitofWork.Commit();
+            await _unitofWork.Commit();
             return ass;
         }
 
-        
+
     }
 }

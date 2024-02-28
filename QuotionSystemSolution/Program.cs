@@ -2,6 +2,7 @@ using Application;
 using Application.IRepository;
 using Application.IRepository.Imp;
 using Domain;
+using Infrastructure.Common.Mapper;
 using Infrastructure.IUnitOfWork;
 using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using Infrastructure.Service;
@@ -43,6 +44,7 @@ builder.Services.AddTransient<IQuoteDetailRepository, QuoteRepositoryImp>();
 builder.Services.AddTransient<IRoomRepository, RoomRepositoryImp>();
 builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
 
+builder.Services.AddAutoMapper(typeof(ApplicationMapper).Assembly);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

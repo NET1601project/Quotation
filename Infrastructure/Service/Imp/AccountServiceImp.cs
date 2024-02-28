@@ -26,8 +26,8 @@ namespace Infrastructure.Service.Imp
                 Password = account.Password,
                 Role = account.Role,
             };
-            var ass = _unitofWork.AccountRepositoryImp.Add(a);
-            _unitofWork.Commit();
+            var ass = await _unitofWork.AccountRepositoryImp.Add(a);
+            await _unitofWork.Commit();
             return ass;
         }
 
