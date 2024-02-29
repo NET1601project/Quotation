@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Infrastructure.Service
 {
     public interface IRoomService
     {
-        Task<Room> Add(CreateRoom create);
+        Task<ResponseRoom> Add(CreateRoom create);
+        Task<List<ResponseRoom>> GetAll();
     }
 }

@@ -10,6 +10,6 @@ namespace Application.IRepository
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-       
+       Task<List<Customer>> GetAll();
     }
 }

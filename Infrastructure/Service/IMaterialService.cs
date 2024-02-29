@@ -11,6 +11,6 @@ namespace Infrastructure.Service
     public interface IMaterialService
     {
         Task<ResponseMaterial> Add(CreateMaterial create);
-
+        Task<List<ResponseMaterial>> GetMaterial();
     }
 }

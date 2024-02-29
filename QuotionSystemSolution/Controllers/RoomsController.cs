@@ -9,6 +9,7 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -22,14 +23,13 @@ namespace QuotionSystemSolution.Controllers
         {
             _roomService = roomService;
         }
-
-       
-
-
-        // POST: api/Rooms
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpGet]
+        public async Task<ActionResult<ResponseRoom>> GetRooms()
+        {
+            return Ok(await _roomService.GetAll());
+        }
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(CreateRoom room)
+        public async Task<ActionResult<ResponseRoom>> PostRoom(CreateRoom room)
         {
             return Ok(await _roomService.Add(room));
         }

@@ -135,6 +135,7 @@ namespace Application.Migrations
                     QuoteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     QuoteNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuoteDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalAmount = table.Column<double>(type: "float", nullable: false),
                     ProjectID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

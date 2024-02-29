@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Service
 {
-    public interface ICustomerService
+    public interface ICustomerServices
     {
-        Task <Customer> Add(CreateCustomer create);
+        Task<List<ResponseCustomer>> GetCustomers();
+        Task<ResponseCustomer> Add(CreateCustomer customer);
+
     }
 }

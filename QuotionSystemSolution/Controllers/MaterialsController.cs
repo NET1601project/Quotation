@@ -9,6 +9,7 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -24,11 +25,11 @@ namespace QuotionSystemSolution.Controllers
             _materialService = materialService;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Material>>> GetMaterials()
-        //{
-
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResponseMaterial>>> GetMaterials()
+        {
+            return Ok(await _materialService.GetMaterial());
+        }
 
         //[HttpGet]
         //public async Task<ActionResult<Material>> GetMaterial(Guid id)
@@ -36,11 +37,11 @@ namespace QuotionSystemSolution.Controllers
 
         //}
 
-        [HttpPut]
-        public async Task<IActionResult> PutMaterial(Guid id, Material material)
-        {
-            return NoContent();
-        }
+        //[HttpPut]
+        //public async Task<IActionResult> PutMaterial(Guid id, Material material)
+        //{
+        //    return NoContent();
+        //}
 
         [HttpPost]
         public async Task<ActionResult<Material>> PostMaterial(CreateMaterial material)
@@ -48,12 +49,6 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _materialService.Add(material));
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteMaterial(Guid id)
-        {
-
-            return NoContent();
-        }
 
 
     }

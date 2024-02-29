@@ -16,20 +16,20 @@ namespace QuotionSystemSolution.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerServices _customerService;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(ICustomerServices customerService)
         {
             _customerService = customerService;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
-        //{
-        //    return Ok(await _customerService.GetAll());
-        //}
-        
-       
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        {
+            return Ok(await _customerService.GetCustomers());
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomers(CreateCustomer customer)
         {

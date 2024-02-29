@@ -10,5 +10,6 @@ namespace Application.IRepository
 {
     public interface IEquipmentRepository : IGenericRepository<Equipment>
     {
+        Task<List<Equipment>> GetEquipments();
     }
 }

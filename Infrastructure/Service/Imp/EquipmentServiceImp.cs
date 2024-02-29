@@ -29,5 +29,10 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.Commit();
             return _mapper.Map<ResponseEquipment>(add);
         }
+
+        public async Task<List<ResponseEquipment>> GetEquipment()
+        {
+            return _mapper.Map<List<ResponseEquipment>>(await _unitofWork.EquipmentRepositoryImp.GetEquipments());
+        }
     }
 }

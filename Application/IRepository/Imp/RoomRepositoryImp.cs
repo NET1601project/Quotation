@@ -1,5 +1,6 @@
 ﻿using Application.IGenericRepository.Imp;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace Application.IRepository.Imp
     {
         public RoomRepositoryImp(AppDBContext context) : base(context)
         {
+        }
+
+        public async Task<List<Room>> GetAll()
+        {
+            return await _context.Set<Room>().ToListAsync();
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Domain;
+﻿using AutoMapper;
+using Domain;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
 using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using System;
@@ -13,9 +15,12 @@ namespace Infrastructure.Service.Imp
     public class AccountServiceImp : IAccountService
     {
         private readonly IUnitofWork _unitofWork;
-        public AccountServiceImp(IUnitofWork unitofWork)
+        private readonly IMapper _mapper;
+
+        public AccountServiceImp(IUnitofWork unitofWork, IMapper mapper)
         {
             _unitofWork = unitofWork;
+            _mapper = mapper;
         }
 
         public async Task<Account> Add(CreateAccount account)
@@ -36,9 +41,15 @@ namespace Infrastructure.Service.Imp
             return _unitofWork.AccountRepositoryImp.GetAccountById(id, UserName, Pass);
         }
 
+        public async Task<List<ResponseAccount>> GetAll()
+        {
+            var account = await _unitofWork.AccountRepositoryImp.GetAll();
+            return _mapper.Map<List<ResponseAccount>>(account);
+        }
+
         public async Task<Account> Login(string UserName, string Pass)
         {
-            throw new NotImplementedException();   
+            throw new NotImplementedException();
         }
     }
 }

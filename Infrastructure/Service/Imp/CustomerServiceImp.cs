@@ -1,7 +1,8 @@
-﻿using Domain;
+﻿using AutoMapper;
+using Domain;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
-using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,18 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Service.Imp
 {
-    public class CustomerServiceImp : ICustomerService
+    public class CustomerServiceImp : ICustomerServices
     {
         private readonly IUnitofWork _unitofWork;
-        public CustomerServiceImp(IUnitofWork unitofWork)
+        private readonly IMapper _mapper;
+
+        public CustomerServiceImp(IUnitofWork unitofWork, IMapper mapper)
         {
             _unitofWork = unitofWork;
+            _mapper = mapper;
         }
-        public async Task<Customer> Add(CreateCustomer customer)
+
+        public async Task<ResponseCustomer> Add(CreateCustomer customer)
         {
             Customer c = new Customer
             {
@@ -41,7 +46,12 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.AccountRepositoryImp.Add(a);
 
             await _unitofWork.Commit();
-            return ass;
+            return _mapper.Map<ResponseCustomer>(ass);
+        }
+
+        public async Task<List<ResponseCustomer>> GetCustomers()
+        {
+            return _mapper.Map<List<ResponseCustomer>>(await _unitofWork.CustomerRepositoryImp.GetAll());
         }
 
 

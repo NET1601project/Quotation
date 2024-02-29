@@ -10,5 +10,6 @@ namespace Application.IRepository
 {
     public interface IProjectRepository : IGenericRepository<Project>
     {
+        Task<List<Project>> GetAll();
     }
 }

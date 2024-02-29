@@ -22,9 +22,9 @@ namespace Application.IRepository.Imp
             return account;
         }
 
-        public Task<List<Account>> GetAll()
+        public async Task<List<Account>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Set<Account>().Include(c => c.Customer).Include(c => c.Staff).ToListAsync();
         }
     }
 }

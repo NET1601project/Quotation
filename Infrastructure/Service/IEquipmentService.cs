@@ -11,6 +11,6 @@ namespace Infrastructure.Service
     public interface IEquipmentService
     {
         Task<ResponseEquipment> Add(CreateEquipment create);
-
+        Task<List<ResponseEquipment>> GetEquipment();
     }
 }

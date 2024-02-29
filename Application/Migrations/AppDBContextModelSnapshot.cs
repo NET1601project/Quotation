@@ -199,6 +199,10 @@ namespace Application.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
 

@@ -11,12 +11,7 @@ namespace Application.IRepository
 {
     public interface IStaffRepository : IGenericRepository<Staff>
     {
-        Staff GetStaffById(Guid id);
-        Staff CreateStaff(Staff staff);
-        void UpdateStaff(Guid id);
-        void DeleteStaff(Guid id);
-        List<Staff> GetAll();
-        void SaveChange();
+        Task<List<Staff>> GetAll();
 
     }
 }

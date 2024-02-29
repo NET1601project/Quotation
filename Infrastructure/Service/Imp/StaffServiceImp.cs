@@ -9,15 +9,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using Infrastructure.Common.Model.Response;
+using AutoMapper;
 
 namespace Infrastructure.Service.Imp
 {
     public class StaffServiceImp : IStaffService
     {
         private readonly IUnitofWork _unitofWork;
-        public StaffServiceImp(IUnitofWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public StaffServiceImp(IUnitofWork unitofWork, IMapper mapper)
         {
-            _unitofWork = unitOfWork;
+            _unitofWork = unitofWork;
+            _mapper = mapper;
         }
 
         public async Task<Staff> Add(CreateStaff staff)
@@ -38,9 +43,13 @@ namespace Infrastructure.Service.Imp
             var ass = await _unitofWork.StaffRepositoryImp.Add(s);
             await _unitofWork.AccountRepositoryImp.Add(a);
 
-             await _unitofWork.Commit();
+            await _unitofWork.Commit();
             return ass;
         }
 
+        public async Task<List<ResponseStaff>> GetStaff()
+        {
+            return _mapper.Map<List<ResponseStaff>>(await _unitofWork.StaffRepositoryImp.GetAll());
+        }
     }
 }

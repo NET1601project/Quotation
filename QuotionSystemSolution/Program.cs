@@ -19,8 +19,8 @@ oData.EntitySet<Project>("Projects");
 oData.EntitySet<QuoteDetail>("QuoteDetails");
 oData.EntitySet<Room>("Rooms");
 oData.EntitySet<Staff>("Staffs");
-var edmModel = oData.GetEdmModel();
 
+var edmModel = oData.GetEdmModel();
 builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));
 
 // Add services to the container.
@@ -28,7 +28,7 @@ builder.Services.AddDbContext<AppDBContext>();
 builder.Services.AddTransient<IUnitofWork, UnitofWork>();
 
 builder.Services.AddTransient<IAccountService, AccountServiceImp>();
-builder.Services.AddTransient<ICustomerService, CustomerServiceImp>();
+builder.Services.AddTransient<ICustomerServices, CustomerServiceImp>();
 builder.Services.AddTransient<IEquipmentService, EquipmentServiceImp>();
 builder.Services.AddTransient<IMaterialService, MaterialServiceImp>();
 builder.Services.AddTransient<IProjectService, ProjectServiceImp>();
@@ -45,6 +45,7 @@ builder.Services.AddTransient<IRoomRepository, RoomRepositoryImp>();
 builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
 
 builder.Services.AddAutoMapper(typeof(ApplicationMapper).Assembly);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

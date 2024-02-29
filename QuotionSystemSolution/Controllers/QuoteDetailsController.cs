@@ -10,7 +10,7 @@ using Domain;
 
 namespace QuotionSystemSolution.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class QuoteDetailsController : ControllerBase
     {
@@ -21,104 +21,34 @@ namespace QuotionSystemSolution.Controllers
             _context = context;
         }
 
-        // GET: api/QuoteDetails
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuoteDetail>>> GetQuoteDetails()
-        {
-          if (_context.QuoteDetails == null)
-          {
-              return NotFound();
-          }
-            return await _context.QuoteDetails.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<QuoteDetail>>> GetQuoteDetails()
+        //{
 
-        // GET: api/QuoteDetails/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<QuoteDetail>> GetQuoteDetail(Guid id)
-        {
-          if (_context.QuoteDetails == null)
-          {
-              return NotFound();
-          }
-            var quoteDetail = await _context.QuoteDetails.FindAsync(id);
+        //}
 
-            if (quoteDetail == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public async Task<ActionResult<QuoteDetail>> GetQuoteDetail(Guid id)
+        //{
 
-            return quoteDetail;
-        }
+        //}
 
-        // PUT: api/QuoteDetails/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuoteDetail(Guid id, QuoteDetail quoteDetail)
-        {
-            if (id != quoteDetail.QuoteID)
-            {
-                return BadRequest();
-            }
+        //[HttpPut]
+        //public async Task<IActionResult> PutQuoteDetail(Guid id, QuoteDetail quoteDetail)
+        //{
 
-            _context.Entry(quoteDetail).State = EntityState.Modified;
+        //}
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuoteDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //[HttpPost]
+        //public async Task<ActionResult<QuoteDetail>> PostQuoteDetail(QuoteDetail quoteDetail)
+        //{
+        //}
 
-            return NoContent();
-        }
+        //[HttpDelete]
+        //public async Task<IActionResult> DeleteQuoteDetail(Guid id)
+        //{
+        //}
 
-        // POST: api/QuoteDetails
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<QuoteDetail>> PostQuoteDetail(QuoteDetail quoteDetail)
-        {
-          if (_context.QuoteDetails == null)
-          {
-              return Problem("Entity set 'AppDBContext.QuoteDetails'  is null.");
-          }
-            _context.QuoteDetails.Add(quoteDetail);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuoteDetail", new { id = quoteDetail.QuoteID }, quoteDetail);
-        }
-
-        // DELETE: api/QuoteDetails/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuoteDetail(Guid id)
-        {
-            if (_context.QuoteDetails == null)
-            {
-                return NotFound();
-            }
-            var quoteDetail = await _context.QuoteDetails.FindAsync(id);
-            if (quoteDetail == null)
-            {
-                return NotFound();
-            }
-
-            _context.QuoteDetails.Remove(quoteDetail);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool QuoteDetailExists(Guid id)
-        {
-            return (_context.QuoteDetails?.Any(e => e.QuoteID == id)).GetValueOrDefault();
-        }
     }
 }

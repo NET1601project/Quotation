@@ -9,10 +9,11 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 
 namespace QuotionSystemSolution.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
@@ -24,15 +25,11 @@ namespace QuotionSystemSolution.Controllers
             _projectService = projectService;
         }
 
-        // GET: api/Projects
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
-        //{
-        //    return Ok(await _projectService.GetAll());
-        //}
-
-        // GET: api/Projects/5
-
+        public async Task<ActionResult<IEnumerable<List<ResponseProject>>>> GetProjects()
+        {
+            return Ok(await _projectService.GetProjects());
+        }
 
 
 
