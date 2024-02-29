@@ -11,7 +11,6 @@ namespace Infrastructure.IUnitOfWork
     {
         ICustomerRepository CustomerRepositoryImp { get; }
         IAccountRepository AccountRepositoryImp { get; }
-        IEquipmentRepository EquipmentRepositoryImp { get; }
         IMaterialRepository MaterialRepositoryImp { get; }
         IProjectRepository ProjectRepositoryImp { get; }
         IQuoteDetailRepository QuoteRepositoryImp { get; }

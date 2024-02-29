@@ -34,7 +34,7 @@ namespace QuotionSystemSolution.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(CreateProject project)
+        public async Task<ActionResult<ResponseProject>> PostProjects(CreateProject project)
         {
             return Ok(await _projectService.Add(project));
         }

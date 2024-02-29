@@ -44,7 +44,7 @@ namespace QuotionSystemSolution.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<Material>> PostMaterial(CreateMaterial material)
+        public async Task<ActionResult<ResponseMaterial>> PostMaterials(CreateMaterial material)
         {
             return Ok(await _materialService.Add(material));
         }

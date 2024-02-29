@@ -18,6 +18,15 @@ namespace Application.ConfigurationDB
                     .ValueGeneratedOnAdd();
             builder.Property(e => e.QuoteDate)
                 .HasColumnType("datetime");
+            builder.HasOne(d => d.Project)
+                    .WithMany(d => d.QuoteDetail)
+                    .HasForeignKey(d => d.ProjectID)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(d => d.Material)
+                .WithMany(d => d.QuoteDetails)
+                .HasForeignKey(d => d.MaterialID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

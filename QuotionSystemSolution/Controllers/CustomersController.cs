@@ -9,6 +9,7 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
+using Infrastructure.Common.Model.Response;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -24,14 +25,14 @@ namespace QuotionSystemSolution.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<ResponseCustomer>>> GetCustomers()
         {
             return Ok(await _customerService.GetCustomers());
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomers(CreateCustomer customer)
+        public async Task<ActionResult<ResponseCustomer>> PostCustomers(CreateCustomer customer)
         {
           return Ok(await _customerService.Add(customer));
         }

@@ -25,7 +25,6 @@ namespace Application
         public virtual DbSet<Staff> Staff { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -243,7 +242,6 @@ namespace Application
             //});
             modelBuilder.ApplyConfiguration(new AccountConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-            modelBuilder.ApplyConfiguration(new EquipmentConfiguration());
             modelBuilder.ApplyConfiguration(new MaterialConfiguration());
             modelBuilder.ApplyConfiguration(new ProjecttConfiguration());
             modelBuilder.ApplyConfiguration(new QuoteConfiguration());

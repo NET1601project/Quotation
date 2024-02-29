@@ -10,5 +10,6 @@ namespace Application.IRepository
 {
     public interface IQuoteDetailRepository : IGenericRepository<QuoteDetail>
     {
+        Task<List<QuoteDetail>> GetQuotes();
     }
 }

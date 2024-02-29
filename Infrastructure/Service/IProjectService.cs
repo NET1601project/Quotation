@@ -11,7 +11,7 @@ namespace Infrastructure.Service
 {
     public interface IProjectService
     {
-        Task<Project> Add(CreateProject project);
+        Task<ResponseProject> Add(CreateProject project);
         Task<List<ResponseProject>> GetProjects();
     }
 }

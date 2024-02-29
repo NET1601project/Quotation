@@ -25,7 +25,7 @@ namespace Infrastructure.Service.Imp
             _mapper = mapper;
         }
 
-        public async Task<Staff> Add(CreateStaff staff)
+        public async Task<ResponseStaff> Add(CreateStaff staff)
         {
             Staff s = new Staff
             {
@@ -44,7 +44,7 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.AccountRepositoryImp.Add(a);
 
             await _unitofWork.Commit();
-            return ass;
+            return _mapper.Map<ResponseStaff>(ass);
         }
 
         public async Task<List<ResponseStaff>> GetStaff()

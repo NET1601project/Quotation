@@ -29,7 +29,7 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _roomService.GetAll());
         }
         [HttpPost]
-        public async Task<ActionResult<ResponseRoom>> PostRoom(CreateRoom room)
+        public async Task<ActionResult<ResponseRoom>> PostRooms(CreateRoom room)
         {
             return Ok(await _roomService.Add(room));
         }

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Application;
 using Domain;
+using Infrastructure.Service;
+using Infrastructure.Common.Model.Response;
+using Infrastructure.Common.Model.Request;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -14,18 +17,19 @@ namespace QuotionSystemSolution.Controllers
     [ApiController]
     public class QuoteDetailsController : ControllerBase
     {
-        private readonly AppDBContext _context;
+        private readonly IQuoteDetailService _quoteService;
 
-        public QuoteDetailsController(AppDBContext context)
+        public QuoteDetailsController(IQuoteDetailService quoteService)
         {
-            _context = context;
+            _quoteService = quoteService;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<QuoteDetail>>> GetQuoteDetails()
-        //{
 
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResponseQuote>>> GetQuoteDetails()
+        {
+            return Ok(await _quoteService.GetQuotes());
+        }
 
         //[HttpGet]
         //public async Task<ActionResult<QuoteDetail>> GetQuoteDetail(Guid id)
@@ -39,10 +43,11 @@ namespace QuotionSystemSolution.Controllers
 
         //}
 
-        //[HttpPost]
-        //public async Task<ActionResult<QuoteDetail>> PostQuoteDetail(QuoteDetail quoteDetail)
-        //{
-        //}
+        [HttpPost]
+        public async Task<ActionResult<ResponseQuote>> PostQuoteDetails(CreateQuote quoteDetail)
+        {
+            return Ok(await _quoteService.Add(quoteDetail));
+        }
 
         //[HttpDelete]
         //public async Task<IActionResult> DeleteQuoteDetail(Guid id)

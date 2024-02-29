@@ -1,5 +1,6 @@
 ﻿using Application.IGenericRepository.Imp;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace Application.IRepository.Imp
     {
         public QuoteRepositoryImp(AppDBContext context) : base(context)
         {
+        }
+
+        public async Task<List<QuoteDetail>> GetQuotes()
+        {
+            return await _context.Set<QuoteDetail>().ToListAsync();
         }
     }
 }

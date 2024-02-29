@@ -29,22 +29,6 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
             .ForMember(p => p.Image, act => act.MapFrom(src => src.Image));
 
-            CreateMap<CreateEquipment, Equipment>()
-            .ForMember(p => p.EquipmentName, act => act.MapFrom(src => src.EquipmentName))
-            .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.Note, act => act.MapFrom(src => src.Note));
-
-            CreateMap<Equipment, ResponseEquipment>()
-            .ForMember(p => p.EquipmentID, act => act.MapFrom(src => src.EquipmentID))
-            .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.Note, act => act.MapFrom(src => src.Note));
-
-            CreateMap<Equipment, ResponseEquipment>()
-            .ForMember(p => p.EquipmentID, act => act.MapFrom(src => src.EquipmentID))
-            .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.Note, act => act.MapFrom(src => src.Note));
 
             CreateMap<Account, ResponseAccount>()
             .ForMember(p => p.AccountID, act => act.MapFrom(src => src.AccountID))
@@ -90,6 +74,20 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.RoomName, act => act.MapFrom(src => src.RoomName))
             .ForMember(p => p.Size, act => act.MapFrom(src => src.Size))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description));
+
+            CreateMap<CreateQuote, QuoteDetail>()
+                .ForMember(p => p.MaterialID, act => act.MapFrom(src => src.MaterialID))
+                .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
+                .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
+
+            CreateMap<QuoteDetail, ResponseQuote>()
+                .ForMember(p => p.MaterialID, act => act.MapFrom(src => src.MaterialID))
+                .ForMember(p => p.QuoteID, act => act.MapFrom(src => src.QuoteID))
+                .ForMember(p => p.QuoteDate, act => act.MapFrom(src => src.QuoteDate))
+                .ForMember(p => p.Status, act => act.MapFrom(src => src.Status))
+                .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
+                .ForMember(p => p.TotalAmount, act => act.MapFrom(src => src.TotalAmount))
+                .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
         }
 
     }

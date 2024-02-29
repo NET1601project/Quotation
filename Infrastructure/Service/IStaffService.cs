@@ -11,7 +11,7 @@ namespace Infrastructure.Service
 {
     public interface IStaffService
     {
-        Task<Staff> Add(CreateStaff create);
+        Task<ResponseStaff> Add(CreateStaff create);
         Task<List<ResponseStaff>> GetStaff();
     }
 }

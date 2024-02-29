@@ -30,7 +30,7 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _staffService.GetStaff());
         }
         [HttpPost]
-        public async Task<ActionResult<Staff>> PostStaffs(CreateStaff staff)
+        public async Task<ActionResult<ResponseStaff>> PostStaffs(CreateStaff staff)
         {
             return Ok(await _staffService.Add(staff));
         }

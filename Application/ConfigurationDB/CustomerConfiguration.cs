@@ -15,6 +15,8 @@ namespace Application.ConfigurationDB
         {
             builder.HasKey(c => c.CustomerID);
             builder.HasIndex(e => e.AccountId).IsUnique();
+            builder.HasIndex(e => e.Email).IsUnique();
+            builder.HasIndex(e => e.Phone).IsUnique();
 
             //builder.HasAlternateKey(c => c.AccountId);
             builder.Property(e => e.CustomerID)

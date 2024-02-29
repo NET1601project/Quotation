@@ -23,7 +23,7 @@ namespace Infrastructure.Service.Imp
             _mapper = mapper;
         }
 
-        public async Task<Project> Add(CreateProject project)
+        public async Task<ResponseProject> Add(CreateProject project)
         {
             Project p = new Project
             {
@@ -36,7 +36,7 @@ namespace Infrastructure.Service.Imp
             };
             var ass = await _unitofWork.ProjectRepositoryImp.Add(p);
             await _unitofWork.Commit();
-            return ass;
+            return _mapper.Map<ResponseProject>(p);
         }
 
         public async Task<List<ResponseProject>> GetProjects()

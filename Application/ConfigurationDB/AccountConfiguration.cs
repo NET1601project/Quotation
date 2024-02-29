@@ -16,6 +16,7 @@ namespace Application.ConfigurationDB
             builder.HasKey(c => c.AccountID);
             builder.HasIndex(e => e.Username)
                     .IsUnique();
+
             builder.Property(x => x.AccountID).ValueGeneratedOnAdd();
 
         }
