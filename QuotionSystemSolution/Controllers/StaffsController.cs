@@ -29,6 +29,11 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _staffService.GetStaff());
         }
+        [HttpGet]
+        public async Task<ActionResult<List<ResponseStaff>>> GetStaffById(Guid staffId)
+        {
+            return Ok(await _staffService.GetStaffById(staffId));
+        }
         [HttpPost]
         public async Task<ActionResult<ResponseStaff>> PostStaffs(CreateStaff staff)
         {

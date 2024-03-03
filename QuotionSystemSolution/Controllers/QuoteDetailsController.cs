@@ -31,11 +31,11 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _quoteService.GetQuotes());
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<QuoteDetail>> GetQuoteDetail(Guid id)
-        //{
-
-        //}
+        [HttpGet]
+        public async Task<ActionResult<ResponseQuote>> GetQuoteDetail(Guid id)
+        {
+            return Ok(await _quoteService.GetQuotesByID(id));
+        }
 
         //[HttpPut]
         //public async Task<IActionResult> PutQuoteDetail(Guid id, QuoteDetail quoteDetail)

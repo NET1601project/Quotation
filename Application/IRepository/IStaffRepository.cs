@@ -13,6 +13,7 @@ namespace Application.IRepository
     {
         Task<List<Staff>> GetAll();
         Task<Staff> GetByUsername(string username);
+        Task<Staff> GetById(Guid id);
 
     }
 }

@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.StaffId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StaffName)
             </th>
             <th>
@@ -22,32 +25,80 @@
                 @Html.DisplayNameFor(model => model.CreateDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account)
+                @Html.DisplayNameFor(model => model.AccountId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.Role)
+            </th>
+            <th>
+                Details
             </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account.Password)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody id="listcustomer">
     </tbody>
 </table>
+@section scripts {
+    <script>
+        var token = localStorage.getItem('jwtToken')
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://localhost:7222/odata/Staffs',
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    displayCustomers(data);
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error:', errorThrown);
+                }
+            });
+        });
+        function displayCustomers(data) {
+            var tableHtml = '';
+            data.forEach(function (customer) {
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + customer.staffId + '</td>';
+                tableHtml += '<td>' + customer.staffName + '</td>';
+                tableHtml += '<td>' + customer.contact + '</td>';
+                tableHtml += '<td>' + customer.createDate + '</td>';
+                tableHtml += '<td>' + customer.account.accountID + '</td>';
+                tableHtml += '<td>' + customer.account.username + '</td>';
+                tableHtml += '<td>' + customer.account.password + '</td>';
+                tableHtml += '<td>' + customer.account.role + '</td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-staff-id="' + customer.staffId + '">Detail</button></td>';
+
+                tableHtml += '</tr>';
+            });
+            $('#listcustomer').html(tableHtml);
+            $('.detail-btn').click(function () {
+                var staffId = $(this).data('staff-id');
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://localhost:7222/api/Staffs/GetStaffById?staffId=" + staffId,
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '/Staffs/Details?staffId=' + staffId;
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        }
+
+    </script>
+}

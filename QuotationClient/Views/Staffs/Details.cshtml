@@ -11,32 +11,78 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StaffId)
+        </dt>
+        <dd class="col-sm-10" id="StaffId">
+            
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StaffName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StaffName)
+        <dd class="col-sm-10" id="StaffName">
+            Contact
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Contact)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Contact)
+        <dd class="col-sm-10" id="Contact">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDate)
+        <dd class="col-sm-10" id="CreateDate">
+            
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.AccountID)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
+        <dd class="col-sm-10" id="AccountID">
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Username)
+        </dt>
+        <dd class="col-sm-10" id="Username">
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Password)
+        </dt>
+        <dd class="col-sm-10" id="Password">
+            
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Role)
+        </dt>
+        <dd class="col-sm-10" id="Role">
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.StaffId">Edit</a> |
+    @* <a asp-action="Edit" asp-route-id="@Model?.StaffId">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const staffId = urlParams.get('staffId');
+
+            console.log(staffId);
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/Staffs/GetStaffById?staffId=" + staffId,
+                success: function (qou) {
+                    $('#StaffId').text(qou.staffId);
+                    $('#StaffName').text(qou.staffName);
+                    $('#Contact').text(qou.contact);
+                    $('#CreateDate').text(qou.createDate);
+                    $('#AccountID').text(qou.account.accountID);
+                    $('#Username').text(qou.account.username);
+                    $('#Password').text(qou.account.password);
+                    $('#Role').text(qou.account.role);
+                },
+            })
+        })
+
+    </script>
+}

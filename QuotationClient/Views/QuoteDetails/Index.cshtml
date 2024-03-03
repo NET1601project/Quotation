@@ -74,21 +74,19 @@
                 tableHtml += '<td>' + project.projectID + '</td>';
                 tableHtml += '<td>' + project.materialID + '</td>';
                 tableHtml += '<td>' + project.staffId + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + project.quoteID + '">Detail</button></td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
 
                 tableHtml += '</tr>';
             });
             $('#quotetList').html(tableHtml);
             $('.detail-btn').click(function () {
-                var customerId = $(this).data('customer-id');
-
+                var qouteid = $(this).data('qoute-id');
                 $.ajax({
                     type: "GET",
-                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
                     success: function (response) {
                         console.log(response);
-                        window.location.href = '/Customers/Details?customerId=' + customerId;
-
+                        window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
                     },
                     error: function (xhr, status, error) {
                         console.error(xhr.responseText);

@@ -13,5 +13,6 @@ namespace Infrastructure.Service
     {
         Task<ResponseProject> Add(CreateProject project);
         Task<List<ResponseProject>> GetProjects();
+        Task<ResponseProject> GetProjectById(Guid id);
     }
 }

@@ -31,11 +31,12 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _materialService.GetMaterial());
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<Material>> GetMaterial(Guid id)
-        //{
+        [HttpGet]
+        public async Task<ActionResult<Material>> GetMaterialById(Guid id)
+        {
+            return Ok(await _materialService.GetMaterialById(id));
 
-        //}
+        }
 
         //[HttpPut]
         //public async Task<IActionResult> PutMaterial(Guid id, Material material)

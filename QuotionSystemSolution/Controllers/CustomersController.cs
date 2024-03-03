@@ -29,7 +29,11 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _customerService.GetCustomers());
         }
-
+        [HttpGet]
+        public async Task<ActionResult<ResponseCustomer>> GetCustomerById(Guid customerId)
+        {
+            return Ok(await _customerService.GetCustomerById(customerId));
+        }
 
         [HttpPost]
         public async Task<ActionResult<ResponseCustomer>> PostCustomers(CreateCustomer customer)

@@ -13,5 +13,6 @@ namespace Infrastructure.Service
     {
         Task<ResponseStaff> Add(CreateStaff create);
         Task<List<ResponseStaff>> GetStaff();
+        Task<ResponseStaff> GetStaffById(Guid id);
     }
 }

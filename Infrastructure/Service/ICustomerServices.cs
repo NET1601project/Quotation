@@ -12,6 +12,7 @@ namespace Infrastructure.Service
     public interface ICustomerServices
     {
         Task<List<ResponseCustomer>> GetCustomers();
+        Task<ResponseCustomer> GetCustomerById(Guid guid);
         Task<ResponseCustomer> Add(CreateCustomer customer);
 
     }

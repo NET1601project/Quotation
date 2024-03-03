@@ -19,5 +19,10 @@ namespace Application.IRepository.Imp
         {
             return await _context.Set<QuoteDetail>().ToListAsync();
         }
+
+        public async Task<QuoteDetail> GetQuotesByID(Guid id)
+        {
+            return await _context.Set<QuoteDetail>().Include(c => c.Material).Include(s => s.Staff).Include(c => c.Project).FirstOrDefaultAsync(c => c.QuoteID == id);
+        }
     }
 }

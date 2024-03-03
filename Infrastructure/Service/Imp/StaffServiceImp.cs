@@ -51,5 +51,10 @@ namespace Infrastructure.Service.Imp
         {
             return _mapper.Map<List<ResponseStaff>>(await _unitofWork.StaffRepositoryImp.GetAll());
         }
+
+        public async Task<ResponseStaff> GetStaffById(Guid id)
+        {
+            return _mapper.Map<ResponseStaff>(await _unitofWork.StaffRepositoryImp.GetById(id));
+        }
     }
 }

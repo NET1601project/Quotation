@@ -12,5 +12,6 @@ namespace Infrastructure.Service
     {
         Task<ResponseMaterial> Add(CreateMaterial create);
         Task<List<ResponseMaterial>> GetMaterial();
+        Task<ResponseMaterial> GetMaterialById(Guid id);
     }
 }

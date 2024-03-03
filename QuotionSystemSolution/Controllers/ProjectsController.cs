@@ -27,18 +27,20 @@ namespace QuotionSystemSolution.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<List<ResponseProject>>>> GetProjects()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Unauthorized();
-            }
+            
 
             return Ok(await _projectService.GetProjects());
         }
+        [HttpGet]
 
+        public async Task<ActionResult<ResponseProject>> GetProjectById(Guid projectId)
+        {
 
+            return Ok(await _projectService.GetProjectById(projectId));
+        }
 
         [HttpPost]
         public async Task<ActionResult<ResponseProject>> PostProjects(CreateProject project)

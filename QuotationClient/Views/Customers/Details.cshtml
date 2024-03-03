@@ -10,51 +10,103 @@
     <h4>Customer</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </dt>
+        <dd class="col-sm-10" id="CustomerID">
+
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+        <dd class="col-sm-10" id="FirstName">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+        <dd class="col-sm-10" id="LastName">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+        <dd class="col-sm-10" id="Email">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+        <dd class="col-sm-10" id="Phone">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
+        <dd class="col-sm-10" id="Address">
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDate)
+        <dd class="col-sm-10" id="CreateDate">
+            
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
+            @Html.DisplayNameFor(model => model.AccountId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
+        <dd class = "col-sm-10" id="AccountId">
+            
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Username)
+        </dt>
+        <dd class = "col-sm-10" id="Username">
+            
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Password)
+        </dt>
+        <dd class = "col-sm-10" id="Password">
+            
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Role)
+        </dt>
+        <dd class = "col-sm-10"id="Role">
+            
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.CustomerID">Edit</a> |
+    @* <a asp-action="Edit" asp-route-id="@Model?.CustomerID">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const customerId = urlParams.get('customerId');
+
+            console.log(customerId);
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/Customers/GetCustomerById?customerId=" + customerId,
+                success: function (qou) {
+                    $('#CustomerID').text(qou.customerID);
+                    $('#FirstName').text(qou.firstName);
+                    $('#LastName').text(qou.lastName);
+                    $('#Email').text(qou.email);
+                    $('#Phone').text(qou.phone);
+                    $('#Address').text(qou.address);
+                    $('#CreateDate').text(qou.createDate);
+                    $('#AccountId').text(qou.account.accountID);
+                    $('#Username').text(qou.account.username);
+                    $('#Password').text(qou.account.password);
+                    $('#Role').text(qou.account.role);
+                },
+            })
+        })
+
+    </script>
+}

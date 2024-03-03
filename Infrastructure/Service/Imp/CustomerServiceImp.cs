@@ -49,6 +49,11 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<ResponseCustomer>(ass);
         }
 
+        public async Task<ResponseCustomer> GetCustomerById(Guid guid)
+        {
+            return _mapper.Map<ResponseCustomer>(await _unitofWork.CustomerRepositoryImp.GetCustomerById(guid));
+        }
+
         public async Task<List<ResponseCustomer>> GetCustomers()
         {
             return _mapper.Map<List<ResponseCustomer>>(await _unitofWork.CustomerRepositoryImp.GetAll());

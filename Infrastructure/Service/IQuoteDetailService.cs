@@ -12,5 +12,7 @@ namespace Infrastructure.Service
     {
         Task<ResponseQuote> Add(CreateQuote create);
         Task<List<ResponseQuote>> GetQuotes();
+        Task<ResponseQuote> GetQuotesByID(Guid id);
+
     }
 }

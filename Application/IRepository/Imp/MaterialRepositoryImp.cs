@@ -19,5 +19,10 @@ namespace Application.IRepository.Imp
         {
             return await _context.Set<Material>().ToListAsync();
         }
+
+        public async Task<Material> GetMaterialById(Guid id)
+        {
+            return await _context.Set<Material>().Include(c=>c.QuoteDetails).FirstOrDefaultAsync(c=>c.MaterialID==id);
+        }
     }
 }

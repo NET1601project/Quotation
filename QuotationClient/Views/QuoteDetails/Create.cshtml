@@ -10,35 +10,35 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="createQouteForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="QuoteNumber" class="control-label"></label>
                 <input asp-for="QuoteNumber" class="form-control" />
                 <span asp-validation-for="QuoteNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="QuoteDate" class="control-label"></label>
-                <input asp-for="QuoteDate" class="form-control" />
-                <span asp-validation-for="QuoteDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
-            </div>
+            @* <div class="form-group">
+            <label asp-for="QuoteDate" class="control-label"></label>
+            <input asp-for="QuoteDate" class="form-control" />
+            <span asp-validation-for="QuoteDate" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+            <label asp-for="TotalAmount" class="control-label"></label>
+            <input asp-for="TotalAmount" class="form-control" />
+            <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div> *@
             <div class="form-group">
                 <label asp-for="ProjectID" class="control-label"></label>
-                <select asp-for="ProjectID" class ="form-control" asp-items="ViewBag.ProjectID"></select>
+                <select asp-for="ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="MaterialID" class="control-label"></label>
-                <select asp-for="MaterialID" class ="form-control" asp-items="ViewBag.MaterialID"></select>
+                <select asp-for="MaterialID" class="form-control" asp-items="ViewBag.MaterialID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -52,5 +52,69 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var token = localStorage.getItem('jwtToken')
+        $(document).ready(function () {
+            // e.preventDefault();
+            $.ajax({
+                url: 'https://localhost:7222/odata/Projects',
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    data.forEach(function (project) {
+                        $('#ProjectID').append('<option value="' + project.projectID + '">' + 'Name: ' + project.projectName + '</option>');
+                    });
+                }
+            });
+
+            $.ajax({
+                url: 'https://localhost:7222/api/Materials/GetMaterials',
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    data.forEach(function (material) {
+                        $('#MaterialID').append('<option value="' + material.materialID + '">' + 'Name: ' + material.materialName + ' - UnitPrice: ' + material.unitPrice + '</option>');
+                    });
+                }
+            });
+            $('#createQouteForm').submit(function (e) {
+                e.preventDefault(); 
+
+                var formData = {
+                    projectID: $('#ProjectID').val(),
+                    materialID: $('#MaterialID').val(),
+                    quoteNumber: $('#QuoteNumber').val(),
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:7222/api/QuoteDetails/PostQuoteDetails",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '@Url.Action("Index", "QuoteDetails")';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+        });
+
+
+
+    </script>
+
 }

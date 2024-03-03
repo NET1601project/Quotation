@@ -33,9 +33,7 @@
                 <th>
                     Image
                 </th>
-                <th>
-                    Staff
-                </th>
+               
                 <th></th>
             </tr>
         </thead>
@@ -82,21 +80,20 @@
                 tableHtml += '<td>' + material.stock + '</td>';
                 tableHtml += '<td>' + material.createDate + '</td>';
                 tableHtml += '<td>' + material.image + '</td>';
-                tableHtml += '<td>' + material.staffId + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + material.materialID + '">Detail</button></td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-material-id="' + material.materialID + '">Detail</button></td>';
 
                 tableHtml += '</tr>';
             });
             $('#listMaterial').html(tableHtml);
             $('.detail-btn').click(function () {
-                var customerId = $(this).data('customer-id');
+                var materialId = $(this).data('material-id');
 
                 $.ajax({
                     type: "GET",
-                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    url: "https://localhost:7222/api/Materials/GetMaterialById?id=" + materialId,
                     success: function (response) {
                         console.log(response);
-                        window.location.href = '/Customers/Details?customerId=' + customerId;
+                        window.location.href = '/Materials/Details?materialId=' + materialId;
 
                     },
                     error: function (xhr, status, error) {

@@ -1,6 +1,4 @@
-﻿@model Domain.QuoteDetail
-
-@{
+﻿@{
     ViewData["Title"] = "Details";
 }
 
@@ -10,45 +8,79 @@
     <h4>QuoteDetail</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuoteNumber)
+        <dt class="col-sm-2">
+            Quote ID
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QuoteNumber)
+        <dd class="col-sm-10" id="QuoteID">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuoteDate)
+        <dt class="col-sm-2">
+            QuoteNumber
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QuoteDate)
+        <dd class="col-sm-10" id="QuoteNumber">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-2">
+            QuoteDate
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+        <dd class="col-sm-10" id="QuoteDate">
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalAmount)
+        <dt class="col-sm-2">
+            Status
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalAmount)
+        <dd class="col-sm-10" id="Status">
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Project)
+        <dt class="col-sm-2">
+            TotalAmount
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Project.ProjectName)
+        <dd class="col-sm-10" id="TotalAmount">
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Material)
+        <dt class="col-sm-2">
+            Project
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Material.Description)
+        <dd class="col-sm-10" id="Project">
+        </dd>
+        <dt class="col-sm-2">
+            Material
+        </dt>
+        <dd class="col-sm-10" id="Material">
+            
+        </dd>
+        <dt class="col-sm-2">
+            Staff
+        </dt>
+        <dd class="col-sm-10" id="Staff">
+
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.QuoteID">Edit</a> |
+    @* <a asp-action="Edit" asp-route-id="@Model?.QuoteID">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const quoteDetailId = urlParams.get('QuoteDetailId');
+
+            console.log(quoteDetailId);
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + quoteDetailId,
+                success: function (qou) {
+                    $('#QuoteID').text(qou.quoteID);
+                    $('#QuoteNumber').text(qou.quoteNumber);
+                    $('#QuoteDate').text(qou.quoteDate);
+                    $('#Status').text(qou.status);
+                    $('#TotalAmount').text(qou.totalAmount);
+                    $('#Project').text(qou.projectID);
+                    $('#Material').text(qou.materialID);
+                    $('#Staff').text(qou.staffId);
+                },
+            })
+        })
+
+    </script>
+}

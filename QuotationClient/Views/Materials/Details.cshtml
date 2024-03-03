@@ -10,46 +10,77 @@
     <h4>Material</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaterialName)
+        <dt class="col-sm-2">
+            MaterialId
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaterialName)
+        <dd class="col-sm-10" id="MaterialId">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            MaterialName
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+        <dd class="col-sm-10" id="MaterialName">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnitPrice)
+        <dt class="col-sm-2">
+            Description
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnitPrice)
+        <dd class="col-sm-10" id="Description">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
+        <dt class="col-sm-2">
+            UnitPrice
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
+        <dd class="col-sm-10" id="UnitPrice">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateDate)
+        <dt class="col-sm-2">
+            Stock
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDate)
+        <dd class="col-sm-10" id="Stock">
+
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
+        <dt class="col-sm-2">
+            CreateDate
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
+        <dd class="col-sm-10" id="CreateDate">
+
         </dd>
-        
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10" id="Image">
+
+        </dd>
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaterialID">Edit</a> |
+    @* <a asp-action="Edit" asp-route-id="@Model?.MaterialID">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const materialId = urlParams.get('materialId');
+
+            console.log(materialId);
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/Materials/GetMaterialById?id=" + materialId,
+                success: function (qou) {
+                    $('#MaterialId').text(qou.materialID);
+                    $('#MaterialName').text(qou.materialName);
+                    $('#Description').text(qou.description);
+                    $('#UnitPrice').text(qou.unitPrice);
+                    $('#Stock').text(qou.stock);
+                    $('#CreateDate').text(qou.createDate);
+                    $('#Image').text(qou.image);
+                },
+            })
+        })
+
+    </script>
+}

@@ -48,6 +48,11 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<ResponseProject>(projects);
         }
 
+        public async Task<ResponseProject> GetProjectById(Guid id)
+        {
+            return _mapper.Map<ResponseProject>(await _unitofWork.ProjectRepositoryImp.GetProjectById(id));
+        }
+
         public async Task<List<ResponseProject>> GetProjects()
         {
             return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetAll());

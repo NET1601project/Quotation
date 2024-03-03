@@ -43,6 +43,11 @@ namespace Infrastructure.Service.Imp
         {
             return _mapper.Map<List<ResponseQuote>>(await _unitofWork.QuoteRepositoryImp.GetQuotes());
         }
+
+        public async Task<ResponseQuote> GetQuotesByID(Guid id)
+        {
+            return _mapper.Map<ResponseQuote>(await _unitofWork.QuoteRepositoryImp.GetQuotesByID(id));
+        }
     }
 }
 

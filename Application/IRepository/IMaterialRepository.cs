@@ -11,6 +11,7 @@ namespace Application.IRepository
     public interface IMaterialRepository : IGenericRepository<Material>
     {
         Task<List<Material>> GetAll();
+        Task<Material> GetMaterialById(Guid id);
     }
 }
 

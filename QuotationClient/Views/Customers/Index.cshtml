@@ -75,7 +75,7 @@
                 tableHtml += '<td>' + customer.createDate + '</td>';
                 tableHtml += '<td>' + customer.account.username + '</td>';
                 tableHtml += '<td>' + customer.account.password + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + customer.customerId + '">Detail</button></td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + customer.customerID + '">Detail</button></td>';
 
                 tableHtml += '</tr>';
             });
@@ -85,7 +85,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    url: "https://localhost:7222/api/Customers/GetCustomerById?id=" + customerId,
                     success: function (response) {
                         console.log(response);
                         window.location.href = '/Customers/Details?customerId=' + customerId;

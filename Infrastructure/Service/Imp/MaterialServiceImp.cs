@@ -39,5 +39,11 @@ namespace Infrastructure.Service.Imp
         {
             return _mapper.Map<List<ResponseMaterial>>(await _unitofWork.MaterialRepositoryImp.GetAll());
         }
+
+        public async Task<ResponseMaterial> GetMaterialById(Guid id)
+        {
+            return _mapper.Map<ResponseMaterial>(await _unitofWork.MaterialRepositoryImp.GetMaterialById(id));
+
+        }
     }
 }

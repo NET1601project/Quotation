@@ -73,20 +73,20 @@
                 tableHtml += '<td>' + project.endDate + '</td>';
                 tableHtml += '<td>' + project.status + '</td>';
                 tableHtml += '<td>' + project.customerId + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + project.projectID + '">Detail</button></td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
 
                 tableHtml += '</tr>';
             });
             $('#projectList').html(tableHtml);
             $('.detail-btn').click(function () {
-                var customerId = $(this).data('customer-id');
+                var projectId = $(this).data('project-id');
 
                 $.ajax({
                     type: "GET",
-                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
                     success: function (response) {
                         console.log(response);
-                        window.location.href = '/Customers/Details?customerId=' + customerId;
+                        window.location.href = '/Projects/Details?projectId=' + projectId;
 
                     },
                     error: function (xhr, status, error) {
