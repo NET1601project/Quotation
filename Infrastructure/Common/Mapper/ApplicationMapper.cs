@@ -17,6 +17,8 @@ namespace Infrastructure.Common.Mapper
         public ApplicationMapper()
         {
             CreateMap<CreateMaterial, Material>()
+            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
+
             .ForMember(p => p.MaterialName, act => act.MapFrom(src => src.MaterialName))
             .ForMember(p => p.Stock, act => act.MapFrom(src => src.Stock))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))
@@ -29,6 +31,8 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Stock, act => act.MapFrom(src => src.Stock))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))
             .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
+            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
+
             .ForMember(p => p.Image, act => act.MapFrom(src => src.Image));
 
 
@@ -56,13 +60,11 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Account, act => act.MapFrom(src => src.Account));
 
             CreateMap<CreateProject, Project>()
-            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
             .ForMember(p => p.CustomerId, act => act.MapFrom(src => src.CustomerId))
             .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName))
             .ForMember(p => p.Status, act => act.MapFrom(src => src.Status));
 
             CreateMap<Project, ResponseProject>()
-            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
             .ForMember(p => p.CustomerId, act => act.MapFrom(src => src.CustomerId))
             .ForMember(p => p.StartDate, act => act.MapFrom(src => src.StartDate))
             .ForMember(p => p.EndDate, act => act.MapFrom(src => src.EndDate))

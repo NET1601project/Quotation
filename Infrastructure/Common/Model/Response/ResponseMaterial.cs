@@ -15,6 +15,8 @@ namespace Infrastructure.Common.Model.Response
         public int Stock { get; set; }
         public DateTime CreateDate { get; set; }
         public string Image { get; set; }
+        public Guid StaffId { get; set; }
+
 
     }
 }

@@ -22,9 +22,7 @@ namespace Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Status { get; set; }
-        public Guid StaffId { get; set; }
         public Guid CustomerId { get; set; }
-        public Staff Staff { get; set; }
         public Customer Customer { get; set; }
         public ICollection<Room> Rooms { get; set; }
         public ICollection<QuoteDetail> QuoteDetail { get; set; }

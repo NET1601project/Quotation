@@ -12,7 +12,7 @@ namespace Domain
     {
         public Staff()
         {
-            Projects = new HashSet<Project>();
+            Materials = new HashSet<Material>();
         }
         [Key]
         public Guid StaffId { get; set; }
@@ -21,6 +21,6 @@ namespace Domain
         public DateTime CreateDate { get; set; }
         public Guid AccountId { get; set; }
         public Account Account { get; set; }
-        public ICollection<Project> Projects { get; set; }
+        public ICollection<Material> Materials { get; set; }
     }
 }

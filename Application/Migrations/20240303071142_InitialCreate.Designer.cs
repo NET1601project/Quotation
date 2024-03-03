@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240229160711_InitialCreate")]
+    [Migration("20240303071142_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,9 @@ namespace Application.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("StaffId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
@@ -124,6 +127,8 @@ namespace Application.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("MaterialID");
+
+                    b.HasIndex("StaffId");
 
                     b.ToTable("Materials");
                 });
@@ -144,9 +149,6 @@ namespace Application.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("StaffId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
@@ -157,8 +159,6 @@ namespace Application.Migrations
                     b.HasKey("ProjectID");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("StaffId");
 
                     b.ToTable("Projects");
                 });
@@ -264,6 +264,17 @@ namespace Application.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("Domain.Material", b =>
+                {
+                    b.HasOne("Domain.Staff", "Staff")
+                        .WithMany("Materials")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+                });
+
             modelBuilder.Entity("Domain.Project", b =>
                 {
                     b.HasOne("Domain.Customer", "Customer")
@@ -272,15 +283,7 @@ namespace Application.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Staff", "Staff")
-                        .WithMany("Projects")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("Domain.QuoteDetail", b =>
@@ -352,7 +355,7 @@ namespace Application.Migrations
 
             modelBuilder.Entity("Domain.Staff", b =>
                 {
-                    b.Navigation("Projects");
+                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }

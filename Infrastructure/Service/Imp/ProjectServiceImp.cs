@@ -31,7 +31,6 @@ namespace Infrastructure.Service.Imp
                 StartDate = DateTime.Now,
                 EndDate = project.EndDate,
                 Status = project.Status,
-                StaffId = project.StaffId,
                 CustomerId = project.CustomerId,
             };
             var ass = await _unitofWork.ProjectRepositoryImp.Add(p);

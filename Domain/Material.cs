@@ -21,8 +21,9 @@ namespace Domain
         public double UnitPrice { get; set; }
         public int Stock { get; set; }
         public DateTime CreateDate { get; set; }
-
         public string Image { get; set; }
+        public Guid StaffId { get; set; }
+        public Staff Staff { get; set; }
         public ICollection<QuoteDetail> QuoteDetails { get; set; }
     }
 }

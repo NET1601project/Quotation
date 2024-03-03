@@ -15,7 +15,6 @@ namespace Application.ConfigurationDB
         {
             builder.HasKey(c => c.ProjectID);
             builder.HasIndex(c => c.CustomerId);
-            builder.HasIndex(c => c.StaffId);
             builder.Property(e => e.ProjectID)
                     .ValueGeneratedOnAdd();
             builder.Property(e => e.StartDate)
@@ -27,10 +26,6 @@ namespace Application.ConfigurationDB
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Staff)
-                .WithMany(d => d.Projects)
-                .HasForeignKey(d => d.StaffId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
