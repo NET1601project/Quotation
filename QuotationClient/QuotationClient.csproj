@@ -4,20 +4,20 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-QuotationClient-9888fd0b-fd7c-4f89-8932-b70790d30e06</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\HomePage.cshtml" />
-    <Content Remove="Views\listing.cshtml" />
-    <Content Remove="Views\login.cshtml" />
-    <Content Remove="Views\register.cshtml" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\HomePage.cshtml" />
-    <None Include="Views\listing.cshtml" />
-    <None Include="Views\login.cshtml" />
-    <None Include="Views\register.cshtml" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\QuotionSystemSolution\QuotionSystemSolution.csproj" />
   </ItemGroup>
 
 </Project>
