@@ -27,7 +27,7 @@ oData.EntitySet<Project>("Projects");
 oData.EntitySet<QuoteDetail>("QuoteDetails");
 oData.EntitySet<Room>("Rooms");
 oData.EntitySet<Staff>("Staffs");
-
+//buid
 var edmModel = oData.GetEdmModel();
 builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));
 
