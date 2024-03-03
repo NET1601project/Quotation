@@ -12,6 +12,7 @@ namespace Application.IRepository
     public interface IStaffRepository : IGenericRepository<Staff>
     {
         Task<List<Staff>> GetAll();
+        Task<Staff> GetByUsername(string username);
 
     }
 }

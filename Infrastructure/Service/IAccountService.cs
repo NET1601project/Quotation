@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Infrastructure.Common.Model;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using System;
@@ -11,9 +12,8 @@ namespace Infrastructure.Service
 {
     public interface IAccountService
     {
-        Task<Account> Login(String UserName, String Pass);
+        Task<AuthenResponseMessToken> Login(string UserName, string Pass);
         Task<Account> Add(CreateAccount create);
-        Task<Account> GetAccountById(Guid id , String UserName, String Pass);
         Task<List<ResponseAccount>> GetAll();
     }
 }

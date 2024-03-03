@@ -12,7 +12,6 @@ namespace Application.IRepository
     public interface IAccountRepository : IGenericRepository<Account>
     {
         Task<List<Account>> GetAll();
-        Task <Account> GetAccountById(Guid id , String Username , String Password);
-
+        Task<Account> Login(string username, string password);
     }
 }

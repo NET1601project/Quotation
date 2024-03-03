@@ -42,7 +42,7 @@ namespace Infrastructure.Service.Imp.Security
             }
             var tokens = authorizationHeader.Replace("Bearer ", "");
             var claims = GetClaimsFromToken(token);
-            var username = claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            var username = claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
             return username;
         }
 
@@ -58,7 +58,7 @@ namespace Infrastructure.Service.Imp.Security
 
             var claims = GetClaimsFromToken(token);
 
-            var username = claims.FirstOrDefault(c => c.Type == "UniqueName")?.Value;
+            var username = claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
 
             return username;
         }

@@ -20,5 +20,10 @@ namespace Application.IRepository.Imp
         {
             return await _context.Set<Staff>().Include(c => c.Account).ToListAsync();
         }
+
+        public async Task<Staff> GetByUsername(string username)
+        {
+            return await _context.Set<Staff>().Include(c => c.Account).FirstOrDefaultAsync(c => c.Account.Username.ToLower().Equals(username.ToLower()));
+        }
     }
 }

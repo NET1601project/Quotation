@@ -8,7 +8,6 @@ namespace Infrastructure.Common.Model.Request
 {
     public class CreateMaterial
     {
-        public Guid StaffId { get; set; }
 
         public string MaterialName { get; set; }
         public string Description { get; set; }

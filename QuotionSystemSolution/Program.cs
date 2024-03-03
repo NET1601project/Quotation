@@ -7,10 +7,19 @@ using Infrastructure.IUnitOfWork;
 using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using Infrastructure.Service;
 using Infrastructure.Service.Imp;
+using Infrastructure.Service.Imp.Security;
+using Infrastructure.Service.Security;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.ModelBuilder;
+using QuotionSystemSolution.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .Build();
+builder.Services.DependencyInjection(configuration);
+
 ODataConventionModelBuilder oData = new ODataConventionModelBuilder();
 oData.EntitySet<Customer>("Customers");
 oData.EntitySet<Account>("Accounts");
@@ -40,7 +49,7 @@ builder.Services.AddTransient<IProjectRepository, ProjectRepositoryImp>();
 builder.Services.AddTransient<IQuoteDetailRepository, QuoteRepositoryImp>();
 builder.Services.AddTransient<IRoomRepository, RoomRepositoryImp>();
 builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
-
+builder.Services.AddScoped<ITokensHandler, TokensHandler>();
 builder.Services.AddAutoMapper(typeof(ApplicationMapper).Assembly);
 
 
@@ -53,7 +62,7 @@ builder.Services.AddCors(c => c
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowAnyOrigin()));
-
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

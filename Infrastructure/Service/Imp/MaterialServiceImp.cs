@@ -3,6 +3,7 @@ using Domain;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
+using Infrastructure.Service.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +16,22 @@ namespace Infrastructure.Service.Imp
     {
         private readonly IUnitofWork _unitofWork;
         private readonly IMapper _mapper;
+        private readonly ITokensHandler _tokensHandler;
 
-        public MaterialServiceImp(IUnitofWork unitofWork, IMapper mapper)
+        public MaterialServiceImp(IUnitofWork unitofWork, IMapper mapper, ITokensHandler tokensHandler)
         {
             _unitofWork = unitofWork;
             _mapper = mapper;
+            _tokensHandler = tokensHandler;
         }
 
         public async Task<ResponseMaterial> Add(CreateMaterial create)
         {
+            var username = _tokensHandler.ClaimsFromToken();
+            var staff = await _unitofWork.StaffRepositoryImp.GetByUsername(username);
             var material = _mapper.Map<Material>(create);
             material.CreateDate = DateTime.Now;
+            material.StaffId = staff.StaffId;
             await _unitofWork.MaterialRepositoryImp.Add(material);
             await _unitofWork.Commit();
             return _mapper.Map<ResponseMaterial>(material);

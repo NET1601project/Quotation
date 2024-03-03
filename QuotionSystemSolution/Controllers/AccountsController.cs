@@ -9,6 +9,7 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Response;
+using Infrastructure.Common.Model;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -27,14 +28,14 @@ namespace QuotionSystemSolution.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ResponseAccount>>> GetAccounts()
         {
-            return await _accountService.GetAll();
+            return Ok(await _accountService.GetAll());
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<Account>> GetAccount(Guid id)
-        //{
-
-        //}
+        [HttpPost]
+        public async Task<ActionResult<AuthenResponseMessToken>> Login(string username, string password)
+        {
+            return Ok(await _accountService.Login(username, password));
+        }
 
         //[HttpPut]
         //public async Task<IActionResult> PutAccount(Guid id, Account account)

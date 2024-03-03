@@ -19,5 +19,10 @@ namespace Application.IRepository.Imp
         {
             return await _context.Set<Project>().ToListAsync();
         }
+
+        public async Task<Project> GetProjectById(Guid id)
+        {
+            return await _context.Set<Project>().FirstOrDefaultAsync(c => c.ProjectID == id);
+        }
     }
 }

@@ -16,15 +16,15 @@ namespace Application.IRepository.Imp
         {
         }
 
-        public async Task<Account> GetAccountById(Guid id, string Username, string Password)
-        {
-            var account = await _context.Accounts.FirstOrDefaultAsync(c => c.Username.Equals(Username) && c.Password.Equals(Password));
-            return account;
-        }
 
         public async Task<List<Account>> GetAll()
         {
             return await _context.Set<Account>().Include(c => c.Customer).Include(c => c.Staff).ToListAsync();
+        }
+
+        public async Task<Account> Login(string username, string password)
+        {
+            return await _context.Set<Account>().FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
         }
     }
 }

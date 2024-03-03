@@ -4,11 +4,6 @@ using Infrastructure.Common.Model;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.Common.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Common.Mapper
 {
@@ -17,8 +12,6 @@ namespace Infrastructure.Common.Mapper
         public ApplicationMapper()
         {
             CreateMap<CreateMaterial, Material>()
-            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
-
             .ForMember(p => p.MaterialName, act => act.MapFrom(src => src.MaterialName))
             .ForMember(p => p.Stock, act => act.MapFrom(src => src.Stock))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))
@@ -60,9 +53,8 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Account, act => act.MapFrom(src => src.Account));
 
             CreateMap<CreateProject, Project>()
-            .ForMember(p => p.CustomerId, act => act.MapFrom(src => src.CustomerId))
-            .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName))
-            .ForMember(p => p.Status, act => act.MapFrom(src => src.Status));
+            .ForMember(p => p.EndDate, act => act.MapFrom(src => src.EndDate))
+            .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName));
 
             CreateMap<Project, ResponseProject>()
             .ForMember(p => p.CustomerId, act => act.MapFrom(src => src.CustomerId))

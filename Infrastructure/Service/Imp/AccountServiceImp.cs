@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using Domain;
+using Infrastructure.Common.Model;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
-using Infrastructure.IUnitOfWork.UnitOfWorkImp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Infrastructure.Service.Security;
+
 
 namespace Infrastructure.Service.Imp
 {
@@ -16,11 +13,13 @@ namespace Infrastructure.Service.Imp
     {
         private readonly IUnitofWork _unitofWork;
         private readonly IMapper _mapper;
+        private readonly ITokensHandler _tokensHandler;
 
-        public AccountServiceImp(IUnitofWork unitofWork, IMapper mapper)
+        public AccountServiceImp(IUnitofWork unitofWork, IMapper mapper, ITokensHandler tokensHandler)
         {
             _unitofWork = unitofWork;
             _mapper = mapper;
+            _tokensHandler = tokensHandler;
         }
 
         public async Task<Account> Add(CreateAccount account)
@@ -36,20 +35,19 @@ namespace Infrastructure.Service.Imp
             return ass;
         }
 
-        public Task<Account> GetAccountById(Guid id, string UserName, string Pass)
-        {
-            return _unitofWork.AccountRepositoryImp.GetAccountById(id, UserName, Pass);
-        }
-
         public async Task<List<ResponseAccount>> GetAll()
         {
             var account = await _unitofWork.AccountRepositoryImp.GetAll();
             return _mapper.Map<List<ResponseAccount>>(account);
         }
 
-        public async Task<Account> Login(string UserName, string Pass)
+        public async Task<AuthenResponseMessToken> Login(string UserName, string Pass)
         {
-            throw new NotImplementedException();
+            var account = await _unitofWork.AccountRepositoryImp.Login(UserName, Pass);
+            var token = _tokensHandler.CreateAccessToken(account);
+            return _mapper.Map<AuthenResponseMessToken>(token);
         }
+
+        
     }
 }
