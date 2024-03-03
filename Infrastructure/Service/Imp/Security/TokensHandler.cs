@@ -45,7 +45,6 @@ namespace Infrastructure.Service.Imp.Security
             var username = claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
             return username;
         }
-
         public string ClaimsFromToken()
         {
             var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString();
@@ -96,7 +95,8 @@ namespace Infrastructure.Service.Imp.Security
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, account.AccountID.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, account.Username)
+                new Claim(JwtRegisteredClaimNames.UniqueName, account.Username),
+                new Claim(ClaimTypes.Role, account.Role)
             };
 
             return claims;

@@ -24,7 +24,6 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Stock, act => act.MapFrom(src => src.Stock))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))
             .ForMember(p => p.UnitPrice, act => act.MapFrom(src => src.UnitPrice))
-            .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
 
             .ForMember(p => p.Image, act => act.MapFrom(src => src.Image));
 
@@ -52,8 +51,13 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Contact, act => act.MapFrom(src => src.Contact))
             .ForMember(p => p.Account, act => act.MapFrom(src => src.Account));
 
+            CreateMap<CreateRoom, Room>()
+            .ForMember(p => p.RoomName, act => act.MapFrom(src => src.RoomName))
+            .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))
+            .ForMember(p => p.Size, act => act.MapFrom(src => src.Size));
             CreateMap<CreateProject, Project>()
             .ForMember(p => p.EndDate, act => act.MapFrom(src => src.EndDate))
+            .ForMember(p => p.Rooms, act => act.MapFrom(src => src.createRooms))
             .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName));
 
             CreateMap<Project, ResponseProject>()
@@ -62,10 +66,10 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.EndDate, act => act.MapFrom(src => src.EndDate))
             .ForMember(p => p.Status, act => act.MapFrom(src => src.Status))
             .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
-            .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName));
+            .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName))
+            .ForMember(p => p.RoomList, act => act.MapFrom(src => src.Rooms));
 
             CreateMap<Room, ResponseRoom>()
-            .ForMember(p => p.ProjectId, act => act.MapFrom(src => src.ProjectId))
             .ForMember(p => p.RoomID, act => act.MapFrom(src => src.RoomID))
             .ForMember(p => p.RoomName, act => act.MapFrom(src => src.RoomName))
             .ForMember(p => p.Size, act => act.MapFrom(src => src.Size))
@@ -83,6 +87,7 @@ namespace Infrastructure.Common.Mapper
                 .ForMember(p => p.Status, act => act.MapFrom(src => src.Status))
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.TotalAmount, act => act.MapFrom(src => src.TotalAmount))
+                .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
                 .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
 
 

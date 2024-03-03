@@ -24,6 +24,23 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Materials",
+                columns: table => new
+                {
+                    MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MaterialName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UnitPrice = table.Column<double>(type: "float", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Materials", x => x.MaterialID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -91,23 +108,35 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Materials",
+                name: "QuoteDetails",
                 columns: table => new
                 {
+                    QuoteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    QuoteNumber = table.Column<int>(type: "int", nullable: false),
+                    QuoteDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalAmount = table.Column<double>(type: "float", nullable: false),
+                    ProjectID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MaterialName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitPrice = table.Column<double>(type: "float", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "DateTime", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Materials", x => x.MaterialID);
+                    table.PrimaryKey("PK_QuoteDetails", x => x.QuoteID);
                     table.ForeignKey(
-                        name: "FK_Materials_Staff_StaffId",
+                        name: "FK_QuoteDetails_Materials_MaterialID",
+                        column: x => x.MaterialID,
+                        principalTable: "Materials",
+                        principalColumn: "MaterialID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_QuoteDetails_Projects_ProjectID",
+                        column: x => x.ProjectID,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_QuoteDetails_Staff_StaffId",
                         column: x => x.StaffId,
                         principalTable: "Staff",
                         principalColumn: "StaffId",
@@ -135,35 +164,6 @@ namespace Application.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "QuoteDetails",
-                columns: table => new
-                {
-                    QuoteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuoteNumber = table.Column<int>(type: "int", nullable: false),
-                    QuoteDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalAmount = table.Column<double>(type: "float", nullable: false),
-                    ProjectID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuoteDetails", x => x.QuoteID);
-                    table.ForeignKey(
-                        name: "FK_QuoteDetails_Materials_MaterialID",
-                        column: x => x.MaterialID,
-                        principalTable: "Materials",
-                        principalColumn: "MaterialID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_QuoteDetails_Projects_ProjectID",
-                        column: x => x.ProjectID,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_Username",
                 table: "Accounts",
@@ -189,11 +189,6 @@ namespace Application.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_StaffId",
-                table: "Materials",
-                column: "StaffId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Projects_CustomerId",
                 table: "Projects",
                 column: "CustomerId");
@@ -207,6 +202,11 @@ namespace Application.Migrations
                 name: "IX_QuoteDetails_ProjectID",
                 table: "QuoteDetails",
                 column: "ProjectID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuoteDetails_StaffId",
+                table: "QuoteDetails",
+                column: "StaffId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_ProjectId",
@@ -232,10 +232,10 @@ namespace Application.Migrations
                 name: "Materials");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Staff");
 
             migrationBuilder.DropTable(
-                name: "Staff");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "Customers");

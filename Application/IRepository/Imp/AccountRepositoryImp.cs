@@ -24,7 +24,11 @@ namespace Application.IRepository.Imp
 
         public async Task<Account> Login(string username, string password)
         {
-            return await _context.Set<Account>().FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
+            var check= await _context.Set<Account>().FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
+            if(check == null) {
+                throw new Exception("Sai password");
+            }
+            return check;
         }
     }
 }

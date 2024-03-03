@@ -1,0 +1,52 @@
+﻿<h1>HomePage</h1>
+
+<div id="adminSection"></div>
+
+<div id="customerSection"></div>
+
+
+<script>
+    var token = localStorage.getItem("jwtToken");
+
+    if (token.length>=312) {
+        console.log(token);
+
+        var adminSection = document.getElementById('adminSection');
+        adminSection.innerHTML = "<p>Information:</p>";
+
+        var adminFormsHTML = `
+                                    <button id="customerButton" type="submit">Go to Customer</button>
+                                            <button id="projectButton" type="submit">Go to Projects</button>
+                                            <button id="materialButton"type="submit">Go to Materials</button>
+                                                    <button id="roomInforButton"type="submit">Go to Rooms</button>
+                                                        <button id="quoteDetailsButton"type="submit">Go to QuoteDetails</button>
+                                                                    <button id="staffButton"type="submit">Go to Staffs</button>
+                                                <button type="submit">Logout</button>
+                            `;
+        adminSection.innerHTML += adminFormsHTML;
+        document.getElementById('customerButton').addEventListener('click', function () {
+            window.location.href = "/Customers/Index";
+        });
+        document.getElementById('projectButton').addEventListener('click', function () {
+            window.location.href = "/Projects/Index";
+        });
+        document.getElementById('materialButton').addEventListener('click', function () {
+            window.location.href = "/Materials/Index";
+        });
+        document.getElementById('roomInforButton').addEventListener('click', function () {
+            window.location.href = "/Rooms/Index";
+        });
+        document.getElementById('quoteDetailsButton').addEventListener('click', function () {
+            window.location.href = "/QuoteDetails/Index";
+        });
+        document.getElementById('staffButton').addEventListener('click', function () {
+            window.location.href = "/Staffs/Index";
+        });
+
+
+    }
+    // else if (isAdmin.length > 10 && isAdmin.length <= 6) {
+    //     console.log(isAdmin);
+    // }
+
+</script>

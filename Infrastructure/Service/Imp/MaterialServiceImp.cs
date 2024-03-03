@@ -27,11 +27,9 @@ namespace Infrastructure.Service.Imp
 
         public async Task<ResponseMaterial> Add(CreateMaterial create)
         {
-            var username = _tokensHandler.ClaimsFromToken();
-            var staff = await _unitofWork.StaffRepositoryImp.GetByUsername(username);
+            
             var material = _mapper.Map<Material>(create);
             material.CreateDate = DateTime.Now;
-            material.StaffId = staff.StaffId;
             await _unitofWork.MaterialRepositoryImp.Add(material);
             await _unitofWork.Commit();
             return _mapper.Map<ResponseMaterial>(material);

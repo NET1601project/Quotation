@@ -1,0 +1,136 @@
+﻿@model Domain.Project
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="createProjectForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div id="roomFieldsContainer">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" onclick="addRoom()">Add Room</button>
+                <button type="button" class="btn btn-danger" onclick="removeRoom()">Remove Room</button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var roomIndex = -1;
+        var listRoom = [];
+        $(document).ready(function () {
+            initializeRooms();
+
+            $('#addRoomButton').click(function () {
+                addRoom();
+            });
+
+            $('#removeRoomButton').click(function () {
+                removeRoom();
+            });
+
+            $('#createProjectForm').submit(function (e) {
+                e.preventDefault();
+
+                var formData = {
+                    projectName: $('#ProjectName').val(),
+                    endDate: $('#EndDate').val(),
+                    createRooms: []
+                };
+
+                for (var i = 0; i <= roomIndex; i++) {
+                    var roomData = {
+                        roomName: $('#roomName' + i).val(),
+                        size: $('#size' + i).val(),
+                        description: $('#description' + i).val()
+                    };
+                    formData.createRooms.push(roomData);
+                }
+
+                var token = localStorage.getItem('jwtToken');
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:7222/api/Projects/PostProjects",
+                    contentType: "application/json;odata.metadata=minimal;odata.streaming=true",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '@Url.Action("Index", "Projects")';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        function initializeRooms() {
+            addRoom();
+        }
+
+        function addRoom() {
+            roomIndex++;
+            var roomFieldsContainer = $('#roomFieldsContainer');
+            var roomHtml = `
+              <div class="roomFields" id="room${roomIndex}">
+                <div class="form-group">
+                  <label for="roomName${roomIndex}">RoomName</label>
+                  <input type="text" id="roomName${roomIndex}" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label for="size${roomIndex}">Size</label>
+                  <input type="text" id="size${roomIndex}" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label for="description${roomIndex}">Description</label>
+                  <input type="text" id="description${roomIndex}" class="form-control">
+                </div>
+              </div>`;
+
+            roomFieldsContainer.append(roomHtml);
+        }
+
+        function removeRoom() {
+            if (roomIndex > 0) {
+                $('#room' + roomIndex).remove();
+                roomIndex--;
+            }
+        }
+    </script>
+
+}
+
+

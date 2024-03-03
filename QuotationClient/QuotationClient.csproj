@@ -8,18 +8,32 @@
 
   <ItemGroup>
     <Content Remove="Views\contact.cshtml" />
-    <Content Remove="Views\index.cshtml" />
+    <Content Remove="Views\indexx.cshtml" />
     <Content Remove="Views\listing.cshtml" />
     <Content Remove="Views\login.cshtml" />
     <Content Remove="Views\register.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\contact.cshtml" />
-    <None Include="Views\index.cshtml" />
-    <None Include="Views\listing.cshtml" />
-    <None Include="Views\login.cshtml" />
-    <None Include="Views\register.cshtml" />
+    <None Include="Views\Home\contact.cshtml" />
+    <None Include="Views\Home\indexx.cshtml" />
+    <None Include="Views\Home\listing.cshtml" />
+    <None Include="Views\Home\login.cshtml" />
+    <None Include="Views\Home\register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuotionSystemSolution\QuotionSystemSolution.csproj" />
   </ItemGroup>
 
 </Project>

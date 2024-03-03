@@ -31,7 +31,7 @@ namespace QuotionSystemSolution.Middlewares
                 {
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Source = exception.TargetSite?.DeclaringType?.FullName,
-                    Exception = exception.Message.Trim(),
+                    Exception = exception.Message,
                     ErrorId = errorId,
                     SupportMessage = $"Provide the Error Id: {errorId} to the support team for further analysis."
                 };

@@ -17,12 +17,12 @@ namespace Application.IRepository.Imp
 
         public async Task<List<Project>> GetAll()
         {
-            return await _context.Set<Project>().ToListAsync();
+            return await _context.Set<Project>().Include(c=>c.Rooms).ToListAsync();
         }
 
         public async Task<Project> GetProjectById(Guid id)
         {
-            return await _context.Set<Project>().FirstOrDefaultAsync(c => c.ProjectID == id);
+            return await _context.Set<Project>().Include(c => c.Rooms).FirstOrDefaultAsync(c => c.ProjectID == id);
         }
     }
 }

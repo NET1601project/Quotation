@@ -3,6 +3,7 @@ using Domain;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
+using Infrastructure.Service.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,21 @@ namespace Infrastructure.Service.Imp
     {
         public readonly IUnitofWork _unitofWork;
         private readonly IMapper _mapper;
+        private readonly ITokensHandler _tokensHandler;
 
-        public QuoteDetailServiceImp(IUnitofWork unitofWork, IMapper mapper)
+        public QuoteDetailServiceImp(IUnitofWork unitofWork, IMapper mapper, ITokensHandler tokensHandler)
         {
             _unitofWork = unitofWork;
             _mapper = mapper;
+            _tokensHandler = tokensHandler;
         }
 
         public async Task<ResponseQuote> Add(CreateQuote create)
         {
             var q = _mapper.Map<QuoteDetail>(create);
+            var username = _tokensHandler.ClaimsFromToken();
+            var staff = await _unitofWork.StaffRepositoryImp.GetByUsername(username);
+            q.StaffId = staff.StaffId;
             q.Status = "ACTIVE";
             q.QuoteDate = DateTime.Now;
             q.TotalAmount = 0;

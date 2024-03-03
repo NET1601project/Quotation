@@ -37,7 +37,7 @@ namespace Infrastructure.Service.Imp
             {
                 Username = staff.Username,
                 Password = staff.Password,
-                Role = staff.Role,
+                Role = "STAFF",
                 Staff = s,
             };
             var ass = await _unitofWork.StaffRepositoryImp.Add(s);

@@ -17,7 +17,10 @@ namespace Domain
         public double TotalAmount { get; set; }
         public Guid ProjectID { get; set; }
         public Guid MaterialID { get; set; }
+        public Guid StaffId { get; set; }
+
         public Project Project { get; set; }
         public Material Material { get; set; }
+        public Staff Staff { get; set; }
     }
 }

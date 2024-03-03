@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Domain.Project>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ProjectID
+            </th>
+            <th>
+                ProjectName
+            </th>
+            <th>
+                StartDate
+            </th>
+            <th>
+                EndDate
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Customer
+            </th>
+            <th>
+                Details
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="projectList">
+        <tr id="error-message"></tr>
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+        var token = localStorage.getItem('jwtToken')
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://localhost:7222/odata/Projects',
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    displayProjects(data);
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error:', xhr.responseText);
+                    var errorMessage = 'An error occurred: ' + xhr.responseText;
+                    $('#error-message').text("An error occurred: ERROR PERMISSION");
+                }
+            });
+        });
+        function displayProjects(data) {
+            var tableHtml = '';
+            data.forEach(function (project) {
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + project.projectID + '</td>';
+                tableHtml += '<td>' + project.projectName + '</td>';
+                tableHtml += '<td>' + project.startDate + '</td>';
+                tableHtml += '<td>' + project.endDate + '</td>';
+                tableHtml += '<td>' + project.status + '</td>';
+                tableHtml += '<td>' + project.customerId + '</td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + project.projectID + '">Detail</button></td>';
+
+                tableHtml += '</tr>';
+            });
+            $('#projectList').html(tableHtml);
+            $('.detail-btn').click(function () {
+                var customerId = $(this).data('customer-id');
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '/Customers/Details?customerId=' + customerId;
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        }
+
+    </script>
+}

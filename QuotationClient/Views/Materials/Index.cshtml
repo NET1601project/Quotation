@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Domain.Material>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div id="error-message">
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Material ID
+                </th>
+                <th>
+                    MaterialName
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    UnitPrice
+                </th>
+                <th>
+                    Stock
+                </th>
+                <th>
+                    CreateDate
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Staff
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="listMaterial">
+
+            <tr id="error-message"></tr>
+
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        var token = localStorage.getItem('jwtToken')
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://localhost:7222/api/Materials/GetMaterials',
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    displayProjects(data);
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error:', xhr.responseText)
+                    var tableHtml = 'An error occurred.';
+                    $('#error-message').text(xhr.responseText);
+                }
+
+            });
+        });
+        function displayProjects(data) {
+
+            var tableHtml = '';
+            data.forEach(function (material) {
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + material.materialID + '</td>';
+                tableHtml += '<td>' + material.materialName + '</td>';
+                tableHtml += '<td>' + material.description + '</td>';
+                tableHtml += '<td>' + material.unitPrice + '</td>';
+                tableHtml += '<td>' + material.stock + '</td>';
+                tableHtml += '<td>' + material.createDate + '</td>';
+                tableHtml += '<td>' + material.image + '</td>';
+                tableHtml += '<td>' + material.staffId + '</td>';
+                tableHtml += '<td><button class="btn btn-primary detail-btn" data-customer-id="' + material.materialID + '">Detail</button></td>';
+
+                tableHtml += '</tr>';
+            });
+            $('#listMaterial').html(tableHtml);
+            $('.detail-btn').click(function () {
+                var customerId = $(this).data('customer-id');
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://localhost:7143/api/Customers/GetCustomerById?id=" + customerId,
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '/Customers/Details?customerId=' + customerId;
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        }
+
+    </script>
+}

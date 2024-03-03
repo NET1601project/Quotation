@@ -27,6 +27,10 @@ namespace Application.ConfigurationDB
                 .WithMany(d => d.QuoteDetails)
                 .HasForeignKey(d => d.MaterialID)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(d => d.Staff)
+                .WithMany(d => d.QuoteDetails)
+                .HasForeignKey(d => d.StaffId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

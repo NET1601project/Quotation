@@ -38,7 +38,7 @@ namespace Infrastructure.Service.Imp
             {
                 Username = customer.Username,
                 Password = customer.Password,
-                Role = customer.Role,
+                Role = "CUSTOMER",
                 Customer = c
             };
 

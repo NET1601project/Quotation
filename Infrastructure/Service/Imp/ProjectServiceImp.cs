@@ -31,18 +31,21 @@ namespace Infrastructure.Service.Imp
 
             var customerCheck = _tokensHandler.ClaimsFromToken();
             var customer = await _unitofWork.CustomerRepositoryImp.GetCustomerByUsername(customerCheck);
+            var projects = _mapper.Map<Project>(project);
+            projects.StartDate = DateTime.Now;
+            projects.Status = "ACTIVE";
+            projects.CustomerId = customer.CustomerID;
 
-            Project p = new Project
+            foreach (var i in projects.Rooms)
             {
-                ProjectName = project.ProjectName,
-                StartDate = DateTime.Now,
-                EndDate = project.EndDate,
-                CustomerId = customer.CustomerID
-            };
-            p.Status = "ACTIVE";
-            var ass = await _unitofWork.ProjectRepositoryImp.Add(p);
+
+                var room = _mapper.Map<Room>(i);
+                await _unitofWork.RoomRepositoryImp.Add(room);
+            }
+            await _unitofWork.ProjectRepositoryImp.Add(projects);
+
             await _unitofWork.Commit();
-            return _mapper.Map<ResponseProject>(ass);
+            return _mapper.Map<ResponseProject>(projects);
         }
 
         public async Task<List<ResponseProject>> GetProjects()

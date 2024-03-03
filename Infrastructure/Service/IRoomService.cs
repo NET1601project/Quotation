@@ -11,7 +11,7 @@ namespace Infrastructure.Service
 {
     public interface IRoomService
     {
-        Task<ResponseRoom> Add(CreateRoom create);
+        //Task<ResponseRoom> Add(CreateRoom create);
         Task<List<ResponseRoom>> GetAll();
     }
 }

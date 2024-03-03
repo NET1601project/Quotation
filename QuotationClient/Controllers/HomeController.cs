@@ -17,7 +17,30 @@ namespace QuotationClient.Controllers
         {
             return View();
         }
-
+        public IActionResult login()
+        {
+            return View();
+        }
+        public IActionResult indexx()
+        {
+            return View();
+        }
+        public IActionResult contact()
+        {
+            return View();
+        }
+        public IActionResult listing()
+        {
+            return View();
+        }
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+        public IActionResult register()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

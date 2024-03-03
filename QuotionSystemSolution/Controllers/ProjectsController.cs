@@ -10,6 +10,7 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -26,8 +27,14 @@ namespace QuotionSystemSolution.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<List<ResponseProject>>>> GetProjects()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
+
             return Ok(await _projectService.GetProjects());
         }
 

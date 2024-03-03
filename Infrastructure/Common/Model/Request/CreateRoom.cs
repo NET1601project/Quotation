@@ -11,6 +11,5 @@ namespace Infrastructure.Common.Model.Request
         public string RoomName { get; set; }
         public string Size { get; set; }
         public string Description { get; set; }
-        public Guid ProjectId { get; set; }
     }
 }

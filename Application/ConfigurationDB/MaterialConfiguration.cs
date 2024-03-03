@@ -19,10 +19,7 @@ namespace Application.ConfigurationDB
             builder.Property(e => e.CreateDate)
                     .HasColumnType("DateTime");
 
-            builder.HasOne(d => d.Staff)
-                .WithMany(d => d.Materials)
-                .HasForeignKey(d => d.StaffId)
-                .OnDelete(DeleteBehavior.Restrict);
+            
         }
     }
 }

@@ -30,7 +30,6 @@ namespace Infrastructure.Service.Imp
                 RoomName = room.RoomName,
                 Size = room.Size,
                 Description = room.Description,
-                ProjectId = room.ProjectId,
             };
             var ass = await _unitofWork.RoomRepositoryImp.Add(r);
             await _unitofWork.Commit();

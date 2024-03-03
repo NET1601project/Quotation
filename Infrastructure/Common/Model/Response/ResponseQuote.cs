@@ -15,5 +15,6 @@ namespace Infrastructure.Common.Model.Response
         public double TotalAmount { get; set; }
         public Guid ProjectID { get; set; }
         public Guid MaterialID { get; set; }
+        public Guid StaffId { get; set; }
     }
 }
