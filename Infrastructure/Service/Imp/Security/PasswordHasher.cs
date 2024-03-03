@@ -1,0 +1,13 @@
+﻿using Infrastructure.Service.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Service.Imp.Security
+{
+    public class PasswordHasher : IPasswordHasher
+    {
+    }
+}

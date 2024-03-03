@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Domain;
+using Infrastructure.Common.Model;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using Infrastructure.Common.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +90,16 @@ namespace Infrastructure.Common.Mapper
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.TotalAmount, act => act.MapFrom(src => src.TotalAmount))
                 .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
+
+
+            //CreateMap<RefreshTokenRequest, RefreshToken>()
+            //     .ForMember(p => p.Token, act => act.MapFrom(src => src.RefreshToken));
+
+            CreateMap<AccessToken, AuthenResponseMessToken>()
+                .ForMember(p => p.Token, act => act.MapFrom(src => src.Token))
+                .ForMember(p => p.Expiration, act => act.MapFrom(src => src.ExpirationTicks))
+                .ForMember(p => p.RefreshToken, act => act.MapFrom(src => src.RefreshToken.Token));
+
         }
 
     }
