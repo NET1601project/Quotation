@@ -45,9 +45,12 @@ namespace Infrastructure.Service.Imp
         {
             var account = await _unitofWork.AccountRepositoryImp.Login(UserName, Pass);
             var token = _tokensHandler.CreateAccessToken(account);
-            return _mapper.Map<AuthenResponseMessToken>(token);
+
+            var response = _mapper.Map<AuthenResponseMessToken>(token);
+            response.Role = account.Role;
+            return response;
         }
 
-        
+
     }
 }

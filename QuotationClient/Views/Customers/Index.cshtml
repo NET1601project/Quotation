@@ -1,52 +1,57 @@
-﻿@model IEnumerable<Domain.Customer>
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
+<div class="alldiv" id="checkRole" style="display: none;">
 
-<h1>Index</h1>
+    <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr
-            <th>
-            </th>
-            <th>
-                Customer ID
-            </th>
-             <th>
-                FirstName
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                CreateDate
-            </th>
-            <th>
-                username
-            </th>
-            <th>
-                password
-            </th>
-            <th>
-                Details
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="listcustomer" />
-</table>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <a href="/Home/HomePage">BACK</a>
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Customer ID
+                </th>
+                <th>
+                    FirstName
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    CreateDate
+                </th>
+                <th>
+                    username
+                </th>
+                <th>
+                    password
+                </th>
+                <th>
+                    Details
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="listcustomer" />
+    </table>
+</div>
 @section scripts {
     <script>
         var token = localStorage.getItem('jwtToken')
+        var role = localStorage.getItem('role');
+        if (role === "STAFF") {
+            document.getElementById('checkRole').style.display = "block";
+        }
         $(document).ready(function () {
             $.ajax({
                 url: 'https://localhost:7222/odata/Customers',

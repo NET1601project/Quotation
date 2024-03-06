@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.IRepository
 {
-    public interface IQuoteDetailRepository : IGenericRepository<QuoteDetail>
+    public interface IQuoteDetailRepository : IGenericRepository<Quote>
     {
-        Task<List<QuoteDetail>> GetQuotes();
-        Task<QuoteDetail> GetQuotesByID(Guid id);
+        Task<List<Quote>> GetQuotes();
+        Task<Quote> GetQuotesByID(Guid id);
     }
 }

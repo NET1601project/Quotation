@@ -91,7 +91,15 @@
                         window.location.href = '@Url.Action("Index", "Projects")';
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                        var errorObj = JSON.parse(xhr.responseText);
+                        var errors = errorObj.errors;
+                        var errorMessages = "";
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                errorMessages += key + ": " + errors[key] + "\n";
+                            }
+                        }
+                        alert(errorMessages);
                     }
                 });
             });

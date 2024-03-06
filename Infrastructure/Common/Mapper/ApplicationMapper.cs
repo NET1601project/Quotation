@@ -75,12 +75,12 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Size, act => act.MapFrom(src => src.Size))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description));
 
-            CreateMap<CreateQuote, QuoteDetail>()
+            CreateMap<CreateQuote, Quote>()
                 .ForMember(p => p.MaterialID, act => act.MapFrom(src => src.MaterialID))
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
 
-            CreateMap<QuoteDetail, ResponseQuote>()
+            CreateMap<Quote, ResponseQuote>()
                 .ForMember(p => p.MaterialID, act => act.MapFrom(src => src.MaterialID))
                 .ForMember(p => p.QuoteID, act => act.MapFrom(src => src.QuoteID))
                 .ForMember(p => p.QuoteDate, act => act.MapFrom(src => src.QuoteDate))

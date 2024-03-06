@@ -12,7 +12,7 @@ namespace Domain
     {
         public Staff()
         {
-            QuoteDetails = new HashSet<QuoteDetail>();
+            QuoteDetails = new HashSet<Quote>();
         }
         [Key]
         public Guid StaffId { get; set; }
@@ -21,6 +21,6 @@ namespace Domain
         public DateTime CreateDate { get; set; }
         public Guid AccountId { get; set; }
         public Account Account { get; set; }
-        public ICollection<QuoteDetail> QuoteDetails { get; set; }
+        public ICollection<Quote> QuoteDetails { get; set; }
     }
 }

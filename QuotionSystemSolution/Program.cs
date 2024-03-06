@@ -24,7 +24,7 @@ ODataConventionModelBuilder oData = new ODataConventionModelBuilder();
 oData.EntitySet<Customer>("Customers");
 oData.EntitySet<Account>("Accounts");
 oData.EntitySet<Project>("Projects");
-oData.EntitySet<QuoteDetail>("QuoteDetails");
+oData.EntitySet<Quote>("QuoteDetails");
 oData.EntitySet<Room>("Rooms");
 oData.EntitySet<Staff>("Staffs");
 

@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Application.IRepository.Imp
 {
-    public class QuoteRepositoryImp : GenericRepositoryImp<QuoteDetail>, IQuoteDetailRepository
+    public class QuoteRepositoryImp : GenericRepositoryImp<Quote>, IQuoteDetailRepository
     {
         public QuoteRepositoryImp(AppDBContext context) : base(context)
         {
         }
 
-        public async Task<List<QuoteDetail>> GetQuotes()
+        public async Task<List<Quote>> GetQuotes()
         {
-            return await _context.Set<QuoteDetail>().ToListAsync();
+            return await _context.Set<Quote>().ToListAsync();
         }
 
-        public async Task<QuoteDetail> GetQuotesByID(Guid id)
+        public async Task<Quote> GetQuotesByID(Guid id)
         {
-            return await _context.Set<QuoteDetail>().Include(c => c.Material).Include(s => s.Staff).Include(c => c.Project).FirstOrDefaultAsync(c => c.QuoteID == id);
+            return await _context.Set<Quote>().Include(c => c.Material).Include(s => s.Staff).Include(c => c.Project).FirstOrDefaultAsync(c => c.QuoteID == id);
         }
     }
 }

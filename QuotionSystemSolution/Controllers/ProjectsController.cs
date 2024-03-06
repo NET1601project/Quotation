@@ -11,6 +11,7 @@ using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -30,7 +31,6 @@ namespace QuotionSystemSolution.Controllers
         //[Authorize]
         public async Task<ActionResult<IEnumerable<List<ResponseProject>>>> GetProjects()
         {
-            
 
             return Ok(await _projectService.GetProjects());
         }
@@ -40,6 +40,19 @@ namespace QuotionSystemSolution.Controllers
         {
 
             return Ok(await _projectService.GetProjectById(projectId));
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<ResponseProject>>> GetProjectByStaffAndDate(DateTime date)
+
+        {
+            return Ok(await _projectService.GetProjectByStaffAndDate(date));
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<List<ResponseProject>>> GetProjectByCustomerAndDate(DateTime date)
+
+        {
+            return Ok(await _projectService.GetProjectByCustomerAndDate(date));
         }
 
         [HttpPost]

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Application.ConfigurationDB
 {
-    public class QuoteConfiguration : IEntityTypeConfiguration<QuoteDetail>
+    public class QuoteConfiguration : IEntityTypeConfiguration<Quote>
     {
-        public void Configure(EntityTypeBuilder<QuoteDetail> builder)
+        public void Configure(EntityTypeBuilder<Quote> builder)
         {
             builder.HasKey(c => c.QuoteID);
             builder.Property(e => e.QuoteID)

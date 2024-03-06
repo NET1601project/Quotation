@@ -3,51 +3,57 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div id="error-message">
-    <h1>Index</h1>
+<div class="alldiv" id="checkRole" style="display: none;">
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Material ID
-                </th>
-                <th>
-                    MaterialName
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    UnitPrice
-                </th>
-                <th>
-                    Stock
-                </th>
-                <th>
-                    CreateDate
-                </th>
-                <th>
-                    Image
-                </th>
-               
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="listMaterial">
+    <div id="error-message">
+        <h1>Index</h1>
 
-            <tr id="error-message"></tr>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Material ID
+                    </th>
+                    <th>
+                        MaterialName
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        UnitPrice
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th>
+                        CreateDate
+                    </th>
+                    <th>
+                        Image
+                    </th>
 
-        </tbody>
-    </table>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="listMaterial">
+
+                <tr id="error-message"></tr>
+
+            </tbody>
+        </table>
+    </div>
 </div>
-
 @section scripts {
     <script>
-        var token = localStorage.getItem('jwtToken')
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        if (role === "STAFF") {
+            document.getElementById('checkRole').style.display = "block";
+        }
         $(document).ready(function () {
             $.ajax({
                 url: 'https://localhost:7222/api/Materials/GetMaterials',

@@ -13,7 +13,7 @@ namespace Domain
         public Project()
         {
             Rooms = new HashSet<Room>();
-            QuoteDetail = new HashSet<QuoteDetail>();
+            QuoteDetail = new HashSet<Quote>();
         }
         [Key]
 
@@ -25,7 +25,7 @@ namespace Domain
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
         public ICollection<Room> Rooms { get; set; }
-        public ICollection<QuoteDetail> QuoteDetail { get; set; }
+        public ICollection<Quote> QuoteDetail { get; set; }
 
     }
 }

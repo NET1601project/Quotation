@@ -3,97 +3,242 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="alldiv" id="checkRole" style="display: none;">
+    <h1>Index</h1>
 
-<h1>Index</h1>
+    <form id="searchForm3">
+        <label for="searchDate">Search Date:</label>
+        <input type="date" id="searchDate" name="searchDate">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/Home/HomePage">BACK</a>
 
-<p>
+    @* <p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ProjectID
-            </th>
-            <th>
-                ProjectName
-            </th>
-            <th>
-                StartDate
-            </th>
-            <th>
-                EndDate
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Customer
-            </th>
-            <th>
-                Details
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="projectList">
-        <tr id="error-message"></tr>
-    </tbody>
-</table>
+    </p> *@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ProjectID
+                </th>
+                <th>
+                    ProjectName
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th>
+                    Details
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="projectList">
+            <tr id="error-message"></tr>
+        </tbody>
+    </table>
+</div>
+<div class="all" id="checkRoleCustomer" style="display: none;">
 
+    <h1>Index</h1>
+
+    <form id="searchForm">
+        <label for="searchDate">Search Date:</label>
+        <input type="date" id="searchDate2" name="searchDate2">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/Home/HomePage">BACK</a>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ProjectID
+                </th>
+                <th>
+                    ProjectName
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th>
+                    Details
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="projectListCustomer">
+            <tr id="error-message"></tr>
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script>
-        var token = localStorage.getItem('jwtToken')
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://localhost:7222/odata/Projects',
-                type: 'GET',
-                dataType: 'json',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                success: function (data) {
-                    displayProjects(data);
-                    console.log(data);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error:', xhr.responseText);
-                    var errorMessage = 'An error occurred: ' + xhr.responseText;
-                    $('#error-message').text("An error occurred: ERROR PERMISSION");
-                }
-            });
-        });
-        function displayProjects(data) {
-            var tableHtml = '';
-            data.forEach(function (project) {
-                tableHtml += '<tr>';
-                tableHtml += '<td>' + project.projectID + '</td>';
-                tableHtml += '<td>' + project.projectName + '</td>';
-                tableHtml += '<td>' + project.startDate + '</td>';
-                tableHtml += '<td>' + project.endDate + '</td>';
-                tableHtml += '<td>' + project.status + '</td>';
-                tableHtml += '<td>' + project.customerId + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
-
-                tableHtml += '</tr>';
-            });
-            $('#projectList').html(tableHtml);
-            $('.detail-btn').click(function () {
-                var projectId = $(this).data('project-id');
-
-                $.ajax({
-                    type: "GET",
-                    url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
-                    success: function (response) {
-                        console.log(response);
-                        window.location.href = '/Projects/Details?projectId=' + projectId;
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        //Projects/GetProjectByStaffAndDate
+        console.log(role);
+        if (role === "STAFF") {
+            document.getElementById('checkRole').style.display = "block";
+            $(document).ready(function () {
+                callapistaff(null);
+                $('#searchForm3').submit(function (event) {
+                    event.preventDefault();
+                    var searchDate = $('#searchDate').val();
+                    if (searchDate) {
+                        callapistaff(searchDate);
+                    }
+                    else {
+                        callapistaff(null);
                     }
                 });
             });
+            function callapistaff(search) {
+                var apiURR = search ? 'https://localhost:7222/api/Projects/GetProjectByStaffAndDate?date=' + search : 'https://localhost:7222/odata/Projects';
+                $.ajax({
+                    url: apiURR,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (data) {
+                        displayProjects(data);
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error:', xhr.responseText);
+                        var errorMessage = 'An error occurred: ' + xhr.responseText;
+                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    }
+                });
+            }
+            function displayProjects(data) {
+                var tableHtml = '';
+                data.forEach(function (project) {
+                    tableHtml += '<tr>';
+                    tableHtml += '<td>' + project.projectID + '</td>';
+                    tableHtml += '<td>' + project.projectName + '</td>';
+                    tableHtml += '<td>' + project.startDate + '</td>';
+                    tableHtml += '<td>' + project.endDate + '</td>';
+                    tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.customerId + '</td>';
+                    tableHtml += '<td><button class="btn btn-primary detail-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
+
+                    tableHtml += '</tr>';
+                });
+                $('#projectList').html(tableHtml);
+                $('.detail-btn').click(function () {
+                    var projectId = $(this).data('project-id');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
+                        success: function (response) {
+                            console.log(response);
+                            window.location.href = '/Projects/Details?projectId=' + projectId;
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            }
+
+        } else if (role === "CUSTOMER") {
+            document.getElementById('checkRoleCustomer').style.display = "block";
+
+
+            $(document).ready(function () {
+                callapi(null);
+                $('#searchForm').submit(function (event) {
+                    event.preventDefault();
+                    var searchDate = $('#searchDate2').val();
+                    if (searchDate) {
+                        callapi(searchDate);
+                    }
+                    else {
+                        callapi(null);
+                    }
+                });
+            });
+            function callapi(searchDate) {
+                var apiUrl = searchDate ? "https://localhost:7222/api/Projects/GetProjectByCustomerAndDate?date=" + searchDate :
+                    "https://localhost:7222/api/Projects/GetProjectByCustomerAndDate";
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (data) {
+                        displayProjects(data);
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error:', xhr.responseText);
+                        alert(xhr.responseText);
+                        var errorMessage = 'An error occurred: ' + xhr.responseText;
+                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    }
+                });
+            }
+            function displayProjects(data) {
+                var tableHtml = '';
+                data.forEach(function (project) {
+                    tableHtml += '<tr>';
+                    tableHtml += '<td>' + project.projectID + '</td>';
+                    tableHtml += '<td>' + project.projectName + '</td>';
+                    tableHtml += '<td>' + project.startDate + '</td>';
+                    tableHtml += '<td>' + project.endDate + '</td>';
+                    tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.customerId + '</td>';
+                    tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
+
+                    tableHtml += '</tr>';
+                });
+                $('#projectListCustomer').html(tableHtml);
+                $('.detailCustomer-btn').click(function () {
+                    var projectId = $(this).data('project-id');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
+                        success: function (response) {
+                            console.log(response);
+                            window.location.href = '/Projects/Details?projectId=' + projectId;
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            }
         }
 
     </script>

@@ -17,12 +17,28 @@ namespace Application.IRepository.Imp
 
         public async Task<List<Project>> GetAll()
         {
-            return await _context.Set<Project>().Include(c=>c.Rooms).ToListAsync();
+            return await _context.Set<Project>().Include(c => c.Rooms).OrderByDescending(c => c.StartDate).ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjectByCustomer(Guid id)
+        {
+            return await _context.Set<Project>().Include(c => c.Rooms).Include(c => c.Customer).Where(c => c.CustomerId.Equals(id)).OrderByDescending(c => c.StartDate).ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjectByCustomerAndDate(Guid id, DateTime date)
+        {
+
+            return await _context.Set<Project>().Include(c => c.Rooms).Include(c => c.Customer).Where(c => c.CustomerId.Equals(id) && c.StartDate.Date == (date.Date)).OrderByDescending(c => c.StartDate).ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjectByDate(DateTime date)
+        {
+            return await _context.Set<Project>().Include(c => c.Rooms).Include(c => c.Customer).Where(c => c.StartDate.Date == (date.Date)).OrderByDescending(c => c.StartDate).ToListAsync();
         }
 
         public async Task<Project> GetProjectById(Guid id)
         {
-            return await _context.Set<Project>().Include(c => c.Rooms).FirstOrDefaultAsync(c => c.ProjectID == id);
+            return await _context.Set<Project>().Include(c => c.Rooms).OrderByDescending(c => c.StartDate).FirstOrDefaultAsync(c => c.ProjectID == id);
         }
     }
 }

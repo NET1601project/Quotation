@@ -48,9 +48,29 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<ResponseProject>(projects);
         }
 
+        public async Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date)
+        {
+            var customerCheck = _tokensHandler.ClaimsFromToken();
+            var customer = await _unitofWork.CustomerRepositoryImp.GetCustomerByUsername(customerCheck);
+            if (date == DateTime.MinValue)
+            {
+                return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetProjectByCustomer(customer.CustomerID));
+            }
+            return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetProjectByCustomerAndDate(customer.CustomerID, date));
+        }
+
         public async Task<ResponseProject> GetProjectById(Guid id)
         {
             return _mapper.Map<ResponseProject>(await _unitofWork.ProjectRepositoryImp.GetProjectById(id));
+        }
+
+        public async Task<List<ResponseProject>> GetProjectByStaffAndDate(DateTime date)
+        {
+            if (date == DateTime.MinValue)
+            {
+                return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetAll());
+            }
+            return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetProjectByDate(date));
         }
 
         public async Task<List<ResponseProject>> GetProjects()

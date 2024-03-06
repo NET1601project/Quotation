@@ -27,7 +27,7 @@ namespace Infrastructure.Service.Imp
 
         public async Task<ResponseQuote> Add(CreateQuote create)
         {
-            var q = _mapper.Map<QuoteDetail>(create);
+            var q = _mapper.Map<Quote>(create);
             var username = _tokensHandler.ClaimsFromToken();
             var staff = await _unitofWork.StaffRepositoryImp.GetByUsername(username);
             q.StaffId = staff.StaffId;

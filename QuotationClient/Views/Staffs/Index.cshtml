@@ -3,51 +3,57 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="alldiv" id="checkRole" style="display: none;">
 
-<h1>Index</h1>
+    <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StaffId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StaffName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account.Role)
-            </th>
-            <th>
-                Details
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="listcustomer">
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StaffId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StaffName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account.Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account.Role)
+                </th>
+                <th>
+                    Details
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="listcustomer">
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script>
-        var token = localStorage.getItem('jwtToken')
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        if (role === "STAFF") {
+            document.getElementById('checkRole').style.display = "block";
+        }
         $(document).ready(function () {
             $.ajax({
                 url: 'https://localhost:7222/odata/Staffs',

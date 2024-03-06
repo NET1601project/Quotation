@@ -12,5 +12,8 @@ namespace Application.IRepository
     {
         Task<List<Project>> GetAll();
         Task<Project> GetProjectById(Guid id);
+        Task<List<Project>> GetProjectByCustomerAndDate(Guid id,DateTime date);
+        Task<List<Project>> GetProjectByDate(DateTime date);
+        Task<List<Project>> GetProjectByCustomer(Guid id);
     }
 }

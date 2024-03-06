@@ -1,48 +1,54 @@
-﻿@model IEnumerable<Domain.QuoteDetail>
+﻿@model IEnumerable<Domain.Quote>
 
 @{
     ViewData["Title"] = "Index";
 }
+<div class="alldiv" id="checkRole" style="display: none;">
+    <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Quote ID
-            </th>
-            <th>
-                QuoteNumber
-            </th>
-            <th>
-                QuoteDate
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                TotalAmount
-            </th>
-            <th>
-                Project
-            </th>
-            <th>
-                Material
-            </th>
-            <th>StaffId</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody id="quotetList">
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <a href="/Home/HomePage">BACK</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Quote ID
+                </th>
+                <th>
+                    QuoteNumber
+                </th>
+                <th>
+                    QuoteDate
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    TotalAmount
+                </th>
+                <th>
+                    Project
+                </th>
+                <th>
+                    Material
+                </th>
+                <th>StaffId</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody id="quotetList">
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script>
-        var token = localStorage.getItem('jwtToken')
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        if (role === "STAFF") {
+            document.getElementById('checkRole').style.display = "block";
+        }
         $(document).ready(function () {
             $.ajax({
                 url: 'https://localhost:7222/odata/QuoteDetails',
