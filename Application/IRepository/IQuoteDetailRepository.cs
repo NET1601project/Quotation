@@ -12,5 +12,7 @@ namespace Application.IRepository
     {
         Task<List<Quote>> GetQuotes();
         Task<Quote> GetQuotesByID(Guid id);
+        Task<List<Quote>> GetQuotesByCustomerandDate(Guid cutomer, DateTime dateTime);
+        Task<List<Quote>> GetQuotesByCustomer(Guid cutomer);
     }
 }

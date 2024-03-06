@@ -55,7 +55,7 @@
     </dl>
 </div>
 <div>
-    @* <a asp-action="Edit" asp-route-id="@Model?.QuoteID">Edit</a> | *@
+    <a href="#" id="editLink">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>
 @section scripts {
@@ -78,7 +78,20 @@
                     $('#Project').text(qou.projectID);
                     $('#Material').text(qou.materialID);
                     $('#Staff').text(qou.staffId);
+                    $('#editLink').attr('href', '/QuoteDetails/Edit?quouteId=' + qou.quoteID);
+
                 },
+                error: function (xhr, status, error) {
+                    var errorObj = JSON.parse(xhr.responseText);
+                    var errors = errorObj.errors;
+                    var errorMessages = "";
+                    for (var key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessages += key + ": " + errors[key] + "\n";
+                        }
+                    }
+                    alert(errorMessages);
+                }
             })
         })
 

@@ -15,38 +15,41 @@
             <input type="hidden" asp-for="QuoteID" />
             <div class="form-group">
                 <label asp-for="QuoteNumber" class="control-label"></label>
-                <input asp-for="QuoteNumber" class="form-control" />
+                <input asp-for="QuoteNumber" class="form-control" readonly="true" />
                 <span asp-validation-for="QuoteNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="QuoteDate" class="control-label"></label>
-                <input asp-for="QuoteDate" class="form-control" />
+                <input asp-for="QuoteDate" class="form-control" readonly="true" />
                 <span asp-validation-for="QuoteDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <input asp-for="Status" class="form-control" readonly="true" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
+                <input asp-for="TotalAmount" class="form-control" readonly="true" />
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProjectID" class="control-label"></label>
-                <select asp-for="ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
+                <input asp-for="ProjectID" class="form-control" readonly="true" />
                 <span asp-validation-for="ProjectID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaterialID" class="control-label"></label>
-                <select asp-for="MaterialID" class="form-control" asp-items="ViewBag.MaterialID"></select>
+                <input asp-for="MaterialID" class="form-control" readonly="true" />
                 <span asp-validation-for="MaterialID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
         </form>
+        <div class="form-group">
+            <input type="submit" value="DONE" class="btn btn-primary" onclick="updateStatus('DONE')" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="INACTIVE" class="btn btn-primary" onclick="updateStatus('INACTIVE')" />
+        </div>
     </div>
 </div>
 
@@ -55,5 +58,49 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const quoteDetailId = urlParams.get('quouteId');
+            console.log(quoteDetailId);
+            getbyid(quoteDetailId);
+        })
+        function getbyid(quoteDetailId) {
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + quoteDetailId,
+                success: function (qou) {
+                    // $('#QuoteID').text(qou.quoteID);
+                    $('#QuoteNumber').val(qou.quoteNumber);
+                    $('#QuoteDate').val(qou.quoteDate);
+                    $('#Status').val(qou.status);
+                    $('#TotalAmount').val(qou.totalAmount);
+                    $('#ProjectID').val(qou.projectID);
+                    $('#MaterialID').val(qou.materialID);
+
+                    console.log(qou);
+                },
+            })
+        }
+        function updateStatus(value) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const quoteDetailId = urlParams.get('quouteId');
+            console.log(quoteDetailId);
+            $.ajax({
+                method: "PATCH",
+                url: `https://localhost:7222/api/QuoteDetails/UpdateQoute?id=${quoteDetailId}&status=${value}`,
+                success: function (qou) {
+                    console.log(qou);
+                    alert('success');
+                    window.location.href = '@Url.Action("Index", "QuoteDetails")';
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            })
+        }
+    </script>
 }

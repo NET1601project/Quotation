@@ -28,9 +28,9 @@ namespace QuotationClient.Controllers
         }
 
 
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid? quouteId)
         {
-            return View(id);
+            return View();
         }
 
 

@@ -11,7 +11,9 @@ namespace Infrastructure.Service
     public interface IQuoteDetailService
     {
         Task<ResponseQuote> Add(CreateQuote create);
+        Task<ResponseQuote> Update(Guid id,string status);
         Task<List<ResponseQuote>> GetQuotes();
+        Task<List<ResponseQuote>> GetQuotesByCustomer(DateTime date);
         Task<ResponseQuote> GetQuotesByID(Guid id);
 
     }

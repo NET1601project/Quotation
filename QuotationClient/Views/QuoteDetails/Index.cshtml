@@ -42,63 +42,172 @@
         </tbody>
     </table>
 </div>
+
+<div class="all" id="checkRoleCustomer" style="display: none;">
+    <h1>Index</h1>
+    <form id="searchForm">
+        <label for="searchDate">Search Date:</label>
+        <input type="date" id="searchDate2" name="searchDate2">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/Home/HomePage">BACK</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Quote ID
+                </th>
+                <th>
+                    QuoteNumber
+                </th>
+                <th>
+                    QuoteDate
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    TotalAmount
+                </th>
+                <th>
+                    Project
+                </th>
+                <th>
+                    Material
+                </th>
+                <th>StaffId</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody id="quotetCustomerList">
+        </tbody>
+    </table>
+</div>
 @section scripts {
     <script>
         var token = localStorage.getItem('jwtToken');
         var role = localStorage.getItem('role');
         if (role === "STAFF") {
             document.getElementById('checkRole').style.display = "block";
-        }
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://localhost:7222/odata/QuoteDetails',
-                type: 'GET',
-                dataType: 'json',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                success: function (data) {
-                    displayProjects(data);
-                    console.log(data);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error:', xhr.responseText);
-                    var errorMessage = 'An error occurred: ' + xhr.responseText;
-                    $('#error-message').text("An error occurred: ERROR PERMISSION");
-                }
-            });
-        });
-        function displayProjects(data) {
-            var tableHtml = '';
-            data.forEach(function (project) {
-                tableHtml += '<tr>';
-                tableHtml += '<td>' + project.quoteID + '</td>';
-                tableHtml += '<td>' + project.quoteNumber + '</td>';
-                tableHtml += '<td>' + project.quoteDate + '</td>';
-                tableHtml += '<td>' + project.status + '</td>';
-                tableHtml += '<td>' + project.totalAmount + '</td>';
-                tableHtml += '<td>' + project.projectID + '</td>';
-                tableHtml += '<td>' + project.materialID + '</td>';
-                tableHtml += '<td>' + project.staffId + '</td>';
-                tableHtml += '<td><button class="btn btn-primary detail-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
-
-                tableHtml += '</tr>';
-            });
-            $('#quotetList').html(tableHtml);
-            $('.detail-btn').click(function () {
-                var qouteid = $(this).data('qoute-id');
+            $(document).ready(function () {
                 $.ajax({
-                    type: "GET",
-                    url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
-                    success: function (response) {
-                        console.log(response);
-                        window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
+                    url: 'https://localhost:7222/odata/QuoteDetails',
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
                     },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                    success: function (data) {
+                        displayProjects(data);
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error:', xhr.responseText);
+                        var errorMessage = 'An error occurred: ' + xhr.responseText;
+                        $('#error-message').text("An error occurred: ERROR PERMISSION");
                     }
                 });
             });
+            function displayProjects(data) {
+                var tableHtml = '';
+                data.forEach(function (project) {
+                    tableHtml += '<tr>';
+                    tableHtml += '<td>' + project.quoteID + '</td>';
+                    tableHtml += '<td>' + project.quoteNumber + '</td>';
+                    tableHtml += '<td>' + project.quoteDate + '</td>';
+                    tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.totalAmount + '</td>';
+                    tableHtml += '<td>' + project.projectID + '</td>';
+                    tableHtml += '<td>' + project.materialID + '</td>';
+                    tableHtml += '<td>' + project.staffId + '</td>';
+                    tableHtml += '<td><button class="btn btn-primary detail-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
+
+                    tableHtml += '</tr>';
+                });
+                $('#quotetList').html(tableHtml);
+                $('.detail-btn').click(function () {
+                    var qouteid = $(this).data('qoute-id');
+                    $.ajax({
+                        type: "GET",
+                        url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
+                        success: function (response) {
+                            console.log(response);
+                            window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            }
+        } else if (role === "CUSTOMER") {
+            document.getElementById('checkRoleCustomer').style.display = "block";
+            $(document).ready(function () {
+                callapi(null);
+                $('#searchForm').submit(function (event) {
+                    event.preventDefault();
+                    var searchDate = $('#searchDate2').val();
+                    if (searchDate) {
+                        callapi(searchDate);
+                    }
+                    else {
+                        callapi(null);
+                    }
+                });
+
+            });
+            function callapi(search) {
+                var api = search ? 'https://localhost:7222/api/QuoteDetails/GetQuoteByCustomer?date=' + search : 'https://localhost:7222/api/QuoteDetails/GetQuoteByCustomer'
+                $.ajax({
+                    url: api,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (data) {
+                        displayProjects(data);
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error:', xhr.responseText);
+                        var errorMessage = 'An error occurred: ' + xhr.responseText;
+                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    }
+                });
+            }
+            function displayProjects(data) {
+                var tableHtml = '';
+                data.forEach(function (project) {
+                    tableHtml += '<tr>';
+                    tableHtml += '<td>' + project.quoteID + '</td>';
+                    tableHtml += '<td>' + project.quoteNumber + '</td>';
+                    tableHtml += '<td>' + project.quoteDate + '</td>';
+                    tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.totalAmount + '</td>';
+                    tableHtml += '<td>' + project.projectID + '</td>';
+                    tableHtml += '<td>' + project.materialID + '</td>';
+                    tableHtml += '<td>' + project.staffId + '</td>';
+                    tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
+
+                    tableHtml += '</tr>';
+                });
+                $('#quotetCustomerList').html(tableHtml);
+                $('.detailCustomer-btn').click(function () {
+                    var qouteid = $(this).data('qoute-id');
+                    $.ajax({
+                        type: "GET",
+                        url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
+                        success: function (response) {
+                            console.log(response);
+                            window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            }
         }
 
     </script>

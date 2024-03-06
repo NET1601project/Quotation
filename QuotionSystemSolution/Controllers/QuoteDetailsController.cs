@@ -36,7 +36,11 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _quoteService.GetQuotesByID(id));
         }
-
+        [HttpGet]
+        public async Task<ActionResult<ResponseQuote>> GetQuoteByCustomer(DateTime date)
+        {
+            return Ok(await _quoteService.GetQuotesByCustomer(date));
+        }
         //[HttpPut]
         //public async Task<IActionResult> PutQuoteDetail(Guid id, QuoteDetail quoteDetail)
         //{
@@ -49,10 +53,12 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _quoteService.Add(quoteDetail));
         }
 
-        //[HttpDelete]
-        //public async Task<IActionResult> DeleteQuoteDetail(Guid id)
-        //{
-        //}
+        [HttpPatch]
+        public async Task<ActionResult<ResponseQuote>> UpdateQoute(Guid id, string status)
+        {
+            return Ok(await _quoteService.Update(id, status));
+
+        }
 
 
     }

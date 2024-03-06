@@ -68,7 +68,7 @@
                 },
                 success: function (data) {
                     data.forEach(function (project) {
-                        $('#ProjectID').append('<option value="' + project.projectID + '">' + 'Name: ' + project.projectName + '</option>');
+                        $('#ProjectID').append('<option value="' + project.projectID + '">' + 'projectID: ' + project.projectID + 'Name: ' + project.projectName + '</option>');
                     });
                 }
             });
@@ -86,7 +86,7 @@
                 }
             });
             $('#createQouteForm').submit(function (e) {
-                e.preventDefault(); 
+                e.preventDefault();
 
                 var formData = {
                     projectID: $('#ProjectID').val(),
