@@ -10,7 +10,7 @@ using Domain;
 
 namespace QuotationClient.Controllers
 {
-    public class QuoteDetailsController : Controller
+    public class QuotesController : Controller
     {
         public async Task<IActionResult> Index()
         {

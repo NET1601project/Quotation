@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Infrastructure.Common.Model.Response
 {
-    public class Room
+    public class ResponseRoomV2
     {
-        public Room()
-        {
-        }
-        [Key]
-
         public Guid RoomID { get; set; }
         public string RoomName { get; set; }
         public string Size { get; set; }
         public string Description { get; set; }
-        public Guid ProjectId { get; set; }
-        public Project Project { get; set; }
-        public List<RoomDetail> Details { get; set; } = new List<RoomDetail>();
+        public List<ResponseRoomDetail> ResponseRoomDetails { get; set; }
     }
 }

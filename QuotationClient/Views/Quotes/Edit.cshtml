@@ -38,11 +38,7 @@
                 <input asp-for="ProjectID" class="form-control" readonly="true" />
                 <span asp-validation-for="ProjectID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MaterialID" class="control-label"></label>
-                <input asp-for="MaterialID" class="form-control" readonly="true" />
-                <span asp-validation-for="MaterialID" class="text-danger"></span>
-            </div>
+            
         </form>
         <div class="form-group">
             <input type="submit" value="DONE" class="btn btn-primary" onclick="updateStatus('DONE')" />
@@ -71,7 +67,7 @@
         function getbyid(quoteDetailId) {
             $.ajax({
                 method: "GET",
-                url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + quoteDetailId,
+                url: "https://localhost:7222/api/Quotes/GetQuote?id=" + quoteDetailId,
                 success: function (qou) {
                     // $('#QuoteID').text(qou.quoteID);
                     $('#QuoteNumber').val(qou.quoteNumber);
@@ -91,7 +87,7 @@
             console.log(quoteDetailId);
             $.ajax({
                 method: "PATCH",
-                url: `https://localhost:7222/api/QuoteDetails/UpdateQoute?id=${quoteDetailId}&status=${value}`,
+                url: `https://localhost:7222/api/Quotes/UpdateQoute?id=${quoteDetailId}&status=${value}`,
                 success: function (qou) {
                     console.log(qou);
                     alert('success');

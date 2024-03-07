@@ -48,6 +48,34 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<ResponseProject>(projects);
         }
 
+        public async Task<ResponseProjectV2> AddV2(CreateProjectV2 project)
+        {
+            var customerCheck = _tokensHandler.ClaimsFromToken();
+            var customer = await _unitofWork.CustomerRepositoryImp.GetCustomerByUsername(customerCheck);
+            var projects = _mapper.Map<Project>(project);
+            projects.StartDate = DateTime.Now;
+            projects.Status = "ACTIVE";
+            projects.CustomerId = customer.CustomerID;
+
+            foreach (var i in projects.Rooms)
+            {
+
+                var room = _mapper.Map<Room>(i);
+                await _unitofWork.RoomRepositoryImp.Add(room);
+                foreach (var y in i.Details)
+                {
+                    var roomdetail = _mapper.Map<RoomDetail>(y);
+                    roomdetail.RoomId = room.RoomID;
+                    roomdetail.DateTime = DateTime.Now;
+                    await _unitofWork.RoomDetailRepositoryImp.Add(roomdetail);
+                }
+            }
+            await _unitofWork.ProjectRepositoryImp.Add(projects);
+
+            await _unitofWork.Commit();
+            return _mapper.Map<ResponseProjectV2>(projects);
+        }
+
         public async Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date)
         {
             var customerCheck = _tokensHandler.ClaimsFromToken();

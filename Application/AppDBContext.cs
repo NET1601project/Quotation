@@ -21,7 +21,9 @@ namespace Application
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Quote> QuoteDetails { get; set; }
+        public virtual DbSet<Quote> Quote { get; set; }
+        public virtual DbSet<QuoteDetails> QuoteDetails { get; set; }
+        public virtual DbSet<RoomDetail> RoomDetails { get; set; }
         public virtual DbSet<Staff> Staff { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -247,6 +249,7 @@ namespace Application
             modelBuilder.ApplyConfiguration(new QuoteConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new StaffConfiguration());
+            modelBuilder.ApplyConfiguration(new QuoteDetailConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
 

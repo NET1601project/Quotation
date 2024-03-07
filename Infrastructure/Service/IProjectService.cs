@@ -12,6 +12,8 @@ namespace Infrastructure.Service
     public interface IProjectService
     {
         Task<ResponseProject> Add(CreateProject project);
+        Task<ResponseProjectV2> AddV2(CreateProjectV2 project);
+
         Task<List<ResponseProject>> GetProjects();
         Task<ResponseProject> GetProjectById(Guid id);
         Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date);

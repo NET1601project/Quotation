@@ -17,9 +17,11 @@ namespace Infrastructure.IUnitOfWork.UnitOfWorkImp
         private readonly IAccountRepository _accountRepositoryImp;
         private readonly IMaterialRepository _materialRepositoryImp;
         private readonly IProjectRepository _projectRepositoryImp;
-        private readonly IQuoteDetailRepository _quoteRepositoryImp;
+        private readonly IQuoteRepository _quoteRepositoryImp;
         private readonly IRoomRepository _roomRepositoryImp;
         private readonly IStaffRepository _staffRepositoryImp;
+        private readonly IQuoteDetailRepository _quoteDetailRepositoryImp;
+        private readonly IRoomDetailRepository _roomDetailRepositoryImp;
         public UnitofWork(AppDBContext context)
         {
             _context = context;
@@ -30,6 +32,8 @@ namespace Infrastructure.IUnitOfWork.UnitOfWorkImp
             _quoteRepositoryImp = new QuoteRepositoryImp(_context);
             _roomRepositoryImp = new RoomRepositoryImp(_context);
             _staffRepositoryImp = new StaffRepositoryImp(_context);
+            _roomDetailRepositoryImp = new RoomDetailRepository(_context);
+            _quoteDetailRepositoryImp = new QuoteDetailRepository(_context);
         }
         public ICustomerRepository CustomerRepositoryImp => _customerRepositoryImp;
 
@@ -40,11 +44,15 @@ namespace Infrastructure.IUnitOfWork.UnitOfWorkImp
 
         public IProjectRepository ProjectRepositoryImp => _projectRepositoryImp;
 
-        public IQuoteDetailRepository QuoteRepositoryImp => _quoteRepositoryImp;
+        public IQuoteRepository QuoteRepositoryImp => _quoteRepositoryImp;
 
         public IRoomRepository RoomRepositoryImp => _roomRepositoryImp;
 
         public IStaffRepository StaffRepositoryImp => _staffRepositoryImp;
+
+        public IRoomDetailRepository RoomDetailRepositoryImp => _roomDetailRepositoryImp;
+
+        public IQuoteDetailRepository QuoteDetailRepositoryImp => _quoteDetailRepositoryImp;
 
         public async Task Commit()
                        => await _context.SaveChangesAsync();

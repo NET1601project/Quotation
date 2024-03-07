@@ -91,7 +91,7 @@
             document.getElementById('checkRole').style.display = "block";
             $(document).ready(function () {
                 $.ajax({
-                    url: 'https://localhost:7222/odata/QuoteDetails',
+                    url: 'https://localhost:7222/odata/Quotes',
                     type: 'GET',
                     dataType: 'json',
                     headers: {
@@ -129,7 +129,7 @@
                     var qouteid = $(this).data('qoute-id');
                     $.ajax({
                         type: "GET",
-                        url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
+                        url: "https://localhost:7222/api/Quotes/GetQuote?id=" + qouteid,
                         success: function (response) {
                             console.log(response);
                             window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
@@ -157,7 +157,7 @@
 
             });
             function callapi(search) {
-                var api = search ? 'https://localhost:7222/api/QuoteDetails/GetQuoteByCustomer?date=' + search : 'https://localhost:7222/api/QuoteDetails/GetQuoteByCustomer'
+                var api = search ? 'https://localhost:7222/api/Quotes/GetQuoteByCustomer?date=' + search : 'https://localhost:7222/api/Quotes/GetQuoteByCustomer'
                 $.ajax({
                     url: api,
                     type: 'GET',
@@ -197,10 +197,10 @@
                     var qouteid = $(this).data('qoute-id');
                     $.ajax({
                         type: "GET",
-                        url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + qouteid,
+                        url: "https://localhost:7222/api/Quotes/GetQuote?id=" + qouteid,
                         success: function (response) {
                             console.log(response);
-                            window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
+                            window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
                         },
                         error: function (xhr, status, error) {
                             console.error(xhr.responseText);

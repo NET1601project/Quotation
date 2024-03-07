@@ -68,7 +68,7 @@
             console.log(quoteDetailId);
             $.ajax({
                 method: "GET",
-                url: "https://localhost:7222/api/QuoteDetails/GetQuoteDetail?id=" + quoteDetailId,
+                url: "https://localhost:7222/api/Quotes/GetQuoteDetail?id=" + quoteDetailId,
                 success: function (qou) {
                     $('#QuoteID').text(qou.quoteID);
                     $('#QuoteNumber').text(qou.quoteNumber);
@@ -78,7 +78,7 @@
                     $('#Project').text(qou.projectID);
                     $('#Material').text(qou.materialID);
                     $('#Staff').text(qou.staffId);
-                    $('#editLink').attr('href', '/QuoteDetails/Edit?quouteId=' + qou.quoteID);
+                    $('#editLink').attr('href', '/Quotes/Edit?quouteId=' + qou.quoteID);
 
                 },
                 error: function (xhr, status, error) {

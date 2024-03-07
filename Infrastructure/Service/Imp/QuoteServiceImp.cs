@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Service.Imp
 {
-    public class QuoteDetailServiceImp : IQuoteDetailService
+    public class QuoteServiceImp : IQuoteService
     {
         public readonly IUnitofWork _unitofWork;
         private readonly IMapper _mapper;
         private readonly ITokensHandler _tokensHandler;
 
-        public QuoteDetailServiceImp(IUnitofWork unitofWork, IMapper mapper, ITokensHandler tokensHandler)
+        public QuoteServiceImp(IUnitofWork unitofWork, IMapper mapper, ITokensHandler tokensHandler)
         {
             _unitofWork = unitofWork;
             _mapper = mapper;

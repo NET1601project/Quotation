@@ -5,21 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Infrastructure.Common.Model.Request
 {
-    public class Room
+    public class CreateRoomsV2
     {
-        public Room()
-        {
-        }
-        [Key]
-
-        public Guid RoomID { get; set; }
+        [Required]
         public string RoomName { get; set; }
+        [Required]
+
         public string Size { get; set; }
+        [Required]
+
         public string Description { get; set; }
-        public Guid ProjectId { get; set; }
-        public Project Project { get; set; }
-        public List<RoomDetail> Details { get; set; } = new List<RoomDetail>();
+        public List<CreateRoomDetail> CreateRoomDetails { get; set; }
     }
 }

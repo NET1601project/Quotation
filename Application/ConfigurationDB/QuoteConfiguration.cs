@@ -19,14 +19,10 @@ namespace Application.ConfigurationDB
             builder.Property(e => e.QuoteDate)
                 .HasColumnType("datetime");
             builder.HasOne(d => d.Project)
-                    .WithMany(d => d.QuoteDetail)
+                    .WithMany(d => d.Quotes)
                     .HasForeignKey(d => d.ProjectID)
                     .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(d => d.Material)
-                .WithMany(d => d.QuoteDetails)
-                .HasForeignKey(d => d.MaterialID)
-                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(d => d.Staff)
                 .WithMany(d => d.QuoteDetails)
                 .HasForeignKey(d => d.StaffId)

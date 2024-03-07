@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Service
 {
-    public interface IQuoteDetailService
+    public interface IQuoteService
     {
         Task<ResponseQuote> Add(CreateQuote create);
         Task<ResponseQuote> Update(Guid id,string status);

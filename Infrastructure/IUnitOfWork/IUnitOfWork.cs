@@ -13,9 +13,11 @@ namespace Infrastructure.IUnitOfWork
         IAccountRepository AccountRepositoryImp { get; }
         IMaterialRepository MaterialRepositoryImp { get; }
         IProjectRepository ProjectRepositoryImp { get; }
-        IQuoteDetailRepository QuoteRepositoryImp { get; }
+        IQuoteRepository QuoteRepositoryImp { get; }
         IRoomRepository RoomRepositoryImp { get; }
         IStaffRepository StaffRepositoryImp { get; }
+        IRoomDetailRepository RoomDetailRepositoryImp { get; }
+        IQuoteDetailRepository QuoteDetailRepositoryImp { get; }
         Task Commit();
         
     }

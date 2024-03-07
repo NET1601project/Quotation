@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.IRepository
 {
-    public interface IQuoteDetailRepository : IGenericRepository<QuoteDetails>
+    public interface IRoomDetailRepository : IGenericRepository<RoomDetail>
     {
     }
 }

@@ -108,7 +108,7 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuoteDetails",
+                name: "Quote",
                 columns: table => new
                 {
                     QuoteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -117,26 +117,19 @@ namespace Application.Migrations
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalAmount = table.Column<double>(type: "float", nullable: false),
                     ProjectID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MaterialID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StaffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuoteDetails", x => x.QuoteID);
+                    table.PrimaryKey("PK_Quote", x => x.QuoteID);
                     table.ForeignKey(
-                        name: "FK_QuoteDetails_Materials_MaterialID",
-                        column: x => x.MaterialID,
-                        principalTable: "Materials",
-                        principalColumn: "MaterialID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_QuoteDetails_Projects_ProjectID",
+                        name: "FK_Quote_Projects_ProjectID",
                         column: x => x.ProjectID,
                         principalTable: "Projects",
                         principalColumn: "ProjectID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_QuoteDetails_Staff_StaffId",
+                        name: "FK_Quote_Staff_StaffId",
                         column: x => x.StaffId,
                         principalTable: "Staff",
                         principalColumn: "StaffId",
@@ -161,6 +154,55 @@ namespace Application.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuoteDetails",
+                columns: table => new
+                {
+                    QuoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MaterialId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    numberMaterial = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuoteDetails", x => new { x.QuoteId, x.MaterialId });
+                    table.ForeignKey(
+                        name: "FK_QuoteDetails_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "MaterialID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_QuoteDetails_Quote_QuoteId",
+                        column: x => x.QuoteId,
+                        principalTable: "Quote",
+                        principalColumn: "QuoteID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomDetails",
+                columns: table => new
+                {
+                    RoomDetailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberEquipment = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomDetails", x => x.RoomDetailId);
+                    table.ForeignKey(
+                        name: "FK_RoomDetails_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "RoomID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -194,19 +236,24 @@ namespace Application.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuoteDetails_MaterialID",
-                table: "QuoteDetails",
-                column: "MaterialID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_QuoteDetails_ProjectID",
-                table: "QuoteDetails",
+                name: "IX_Quote_ProjectID",
+                table: "Quote",
                 column: "ProjectID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuoteDetails_StaffId",
-                table: "QuoteDetails",
+                name: "IX_Quote_StaffId",
+                table: "Quote",
                 column: "StaffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuoteDetails_MaterialId",
+                table: "QuoteDetails",
+                column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomDetails_RoomId",
+                table: "RoomDetails",
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_ProjectId",
@@ -226,10 +273,16 @@ namespace Application.Migrations
                 name: "QuoteDetails");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
+                name: "RoomDetails");
 
             migrationBuilder.DropTable(
                 name: "Materials");
+
+            migrationBuilder.DropTable(
+                name: "Quote");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Staff");

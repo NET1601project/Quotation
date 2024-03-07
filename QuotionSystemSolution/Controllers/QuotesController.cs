@@ -15,24 +15,24 @@ namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class QuoteDetailsController : ControllerBase
+    public class QuotesController : ControllerBase
     {
-        private readonly IQuoteDetailService _quoteService;
+        private readonly IQuoteService _quoteService;
 
-        public QuoteDetailsController(IQuoteDetailService quoteService)
+        public QuotesController(IQuoteService quoteService)
         {
             _quoteService = quoteService;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseQuote>>> GetQuoteDetails()
+        public async Task<ActionResult<IEnumerable<ResponseQuote>>> GetQuotes()
         {
             return Ok(await _quoteService.GetQuotes());
         }
 
         [HttpGet]
-        public async Task<ActionResult<ResponseQuote>> GetQuoteDetail(Guid id)
+        public async Task<ActionResult<ResponseQuote>> GetQuote(Guid id)
         {
             return Ok(await _quoteService.GetQuotesByID(id));
         }
@@ -48,7 +48,7 @@ namespace QuotionSystemSolution.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<ResponseQuote>> PostQuoteDetails(CreateQuote quoteDetail)
+        public async Task<ActionResult<ResponseQuote>> PostQuote(CreateQuote quoteDetail)
         {
             return Ok(await _quoteService.Add(quoteDetail));
         }

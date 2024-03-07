@@ -11,7 +11,7 @@ namespace Domain
     {
         public Material()
         {
-            QuoteDetails = new HashSet<Quote>();
+            QuoteDetails = new HashSet<QuoteDetails>();
         }
         [Key]
 
@@ -22,6 +22,6 @@ namespace Domain
         public int Stock { get; set; }
         public DateTime CreateDate { get; set; }
         public string Image { get; set; }
-        public ICollection<Quote> QuoteDetails { get; set; }
+        public ICollection<QuoteDetails> QuoteDetails { get; set; }
     }
 }

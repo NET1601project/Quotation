@@ -60,7 +60,11 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _projectService.Add(project));
         }
-
+        [HttpPost]
+        public async Task<ActionResult<ResponseProjectV2>> PostProjectsV2(CreateProjectV2 project)
+        {
+            return Ok(await _projectService.AddV2(project));
+        }
 
     }
 }

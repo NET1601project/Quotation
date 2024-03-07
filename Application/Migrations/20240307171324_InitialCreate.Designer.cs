@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240303191408_InitialCreate")]
+    [Migration("20240307171324_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,13 +158,10 @@ namespace Application.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Domain.QuoteDetail", b =>
+            modelBuilder.Entity("Domain.Quote", b =>
                 {
                     b.Property<Guid>("QuoteID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MaterialID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProjectID")
@@ -188,11 +185,33 @@ namespace Application.Migrations
 
                     b.HasKey("QuoteID");
 
-                    b.HasIndex("MaterialID");
-
                     b.HasIndex("ProjectID");
 
                     b.HasIndex("StaffId");
+
+                    b.ToTable("Quote");
+                });
+
+            modelBuilder.Entity("Domain.QuoteDetails", b =>
+                {
+                    b.Property<Guid>("QuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MaterialId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("numberMaterial")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuoteId", "MaterialId");
+
+                    b.HasIndex("MaterialId");
 
                     b.ToTable("QuoteDetails");
                 });
@@ -223,6 +242,36 @@ namespace Application.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Domain.RoomDetail", b =>
+                {
+                    b.Property<Guid>("RoomDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberEquipment")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RoomDetailId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomDetails");
                 });
 
             modelBuilder.Entity("Domain.Staff", b =>
@@ -275,16 +324,10 @@ namespace Application.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Domain.QuoteDetail", b =>
+            modelBuilder.Entity("Domain.Quote", b =>
                 {
-                    b.HasOne("Domain.Material", "Material")
-                        .WithMany("QuoteDetails")
-                        .HasForeignKey("MaterialID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Domain.Project", "Project")
-                        .WithMany("QuoteDetail")
+                        .WithMany("Quotes")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -295,11 +338,28 @@ namespace Application.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Material");
-
                     b.Navigation("Project");
 
                     b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("Domain.QuoteDetails", b =>
+                {
+                    b.HasOne("Domain.Material", "Material")
+                        .WithMany("QuoteDetails")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Quote", "Quote")
+                        .WithMany("QuoteDetails")
+                        .HasForeignKey("QuoteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Quote");
                 });
 
             modelBuilder.Entity("Domain.Room", b =>
@@ -311,6 +371,17 @@ namespace Application.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("Domain.RoomDetail", b =>
+                {
+                    b.HasOne("Domain.Room", "Room")
+                        .WithMany("Details")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("Domain.Staff", b =>
@@ -345,9 +416,19 @@ namespace Application.Migrations
 
             modelBuilder.Entity("Domain.Project", b =>
                 {
-                    b.Navigation("QuoteDetail");
+                    b.Navigation("Quotes");
 
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("Domain.Quote", b =>
+                {
+                    b.Navigation("QuoteDetails");
+                });
+
+            modelBuilder.Entity("Domain.Room", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("Domain.Staff", b =>
