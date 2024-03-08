@@ -28,12 +28,17 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _roomService.GetAll());
         }
+        [HttpGet]
+        public async Task<ActionResult<ResponseRoomV2>> GetRoomByID(Guid id)
+        {
+            return Ok(await _roomService.GetById(id));
+        }
         //[HttpPost]
         //public async Task<ActionResult<ResponseRoom>> PostRooms(CreateRoom room)
         //{
         //    return Ok(await _roomService.Add(room));
         //}
 
-       
+
     }
 }

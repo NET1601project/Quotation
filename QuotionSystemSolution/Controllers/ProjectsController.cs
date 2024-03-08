@@ -29,7 +29,7 @@ namespace QuotionSystemSolution.Controllers
 
         [HttpGet]
         //[Authorize]
-        public async Task<ActionResult<IEnumerable<List<ResponseProject>>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<List<ResponseProjectV2>>>> GetProjects()
         {
 
             return Ok(await _projectService.GetProjects());

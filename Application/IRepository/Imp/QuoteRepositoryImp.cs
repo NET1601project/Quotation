@@ -17,7 +17,10 @@ namespace Application.IRepository.Imp
 
         public async Task<List<Quote>> GetQuotes()
         {
-            return await _context.Set<Quote>().ToListAsync();
+            return await _context.Set<Quote>()
+                    .Include(c => c.QuoteDetails)
+                    .ThenInclude(x => x.Material)
+                    .ToListAsync();
         }
 
         public async Task<List<Quote>> GetQuotesByCustomer(Guid cutomer)

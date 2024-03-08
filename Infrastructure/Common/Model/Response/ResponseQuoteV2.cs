@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Common.Model.Response
 {
-    public class ResponseQuote
+    public class ResponseQuoteV2
     {
         public Guid QuoteID { get; set; }
         public Guid ProjectID { get; set; }
@@ -15,6 +15,5 @@ namespace Infrastructure.Common.Model.Response
         public double TotalAmount { get; set; }
         public Guid StaffId { get; set; }
         public List<ResponseQuoteDetails> ResponseQuoteDetails { get; set; }
-
     }
 }

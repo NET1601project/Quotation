@@ -26,7 +26,7 @@ namespace Infrastructure.Service.Imp
             _tokensHandler = tokensHandler;
         }
 
-        public async Task<ResponseQuote> Add(CreateQuote create)
+        public async Task<ResponseQuote> AddV2(CreateQuoteV2 create)
         {
             var q = _mapper.Map<Quote>(create);
             var username = _tokensHandler.ClaimsFromToken();
@@ -35,7 +35,16 @@ namespace Infrastructure.Service.Imp
             q.Status = "ACTIVE";
             q.QuoteDate = DateTime.Now;
             q.TotalAmount = 0;
+            q.QuoteNumber = 0;
             var quote = await _unitofWork.QuoteRepositoryImp.Add(q);
+            foreach (var i in q.QuoteDetails)
+            {
+                var details = _mapper.Map<QuoteDetails>(i);
+                details.QuoteId = q.QuoteID;
+                details.Price = 0;
+                details.DateTime = DateTime.Now;
+                await _unitofWork.QuoteDetailRepositoryImp.Add(details);
+            }
             await _unitofWork.Commit();
             return _mapper.Map<ResponseQuote>(quote);
         }

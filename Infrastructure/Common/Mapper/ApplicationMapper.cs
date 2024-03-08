@@ -119,16 +119,29 @@ namespace Infrastructure.Common.Mapper
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
 
+            CreateMap<CreateQuoteV2, Quote>()
+               .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
+               .ForMember(p => p.QuoteDetails, act => act.MapFrom(src => src.CreateQuoteDetails));
+
+            CreateMap<CreateQuoteDetail, QuoteDetails>()
+               .ForMember(p => p.MaterialId, act => act.MapFrom(src => src.MaterialId))
+               .ForMember(p => p.numberMaterial, act => act.MapFrom(src => src.numberMaterial));
+
             CreateMap<Quote, ResponseQuote>()
                 .ForMember(p => p.QuoteID, act => act.MapFrom(src => src.QuoteID))
                 .ForMember(p => p.QuoteDate, act => act.MapFrom(src => src.QuoteDate))
                 .ForMember(p => p.Status, act => act.MapFrom(src => src.Status))
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.TotalAmount, act => act.MapFrom(src => src.TotalAmount))
-                .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId))
-                .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
+                .ForMember(p => p.ResponseQuoteDetails, act => act.MapFrom(src => src.QuoteDetails))
+                .ForMember(p => p.StaffId, act => act.MapFrom(src => src.StaffId));
 
-
+            CreateMap<QuoteDetails, ResponseQuoteDetails>()
+                .ForMember(p => p.MaterialId, act => act.MapFrom(src => src.MaterialId))
+                .ForPath(p => p.MaterialName, act => act.MapFrom(src => src.Material.MaterialName))
+                .ForMember(p => p.DateTime, act => act.MapFrom(src => src.DateTime))
+                .ForMember(p => p.NumberMaterial, act => act.MapFrom(src => src.numberMaterial))
+                .ForMember(p => p.Price, act => act.MapFrom(src => src.Price));
             //CreateMap<RefreshTokenRequest, RefreshToken>()
             //     .ForMember(p => p.Token, act => act.MapFrom(src => src.RefreshToken));
 

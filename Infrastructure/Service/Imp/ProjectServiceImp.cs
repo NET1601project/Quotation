@@ -101,9 +101,9 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetProjectByDate(date));
         }
 
-        public async Task<List<ResponseProject>> GetProjects()
+        public async Task<List<ResponseProjectV2>> GetProjects()
         {
-            return _mapper.Map<List<ResponseProject>>(await _unitofWork.ProjectRepositoryImp.GetAll());
+            return _mapper.Map<List<ResponseProjectV2>>(await _unitofWork.ProjectRepositoryImp.GetAll());
         }
     }
 }

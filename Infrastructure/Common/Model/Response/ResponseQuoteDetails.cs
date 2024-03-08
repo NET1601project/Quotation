@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Common.Model.Response
+{
+    public class ResponseQuoteDetails
+    {
+        public Guid MaterialId { get; set; }
+        public string MaterialName { get; set; }
+        public int NumberMaterial { get; set; }
+        public double Price { get; set; }
+        public DateTime DateTime { get; set; }
+    }
+}

@@ -13,5 +13,6 @@ namespace Infrastructure.Service
     {
         //Task<ResponseRoom> Add(CreateRoom create);
         Task<List<ResponseRoom>> GetAll();
+        Task<ResponseRoomV2> GetById(Guid id);
     }
 }

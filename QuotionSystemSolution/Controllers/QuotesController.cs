@@ -48,11 +48,10 @@ namespace QuotionSystemSolution.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<ResponseQuote>> PostQuote(CreateQuote quoteDetail)
+        public async Task<ActionResult<ResponseQuote>> PostQuote(CreateQuoteV2 quoteDetail)
         {
-            return Ok(await _quoteService.Add(quoteDetail));
+            return Ok(await _quoteService.AddV2(quoteDetail));
         }
-
         [HttpPatch]
         public async Task<ActionResult<ResponseQuote>> UpdateQoute(Guid id, string status)
         {

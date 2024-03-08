@@ -40,5 +40,10 @@ namespace Infrastructure.Service.Imp
         {
             return _mapper.Map<List<ResponseRoom>>(await _unitofWork.RoomRepositoryImp.GetAll());
         }
+
+        public async Task<ResponseRoomV2> GetById(Guid id)
+        {
+            return _mapper.Map<ResponseRoomV2>(await _unitofWork.RoomRepositoryImp.GetById(id));
+        }
     }
 }

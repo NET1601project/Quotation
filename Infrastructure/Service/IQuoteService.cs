@@ -10,7 +10,7 @@ namespace Infrastructure.Service
 {
     public interface IQuoteService
     {
-        Task<ResponseQuote> Add(CreateQuote create);
+        Task<ResponseQuote> AddV2(CreateQuoteV2 create);
         Task<ResponseQuote> Update(Guid id,string status);
         Task<List<ResponseQuote>> GetQuotes();
         Task<List<ResponseQuote>> GetQuotesByCustomer(DateTime date);
