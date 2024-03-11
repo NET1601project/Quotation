@@ -66,6 +66,7 @@ builder.Services.AddHttpContextAccessor();
 //            .AllowAnyHeader()
 //            .AllowAnyMethod()
 //            .AllowAnyOrigin()));
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -80,7 +81,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors();
-
+app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();

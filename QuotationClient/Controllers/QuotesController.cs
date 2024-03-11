@@ -7,11 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Application;
 using Domain;
+using System.Text.Json;
+using System.Net.Http.Headers;
+using Infrastructure.Common.Model.Response;
 
 namespace QuotationClient.Controllers
 {
     public class QuotesController : Controller
     {
+        private readonly HttpClient client = null;
+
+        public QuotesController()
+        {
+            client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            client.DefaultRequestHeaders.Accept.Add(contentType);
+        }
+
         public async Task<IActionResult> Index()
         {
             return View();
@@ -22,8 +34,9 @@ namespace QuotationClient.Controllers
             return View(id);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            await LoadMaterial();
             return View();
         }
 
@@ -43,6 +56,23 @@ namespace QuotationClient.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             return View();
+        }
+        private async Task LoadMaterial()
+        {
+
+            HttpResponseMessage roomResponse = await client.GetAsync("https://localhost:7222/api/Materials/GetMaterials");
+            string roomData = await roomResponse.Content.ReadAsStringAsync();
+
+            var roomOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            List<ResponseMaterial> materials = JsonSerializer.Deserialize<List<ResponseMaterial>>(roomData, roomOptions);
+            ViewData["MaterialID"] = new SelectList(materials.Select(c => new
+            {
+                Text = $"Name: {c.MaterialName} - UnitPrice: {c.UnitPrice} - Stock: {c.Stock}",
+                Value = c.MaterialID
+            }), "Value", "Text");
         }
     }
 }

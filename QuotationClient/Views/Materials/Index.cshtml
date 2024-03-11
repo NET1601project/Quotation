@@ -3,6 +3,25 @@
 @{
     ViewData["Title"] = "Index";
 }
+@* <style>
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        color: #555;
+        background: #ececec;
+        margin-top: 20px;
+    }
+
+    .project-list > tbody > tr > td {
+        /* padding: 12px 8px; */
+    }
+
+        .project-list > tbody > tr > td .avatar {
+            width: auto;
+            height: 50px;
+            border: 1px solid #CCC;
+        }
+</style> *@
 <div class="alldiv" id="checkRole" style="display: none;">
 
     <div id="error-message">
@@ -85,9 +104,9 @@
                 tableHtml += '<td>' + material.materialName + '</td>';
                 tableHtml += '<td>' + material.description + '</td>';
                 tableHtml += '<td>' + material.unitPrice + '</td>';
-                tableHtml += '<td>' + material.stock + '</td>';
+                tableHtml += '<td>' +  material.stock + '</td>';
                 tableHtml += '<td>' + material.createDate + '</td>';
-                tableHtml += '<td>' + material.image + '</td>';
+                tableHtml += '<td>' + '<img src="' + material.image + '" alt="Avatar" class="avatar img-circle" style="width: 100px; height: 62.27px;">' + '</td>';
                 tableHtml += '<td><button class="btn btn-primary detail-btn" data-material-id="' + material.materialID + '">Detail</button></td>';
 
                 tableHtml += '</tr>';

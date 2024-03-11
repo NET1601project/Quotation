@@ -17,6 +17,8 @@ namespace Infrastructure.Common.Model.Request
         [Required]
 
         public string Description { get; set; }
+        [Required]
+
         public List<CreateRoomDetail> CreateRoomDetails { get; set; }
     }
 }

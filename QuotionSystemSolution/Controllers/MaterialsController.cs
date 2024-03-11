@@ -10,6 +10,8 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using System.Text;
+using System.Text.Json;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -45,12 +47,10 @@ namespace QuotionSystemSolution.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<ResponseMaterial>> PostMaterials(CreateMaterial material)
+        public async Task<ActionResult<ResponseMaterial>> PostMaterials([FromForm] CreateMaterial material)
         {
             return Ok(await _materialService.Add(material));
         }
-
-
-
+        
     }
 }

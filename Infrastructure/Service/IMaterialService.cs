@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Infrastructure.Service
         Task<ResponseMaterial> Add(CreateMaterial create);
         Task<List<ResponseMaterial>> GetMaterial();
         Task<ResponseMaterial> GetMaterialById(Guid id);
+        //Task<string> UploadImage(IFormFile imageFile);
+
     }
 }
