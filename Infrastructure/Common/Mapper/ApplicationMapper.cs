@@ -141,6 +141,7 @@ namespace Infrastructure.Common.Mapper
                 .ForPath(p => p.MaterialName, act => act.MapFrom(src => src.Material.MaterialName))
                 .ForMember(p => p.DateTime, act => act.MapFrom(src => src.DateTime))
                 .ForMember(p => p.NumberMaterial, act => act.MapFrom(src => src.numberMaterial))
+                .ForMember(p => p.image, act => act.MapFrom(src => src.Material.Image))
                 .ForMember(p => p.Price, act => act.MapFrom(src => src.Price));
             //CreateMap<RefreshTokenRequest, RefreshToken>()
             //     .ForMember(p => p.Token, act => act.MapFrom(src => src.RefreshToken));

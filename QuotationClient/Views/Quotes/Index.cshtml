@@ -64,9 +64,7 @@
                 <th>
                     Project
                 </th>
-                <th>
-                    Material
-                </th>
+               
                 <th>StaffId</th>
                 <th>Details</th>
             </tr>
@@ -122,7 +120,7 @@
                         url: "https://localhost:7222/api/Quotes/GetQuote?id=" + qouteid,
                         success: function (response) {
                             console.log(response);
-                            window.location.href = '/QuoteDetails/Details?QuoteDetailId=' + qouteid;
+                            window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
                         },
                         error: function (xhr, status, error) {
                             console.error(xhr.responseText);
@@ -171,12 +169,10 @@
                 data.forEach(function (project) {
                     tableHtml += '<tr>';
                     tableHtml += '<td>' + project.quoteID + '</td>';
-                    tableHtml += '<td>' + project.quoteNumber + '</td>';
                     tableHtml += '<td>' + project.quoteDate + '</td>';
                     tableHtml += '<td>' + project.status + '</td>';
                     tableHtml += '<td>' + project.totalAmount + '</td>';
                     tableHtml += '<td>' + project.projectID + '</td>';
-                    tableHtml += '<td>' + project.materialID + '</td>';
                     tableHtml += '<td>' + project.staffId + '</td>';
                     tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
 
