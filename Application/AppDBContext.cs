@@ -44,6 +44,8 @@ namespace Application
             //    entity.ToTable("Account");
             //    entity.HasKey(c => c.AccountID);
             //    entity.HasIndex(e => e.Username)
+
+
             //        .IsUnique();
 
             //    entity.Property(e => e.AccountID)
