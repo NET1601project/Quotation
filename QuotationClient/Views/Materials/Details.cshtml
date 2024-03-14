@@ -49,8 +49,8 @@
         <dt class="col-sm-2">
             Image
         </dt>
-        <dd class="col-sm-10" id="Image">
-
+        <dd class="col-sm-10" >
+            <img src=""id="Image"/>
         </dd>
 
     </dl>
@@ -77,7 +77,7 @@
                     $('#UnitPrice').text(qou.unitPrice);
                     $('#Stock').text(qou.stock);
                     $('#CreateDate').text(qou.createDate);
-                    $('#Image').text(qou.image);
+                    $('#Image').attr('src', qou.image);
                 },
             })
         })
