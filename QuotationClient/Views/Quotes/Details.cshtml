@@ -15,12 +15,6 @@
 
         </dd>
         <dt class="col-sm-2">
-            QuoteNumber
-        </dt>
-        <dd class="col-sm-10" id="QuoteNumber">
-
-        </dd>
-        <dt class="col-sm-2">
             QuoteDate
         </dt>
         <dd class="col-sm-10" id="QuoteDate">
@@ -41,18 +35,13 @@
         <dd class="col-sm-10" id="Project">
         </dd>
         <dt class="col-sm-2">
-            Material
-        </dt>
-        <dd class="col-sm-10" id="Material">
-            
-        </dd>
-        <dt class="col-sm-2">
             Staff
         </dt>
         <dd class="col-sm-10" id="Staff">
 
         </dd>
     </dl>
+    <div id="qouteDetails"></div>
 </div>
 <div>
     <a href="#" id="editLink">Edit</a>
@@ -68,7 +57,7 @@
             console.log(quoteDetailId);
             $.ajax({
                 method: "GET",
-                url: "https://localhost:7222/api/Quotes/GetQuoteDetail?id=" + quoteDetailId,
+                url: "https://localhost:7222/api/Quotes/GetQuote?id=" + quoteDetailId,
                 success: function (qou) {
                     $('#QuoteID').text(qou.quoteID);
                     $('#QuoteNumber').text(qou.quoteNumber);
@@ -79,7 +68,22 @@
                     $('#Material').text(qou.materialID);
                     $('#Staff').text(qou.staffId);
                     $('#editLink').attr('href', '/Quotes/Edit?quouteId=' + qou.quoteID);
+                    console.log(qou);
+                    if (qou.responseQuoteDetails.length > 0) {
+                        var detailsHtml = '<h4>Qoute Details</h4><table class="table"><thead><tr><th>Material ID</th><th>Material Name</th><th>Number</th><th>Price</th></tr></thead><tbody>';
 
+                        qou.responseQuoteDetails.forEach(function (detail) {
+                            detailsHtml += '<tr>';
+                            detailsHtml += '<td>' + "<img src=" + detail.image + " style='height: 80px; width: 150px;' alt='Alternate Text' />" + '</td>';
+                            detailsHtml += '<td>' + detail.materialName + '</td>';
+                            detailsHtml += '<td>' + detail.numberMaterial + '</td>';
+                            detailsHtml += '<td>' + detail.price + '</td>';
+                            detailsHtml += '</tr>';
+                        });
+
+                        detailsHtml += '</tbody></table>';
+                        $('#qouteDetails').html(detailsHtml);
+                    }
                 },
                 error: function (xhr, status, error) {
                     var errorObj = JSON.parse(xhr.responseText);
