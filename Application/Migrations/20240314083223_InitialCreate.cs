@@ -93,6 +93,7 @@ namespace Application.Migrations
                     ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Bargain = table.Column<double>(type: "float", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -249,6 +250,12 @@ namespace Application.Migrations
                 name: "IX_QuoteDetails_MaterialId",
                 table: "QuoteDetails",
                 column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuoteDetails_QuoteId_MaterialId",
+                table: "QuoteDetails",
+                columns: new[] { "QuoteId", "MaterialId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomDetails_RoomId",

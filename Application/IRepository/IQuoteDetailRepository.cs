@@ -10,5 +10,6 @@ namespace Application.IRepository
 {
     public interface IQuoteDetailRepository : IGenericRepository<QuoteDetails>
     {
+        Task<QuoteDetails> CheckByQuoteIdAndMaterialId(Guid quoteId, Guid materialId);
     }
 }

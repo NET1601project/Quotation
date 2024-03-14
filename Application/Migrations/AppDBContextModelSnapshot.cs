@@ -132,6 +132,9 @@ namespace Application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("Bargain")
+                        .HasColumnType("float");
+
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -210,6 +213,9 @@ namespace Application.Migrations
                     b.HasKey("QuoteId", "MaterialId");
 
                     b.HasIndex("MaterialId");
+
+                    b.HasIndex("QuoteId", "MaterialId")
+                        .IsUnique();
 
                     b.ToTable("QuoteDetails");
                 });

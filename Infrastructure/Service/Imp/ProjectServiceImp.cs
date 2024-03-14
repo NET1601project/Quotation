@@ -38,7 +38,6 @@ namespace Infrastructure.Service.Imp
 
             foreach (var i in projects.Rooms)
             {
-
                 var room = _mapper.Map<Room>(i);
                 await _unitofWork.RoomRepositoryImp.Add(room);
             }

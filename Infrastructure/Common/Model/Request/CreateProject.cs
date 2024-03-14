@@ -11,6 +11,7 @@ namespace Infrastructure.Common.Model.Request
     {
         public string ProjectName { get; set; }
         public DateTime EndDate { get; set; }
+        public double Bargain { get; set; }
         public List<CreateRoom> createRooms { get; set; }
     }
 }

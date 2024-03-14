@@ -14,6 +14,7 @@ namespace Application.ConfigurationDB
         public void Configure(EntityTypeBuilder<QuoteDetails> builder)
         {
             builder.HasKey(c => new { c.QuoteId, c.MaterialId });
+            builder.HasIndex(c => new { c.QuoteId, c.MaterialId }).IsUnique();
             builder.HasOne(d => d.Quote)
                 .WithMany(d => d.QuoteDetails)
                 .HasForeignKey(d => d.QuoteId)

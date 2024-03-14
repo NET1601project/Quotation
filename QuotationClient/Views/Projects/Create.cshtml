@@ -18,8 +18,13 @@
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Bargain" class="control-label"></label>
+                <input asp-for="Bargain" class="form-control" type="number" />
+                <span asp-validation-for="Bargain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" type="date"/>
+                <input asp-for="EndDate" class="form-control" type="date" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div id="roomFieldsContainer">
@@ -63,7 +68,9 @@
 
                 var formData = {
                     projectName: $('#ProjectName').val(),
+
                     endDate: $('#EndDate').val(),
+                    bargain: $('#Bargain').val(),
                     createRooms: []
                 };
 
@@ -91,6 +98,7 @@
                         window.location.href = '@Url.Action("Index", "Projects")';
                     },
                     error: function (xhr, status, error) {
+                        alert(xhr.responseText);
                         var errorObj = JSON.parse(xhr.responseText);
                         var errors = errorObj.errors;
                         var errorMessages = "";
@@ -113,20 +121,20 @@
             roomIndex++;
             var roomFieldsContainer = $('#roomFieldsContainer');
             var roomHtml = `
-              <div class="roomFields" id="room${roomIndex}">
-                <div class="form-group">
-                  <label for="roomName${roomIndex}">RoomName</label>
-                  <input type="text" id="roomName${roomIndex}" class="form-control" >
-                </div>
-                <div class="form-group">
-                  <label for="size${roomIndex}">Size</label>
-                  <input type="text" id="size${roomIndex}" class="form-control" >
-                </div>
-                <div class="form-group">
-                  <label for="description${roomIndex}">Description</label>
-                  <input type="text" id="description${roomIndex}" class="form-control">
-                </div>
-              </div>`;
+                      <div class="roomFields" id="room${roomIndex}">
+                        <div class="form-group">
+                          <label for="roomName${roomIndex}">RoomName</label>
+                          <input type="text" id="roomName${roomIndex}" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                          <label for="size${roomIndex}">Size</label>
+                          <input type="text" id="size${roomIndex}" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                          <label for="description${roomIndex}">Description</label>
+                          <input type="text" id="description${roomIndex}" class="form-control">
+                        </div>
+                      </div>`;
 
             roomFieldsContainer.append(roomHtml);
         }

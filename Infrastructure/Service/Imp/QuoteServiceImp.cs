@@ -36,24 +36,29 @@ namespace Infrastructure.Service.Imp
             q.QuoteDate = DateTime.Now;
             q.TotalAmount = 0;
             q.QuoteNumber = 0;
-            var quote = await _unitofWork.QuoteRepositoryImp.Add(q);
             var uniqueRoomIds = new HashSet<Guid>();
 
             foreach (var i in q.QuoteDetails)
             {
+                if (uniqueRoomIds.Contains(i.MaterialId))
+                {
+                    throw new Exception($"Duplicate Material {i.MaterialId} found in the Qoute Details.");
+                }
+
+                uniqueRoomIds.Add(i.MaterialId);
                 var details = _mapper.Map<QuoteDetails>(i);
+
                 details.QuoteId = q.QuoteID;
                 details.Price = 0;
                 details.DateTime = DateTime.Now;
-                if (!uniqueRoomIds.Add(details.MaterialId))
-                {
-                    throw new Exception($"Duplicate Material {details.MaterialId} && {details.Material.MaterialName} found in the details.");
 
-                }
-                details.Price *= details.numberMaterial;
+                var material = await _unitofWork.MaterialRepositoryImp.GetMaterialById(details.MaterialId);
+                details.Price = material.UnitPrice * details.numberMaterial;
                 q.TotalAmount += details.Price;
                 await _unitofWork.QuoteDetailRepositoryImp.Add(details);
             }
+            var quote = await _unitofWork.QuoteRepositoryImp.Add(q);
+
             await _unitofWork.Commit();
             return _mapper.Map<ResponseQuote>(quote);
         }

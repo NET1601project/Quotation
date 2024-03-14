@@ -22,7 +22,12 @@ namespace Application.IRepository.Imp
 
         public async Task<Material> GetMaterialById(Guid id)
         {
-            return await _context.Set<Material>().Include(c=>c.QuoteDetails).FirstOrDefaultAsync(c=>c.MaterialID==id);
+            var check = await _context.Set<Material>().Include(c => c.QuoteDetails).FirstOrDefaultAsync(c => c.MaterialID == id);
+            if (check == null)
+            {
+                throw new Exception("not found");
+            }
+            return check;
         }
     }
 }

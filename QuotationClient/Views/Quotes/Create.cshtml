@@ -602,7 +602,7 @@
 
                 <div class="project-info-box">
                     <p id="Detail"></p>
-                    <p class="mb-0"><b>Budget:</b> $500</p>
+                    <p class="mb-0" id="Budget"><b>Budget:</b> 500 </p>
                 </div>
 
             </div><!-- / column -->
@@ -722,6 +722,8 @@
                 success: function (data) {
                     data.forEach(function (project) {
                         $('#ProjectID').append('<option value="' + project.projectID + '">' + 'Project ID: ' + project.projectID + ' -  Name: ' + project.projectName + '</option>');
+                        $('#Budget').html('<b>Budget:</b> ' + project.bargain);
+
                     });
                     console.log(data);
                 }
@@ -806,26 +808,26 @@
             roomIndex++;
             var roomFieldsContainer = $('#materialFieldsContainer');
             var quotedetails = `
-                                                        <div class="materialField" id="room${roomIndex}">
-                                                            <div class="form-group">
-                                                                        <label for="CreateQuoteDetails[${roomIndex}].MaterialId" class="control-label"></label>
-                                                                <select class="form-control material-select"  name="CreateQuoteDetails[${roomIndex}].MaterialId">
-                                                        `;
+                                                                        <div class="materialField" id="room${roomIndex}">
+                                                                            <div class="form-group">
+                                                                                        <label for="CreateQuoteDetails[${roomIndex}].MaterialId" class="control-label"></label>
+                                                                                <select class="form-control material-select"  name="CreateQuoteDetails[${roomIndex}].MaterialId">
+                                                                        `;
 
             materialoptions.forEach(option => {
                 quotedetails += `<option value="${option.value}">${option.text}</option>`;
             });
 
             quotedetails += `
-                                                                </select>
-                                                            </div>
-                                                            <div id="selectedImageContainer">
-                                                                <img class="selected-image" src="" alt="Selected Image" style="height:80px;width:150px">
-                                                                <span class="selected-material-info" id="selected-material-info${roomIndex}"></span>
-                                                                <label class="select-number">Number: </label>
-                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" />
-                                                            </div>
-                                                        </div>`;
+                                                                                </select>
+                                                                            </div>
+                                                                            <div id="selectedImageContainer">
+                                                                                <img class="selected-image" src="" alt="Selected Image" style="height:80px;width:150px">
+                                                                                <span class="selected-material-info" id="selected-material-info${roomIndex}"></span>
+                                                                                <label class="select-number">Number: </label>
+                                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" />
+                                                                            </div>
+                                                                        </div>`;
 
             roomFieldsContainer.append(quotedetails);
         }
@@ -907,6 +909,8 @@
                 },
                 error: function (xhr, status, error) {
                     // console.error(error);
+                    console.log(xhr.responseText);
+                    alert(xhr.responseText);
                     var errorObj = JSON.parse(xhr.responseText);
                     var errors = errorObj.errors;
                     var errorMessages = "";

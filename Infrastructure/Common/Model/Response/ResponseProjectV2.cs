@@ -13,6 +13,8 @@ namespace Infrastructure.Common.Model.Response
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Status { get; set; }
+        public double Bargain { get; set; }
+
         public Guid CustomerId { get; set; }
         public List<ResponseRoomV2> RoomList { get; set; }
     }

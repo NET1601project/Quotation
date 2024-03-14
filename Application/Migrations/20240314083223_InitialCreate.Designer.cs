@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240308044054_InitialCreate")]
+    [Migration("20240314083223_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,6 +134,9 @@ namespace Application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("Bargain")
+                        .HasColumnType("float");
+
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -212,6 +215,9 @@ namespace Application.Migrations
                     b.HasKey("QuoteId", "MaterialId");
 
                     b.HasIndex("MaterialId");
+
+                    b.HasIndex("QuoteId", "MaterialId")
+                        .IsUnique();
 
                     b.ToTable("QuoteDetails");
                 });
