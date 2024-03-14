@@ -95,8 +95,9 @@
                         console.log(response);
                         window.location.href = '@Url.Action("Index", "Materials")';
                     },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             });

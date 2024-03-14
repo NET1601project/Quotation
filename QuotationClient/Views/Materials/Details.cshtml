@@ -78,7 +78,10 @@
                     $('#Stock').text(qou.stock);
                     $('#CreateDate').text(qou.createDate);
                     $('#Image').attr('src', qou.image);
-                },
+                }, error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
+                }
             })
         })
 

@@ -97,17 +97,9 @@
                         console.log(response);
                         window.location.href = '@Url.Action("Index", "Projects")';
                     },
-                    error: function (xhr, status, error) {
-                        alert(xhr.responseText);
-                        var errorObj = JSON.parse(xhr.responseText);
-                        var errors = errorObj.errors;
-                        var errorMessages = "";
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                errorMessages += key + ": " + errors[key] + "\n";
-                            }
-                        }
-                        alert(errorMessages);
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             });

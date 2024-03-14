@@ -3,6 +3,7 @@
 <div id="adminSection"></div>
 
 <div id="customerSection"></div>
+<button id="logoutButton" type="submit">Logout</button>
 
 
 <script>
@@ -10,20 +11,24 @@
     var role = localStorage.getItem("role");
     console.log(role);
 
+    document.getElementById('logoutButton').addEventListener('click', function (){
+        localStorage.clear();
+        window.location.href = "/";
+    });
+
     if (token.length >= 312 && role === "STAFF") {
         console.log(role);
-    
+
         var adminSection = document.getElementById('adminSection');
         adminSection.innerHTML = "<p>Information:</p>";
 
         var adminFormsHTML = `
-                                    <button id="customerButton" type="submit">Go to Customer</button>
-                                            <button id="projectButton" type="submit">Go to Projects</button>
-                                            <button id="materialButton"type="submit">Go to Materials</button>
-                                                            <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-                                                                    <button id="staffButton"type="submit">Go to Staffs</button>
-                                                <button type="submit">Logout</button>
-                            `;
+                                        <button id="customerButton" type="submit">Go to Customer</button>
+                                                <button id="projectButton" type="submit">Go to Projects</button>
+                                                <button id="materialButton"type="submit">Go to Materials</button>
+                                                                <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+                                                                        <button id="staffButton"type="submit">Go to Staffs</button>
+                                `;
         adminSection.innerHTML += adminFormsHTML;
         document.getElementById('customerButton').addEventListener('click', function () {
             window.location.href = "/Customers/Index";
@@ -52,14 +57,13 @@
         adminSection.innerHTML = "<p>Information:</p>";
 
         var adminFormsHTML = `
-                                                <button id="projectButton" type="submit">Go to Projects</button>
-                                                <button id="materialButton"type="submit">Go to Materials</button>
-                                                                <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-                                                                        <button id="staffButton"type="submit">Go to Staffs</button>
-                                                    <button type="submit">Logout</button>
-                                `;
+                                                    <button id="projectButton" type="submit">Go to Projects</button>
+                                                    <button id="materialButton"type="submit">Go to Materials</button>
+                                                                    <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+                                                                            <button id="staffButton"type="submit">Go to Staffs</button>
+                                    `;
         adminSection.innerHTML += adminFormsHTML;
-       
+
         document.getElementById('projectButton').addEventListener('click', function () {
             window.location.href = "/Projects/Index";
         });

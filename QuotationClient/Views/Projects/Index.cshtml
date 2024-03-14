@@ -128,10 +128,9 @@
                         displayProjects(data);
                         console.log(data);
                     },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log('Error:', xhr.responseText);
-                        var errorMessage = 'An error occurred: ' + xhr.responseText;
-                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             }
@@ -161,8 +160,9 @@
                             window.location.href = '/Projects/Details?projectId=' + projectId;
 
                         },
-                        error: function (xhr, status, error) {
-                            console.error(xhr.responseText);
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.title);
                         }
                     });
                 });
@@ -199,11 +199,9 @@
                         displayProjects(data);
                         console.log(data);
                     },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log('Error:', xhr.responseText);
-                        alert(xhr.responseText);
-                        var errorMessage = 'An error occurred: ' + xhr.responseText;
-                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             }
@@ -233,8 +231,9 @@
                             window.location.href = '/Projects/Details?projectId=' + projectId;
 
                         },
-                        error: function (xhr, status, error) {
-                            console.error(xhr.responseText);
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.title);
                         }
                     });
                 });

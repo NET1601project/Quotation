@@ -11,6 +11,8 @@ namespace Application.IRepository
     public interface IProjectRepository : IGenericRepository<Project>
     {
         Task<List<Project>> GetAll();
+        Task<List<Project>> GetAllACTIVE();
+
         Task<Project> GetProjectById(Guid id);
         Task<List<Project>> GetProjectByCustomerAndDate(Guid id,DateTime date);
         Task<List<Project>> GetProjectByDate(DateTime date);

@@ -3,6 +3,7 @@ using Application.IRepository;
 using Application.IRepository.Imp;
 using Domain;
 using Infrastructure.Common.Mapper;
+using Infrastructure.Common.Model.Response;
 using Infrastructure.IUnitOfWork;
 using Infrastructure.IUnitOfWork.UnitOfWorkImp;
 using Infrastructure.Service;
@@ -12,6 +13,7 @@ using Infrastructure.Service.Security;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.ModelBuilder;
 using QuotionSystemSolution.Configuration;
+using QuotionSystemSolution.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationBuilder()
@@ -21,12 +23,12 @@ var configuration = new ConfigurationBuilder()
 builder.Services.DependencyInjection(configuration);
 
 ODataConventionModelBuilder oData = new ODataConventionModelBuilder();
-oData.EntitySet<Customer>("Customers");
-oData.EntitySet<Account>("Accounts");
+//oData.EntitySet<Customer>("Customers");
+//oData.EntitySet<Account>("Accounts");
 oData.EntitySet<Project>("Projects");
-oData.EntitySet<Quote>("Quotes");
-oData.EntitySet<Room>("Rooms");
-oData.EntitySet<Staff>("Staffs");
+//oData.EntitySet<Quote>("Quotes");
+//oData.EntitySet<Room>("Rooms");
+//oData.EntitySet<Staff>("Staffs");
 
 var edmModel = oData.GetEdmModel();
 builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));
@@ -52,7 +54,7 @@ builder.Services.AddTransient<IStaffRepository, StaffRepositoryImp>();
 builder.Services.AddTransient<IQuoteDetailRepository, QuoteDetailRepository>();
 builder.Services.AddTransient<IRoomDetailRepository, RoomDetailRepository>();
 builder.Services.AddScoped<ITokensHandler, TokensHandler>();
-builder.Services.AddAutoMapper(typeof(ApplicationMapper).Assembly);
+builder.Services.AddAutoMapper(typeof(ApplicationMapper));
 
 
 builder.Services.AddControllers();
@@ -75,6 +77,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 app.UseODataBatching();
 
 app.UseHttpsRedirection();

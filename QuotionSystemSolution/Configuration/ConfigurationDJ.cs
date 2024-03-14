@@ -4,6 +4,7 @@ using Infrastructure.Common.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuotionSystemSolution.Middlewares;
 using System.Diagnostics;
 using System.Text;
 
@@ -23,7 +24,7 @@ namespace QuotionSystemSolution.Configuration
             //services.AddSingleton(appConfiguration);
             services.AddDJSwagger();
             // ADD MIDDLEWARE
-            //services.AddSingleton<GlobalExceptionMiddleware>();
+            services.AddSingleton<GlobalExceptionMiddleware>();
             services.AddSwaggerGen();
             services.AddHealthChecks();
             services.AddSingleton<Stopwatch>();

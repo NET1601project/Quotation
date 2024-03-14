@@ -112,9 +112,9 @@
 
 
                         },
-                        error: function (xhr, status, error) {
-                            console.error(error);
-                            alert(xhr.responseText)
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.title);
                         }
                     });
                 }

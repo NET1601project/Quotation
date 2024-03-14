@@ -87,8 +87,9 @@
                         $('#bookingDetails').html(detailsHtml);
                     }
                 },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
+                error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
                 }
             });
             $('#edit-link').click(function () {

@@ -11,7 +11,6 @@ using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Microsoft.AspNetCore.Authorization;
-using System.ComponentModel.DataAnnotations;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -23,17 +22,25 @@ namespace QuotionSystemSolution.Controllers
 
         public ProjectsController(IProjectService projectService)
         {
-
             _projectService = projectService;
         }
 
         [HttpGet]
         //[Authorize]
+
         public async Task<ActionResult<IEnumerable<List<ResponseProjectV2>>>> GetProjects()
         {
 
             return Ok(await _projectService.GetProjects());
         }
+        [HttpGet]
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<List<ResponseProjectV2>>>> GetProjectsWithStatusACTIVE()
+        {
+
+            return Ok(await _projectService.GetProjects());
+        }
+        
         [HttpGet]
 
         public async Task<ActionResult<ResponseProject>> GetProjectById(Guid projectId)

@@ -68,8 +68,9 @@
                     displayCustomers(data);
                     console.log(data);
                 },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error:', errorThrown);
+                error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
                 }
             });
         });
@@ -101,8 +102,9 @@
                         window.location.href = '/Staffs/Details?staffId=' + staffId;
 
                     },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             });

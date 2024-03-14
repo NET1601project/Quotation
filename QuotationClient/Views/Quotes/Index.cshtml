@@ -91,10 +91,9 @@
                         displayProjects(data);
                         console.log(data);
                     },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.log('Error:', xhr.responseText);
-                        var errorMessage = 'An error occurred: ' + xhr.responseText;
-                        $('#error-message').text("An error occurred: ERROR PERMISSION");
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             });
@@ -122,8 +121,9 @@
                             console.log(response);
                             window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
                         },
-                        error: function (xhr, status, error) {
-                            console.error(xhr.responseText);
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.title);
                         }
                     });
                 });
@@ -188,8 +188,9 @@
                             console.log(response);
                             window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
                         },
-                        error: function (xhr, status, error) {
-                            console.error(xhr.responseText);
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.title);
                         }
                     });
                 });

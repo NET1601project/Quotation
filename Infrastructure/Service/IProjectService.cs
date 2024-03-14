@@ -18,5 +18,6 @@ namespace Infrastructure.Service
         Task<ResponseProject> GetProjectById(Guid id);
         Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date);
         Task<List<ResponseProject>> GetProjectByStaffAndDate(DateTime date);
+
     }
 }

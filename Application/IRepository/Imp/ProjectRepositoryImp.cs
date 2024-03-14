@@ -17,7 +17,12 @@ namespace Application.IRepository.Imp
 
         public async Task<List<Project>> GetAll()
         {
-            return await _context.Set<Project>().Include(c => c.Rooms).ThenInclude(c=>c.Details).OrderByDescending(c => c.StartDate).ToListAsync();
+            return await _context.Set<Project>().Include(c => c.Rooms).ThenInclude(c => c.Details).OrderByDescending(c => c.StartDate).ToListAsync();
+        }
+       
+        public async Task<List<Project>> GetAllACTIVE()
+        {
+            return await _context.Set<Project>().Include(c => c.Rooms).ThenInclude(c => c.Details).OrderByDescending(c => c.StartDate).Where(c => c.Status.Equals("DONE")).ToListAsync();
         }
 
         public async Task<List<Project>> GetProjectByCustomer(Guid id)

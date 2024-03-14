@@ -80,7 +80,10 @@
                     $('#Username').text(qou.account.username);
                     $('#Password').text(qou.account.password);
                     $('#Role').text(qou.account.role);
-                },
+                }, error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
+                }
             })
         })
 

@@ -101,6 +101,11 @@ namespace Infrastructure.Service.Imp
                 throw new Exception("Can not Update STATUS " + status);
             }
             quote.Status = status;
+            if (quote.Status.Equals("DONE"))
+            {
+                var project = await _unitofWork.ProjectRepositoryImp.GetProjectById(quote.ProjectID);
+                await _unitofWork.ProjectRepositoryImp.Update(project);
+            }
             await _unitofWork.QuoteRepositoryImp.Update(quote);
             await _unitofWork.Commit();
             return _mapper.Map<ResponseQuote>(quote);

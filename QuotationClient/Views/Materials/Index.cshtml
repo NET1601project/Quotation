@@ -87,10 +87,9 @@
                     displayProjects(data);
                     console.log(data);
                 },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error:', xhr.responseText)
-                    var tableHtml = 'An error occurred.';
-                    $('#error-message').text(xhr.responseText);
+                error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
                 }
 
             });
@@ -123,8 +122,9 @@
                         window.location.href = '/Materials/Details?materialId=' + materialId;
 
                     },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
                 });
             });

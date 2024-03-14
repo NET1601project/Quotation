@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Infrastructure.Common.Model.Response;
 using AutoMapper;
 using Infrastructure.Service.Security;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Service.Imp
 {
@@ -74,6 +76,8 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.Commit();
             return _mapper.Map<ResponseProjectV2>(projects);
         }
+
+       
 
         public async Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date)
         {
