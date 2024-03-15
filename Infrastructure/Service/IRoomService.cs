@@ -12,7 +12,12 @@ namespace Infrastructure.Service
     public interface IRoomService
     {
         //Task<ResponseRoom> Add(CreateRoom create);
-        Task<List<ResponseRoom>> GetAll();
+        Task<List<ResponseRoomV2>> GetAll();
+        //GetRoomByCustomer
+        Task<List<ResponseRoomV2>> GetRoomByCustomer();
+
         Task<ResponseRoomV2> GetById(Guid id);
+        Task<ResponseRoomV2> Edit(Guid id, CreateRoom createRoom);
+        Task<ResponseRoomDetail> EditDetail(Guid id, CreateRoomDetail createRoomDetail);
     }
 }

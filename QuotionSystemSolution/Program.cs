@@ -11,6 +11,7 @@ using Infrastructure.Service.Imp;
 using Infrastructure.Service.Imp.Security;
 using Infrastructure.Service.Security;
 using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
 using QuotionSystemSolution.Configuration;
 using QuotionSystemSolution.Middlewares;
@@ -34,7 +35,9 @@ var edmModel = oData.GetEdmModel();
 builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDBContext>();
+//builder.Services.AddDbContext<AppDBContext>();
+builder.Services.AddDbContext<AppDBContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("MyDb")));
 builder.Services.AddTransient<IUnitofWork, UnitofWork>();
 
 builder.Services.AddTransient<IAccountService, AccountServiceImp>();

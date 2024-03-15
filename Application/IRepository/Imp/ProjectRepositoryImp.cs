@@ -22,7 +22,7 @@ namespace Application.IRepository.Imp
        
         public async Task<List<Project>> GetAllACTIVE()
         {
-            return await _context.Set<Project>().Include(c => c.Rooms).ThenInclude(c => c.Details).OrderByDescending(c => c.StartDate).Where(c => c.Status.Equals("DONE")).ToListAsync();
+            return await _context.Set<Project>().Include(c => c.Rooms).ThenInclude(c => c.Details).OrderByDescending(c => c.StartDate).Where(c => c.Status.Equals("ACTIVE")).ToListAsync();
         }
 
         public async Task<List<Project>> GetProjectByCustomer(Guid id)

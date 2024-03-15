@@ -77,7 +77,18 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<ResponseProjectV2>(projects);
         }
 
-       
+        public async Task<ResponseProjectV2> Edit(Guid id, UpdateProject up)
+        {
+            var project = await _unitofWork.ProjectRepositoryImp.GetProjectById(id);
+            if (!project.Status.Equals("ACTIVE"))
+            {
+                throw new Exception("can't update this project");
+            }
+            var update = _mapper.Map(up, project);
+            await _unitofWork.ProjectRepositoryImp.Update(update);
+            await _unitofWork.Commit();
+            return _mapper.Map<ResponseProjectV2>(update);
+        }
 
         public async Task<List<ResponseProject>> GetProjectByCustomerAndDate(DateTime date)
         {
@@ -107,6 +118,11 @@ namespace Infrastructure.Service.Imp
         public async Task<List<ResponseProjectV2>> GetProjects()
         {
             return _mapper.Map<List<ResponseProjectV2>>(await _unitofWork.ProjectRepositoryImp.GetAll());
+        }
+
+        public async Task<List<ResponseProjectV2>> GetProjectsStatusACTIVE()
+        {
+            return _mapper.Map<List<ResponseProjectV2>>(await _unitofWork.ProjectRepositoryImp.GetAllACTIVE());
         }
     }
 }

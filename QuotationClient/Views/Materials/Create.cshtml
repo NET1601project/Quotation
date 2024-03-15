@@ -65,7 +65,7 @@
 
     <script>
         $(document).ready(function () {
-            var token = localStorage.getItem('jwtToken')
+            var token = localStorage.getItem('jwtToken');
 
             $('#createMaterialForm').submit(function (e) {
                 e.preventDefault();
@@ -82,14 +82,14 @@
                     type: "POST",
                     url: "https://localhost:7222/api/Materials/PostMaterials",
                     // contentType: "multipart/form-data",
-                    contentType: false, 
-                    processData: false, 
+                    contentType: false,
+                    processData: false,
 
                     headers: {
                         'Authorization': 'Bearer ' + token
                     },
-                    data: JSON.stringify(formData),
-                    data: formData, // Pass FormData directly
+                    // data: JSON.stringify(formData),
+                    data: formData, 
 
                     success: function (response) {
                         console.log(response);

@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Projects\Edit.cshtml~RF20aeed9.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Home\contact.cshtml" />
     <None Include="Views\Home\indexx.cshtml" />
     <None Include="Views\Home\listing.cshtml" />

@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="editMaterialForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaterialID" />
             <div class="form-group">
@@ -35,15 +35,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
+                <input asp-for="CreateDate" class="form-control" readonly="true" />
                 <span asp-validation-for="CreateDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
+                <input asp-for="Image" type="file" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -56,5 +56,66 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var token = localStorage.getItem('jwtToken')
+
+        $(document).ready(function () {
+            // e.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            const materialId = urlParams.get('materialId');
+            console.log(materialId);
+            getbyid(materialId);
+            $('#editMaterialForm').submit(function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                $.ajax({
+                    type: "PUT",
+                    url: "https://localhost:7222/api/Materials/PutMaterial?id=" + materialId,
+                    accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
+                    // contentType: "multipart/form-data",
+                    contentType: false,
+                    processData: false,
+
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    data: formData,
+                    success: function (response) {
+                        console.log("DUY", response);
+                        window.location.href = '@Url.Action("Index", "Materials")';
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
+                    }
+                });
+                console.log(formData);
+
+            });
+        })
+        function getbyid(materialID) {
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/Materials/GetMaterialById?id=" + materialID,
+                success: function (qou) {
+                    $('#MaterialName').val(qou.materialName);
+                    $('#Description').val(qou.description);
+                    $('#UnitPrice').val(qou.unitPrice);
+                    $('#Stock').val(qou.stock);
+                    $('#CreateDate').val(qou.createDate);
+                    $('#Image').val(qou.image);
+
+                    console.log(qou);
+                },
+            })
+        }
+
+    </script>
+
+
 }

@@ -16,31 +16,31 @@
         <dd class="col-sm-10" id="ProjectId">
 
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             ProjectName
         </dt>
         <dd class="col-sm-10" id="ProjectName">
-            
+
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             StartDate
         </dt>
         <dd class="col-sm-10" id="StartDate">
-            
+
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             EndDate
         </dt>
         <dd class="col-sm-10" id="EndDate">
-            
+
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Status
         </dt>
         <dd class="col-sm-10" id="Status">
-            
+
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Customer
         </dt>
         <dd class="col-sm-10" id="Customer">
@@ -50,7 +50,7 @@
     </div>
 </div>
 <div>
-    @* <a asp-action="Edit" asp-route-id="@Model?.ProjectID">Edit</a> | *@
+    <a href="#" id="editproject">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 @section scripts {
@@ -70,6 +70,8 @@
                     $('#EndDate').text(booking.endDate);
                     $('#Status').text(booking.status);
                     $('#Customer').text(booking.customerId);
+                    $('#editproject').attr('href', '/Projects/Edit?projectId=' + booking.projectID);
+                    // $('#editLink').attr('href', '/Materials/Edit?materialId=' + qou.materialID);
 
                     if (booking.roomList.length > 0) {
                         var detailsHtml = '<h4>Booking Details</h4><table class="table"><thead><tr><th>Room ID</th><th>Room Type Name</th><th>Size</th><th>Description</th></tr></thead><tbody>';

@@ -79,5 +79,17 @@ namespace Infrastructure.Service.Imp
                 return imageUrl;
             }
         }
+
+        public async Task<ResponseMaterial> Edit(Guid id, CreateMaterial createMaterial)
+        {
+            var material = await _unitofWork.MaterialRepositoryImp.GetMaterialById(id);
+            var update = _mapper.Map(createMaterial, material);
+
+            var image = await UploadImageAsync(createMaterial.Image);
+            material.Image = image;
+            await _unitofWork.MaterialRepositoryImp.Update(update);
+            await _unitofWork.Commit();
+            return _mapper.Map<ResponseMaterial>(material);
+        }
     }
 }

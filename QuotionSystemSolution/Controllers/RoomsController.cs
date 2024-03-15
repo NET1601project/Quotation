@@ -10,6 +10,7 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuotionSystemSolution.Controllers
 {
@@ -24,7 +25,7 @@ namespace QuotionSystemSolution.Controllers
             _roomService = roomService;
         }
         [HttpGet]
-        public async Task<ActionResult<ResponseRoom>> GetRooms()
+        public async Task<ActionResult<ResponseRoomV2>> GetRooms()
         {
             return Ok(await _roomService.GetAll());
         }
@@ -33,12 +34,22 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _roomService.GetById(id));
         }
-        //[HttpPost]
-        //public async Task<ActionResult<ResponseRoom>> PostRooms(CreateRoom room)
-        //{
-        //    return Ok(await _roomService.Add(room));
-        //}
+        [HttpPatch]
+        public async Task<ActionResult<ResponseRoomV2>> PatchRoom(Guid id, CreateRoom room)
+        {
+            return Ok(await _roomService.Edit(id, room));
+        }
 
-
+        [HttpPatch]
+        public async Task<ActionResult<ResponseRoomDetail>> PatchRoomDetails(Guid id, CreateRoomDetail room)
+        {
+            return Ok(await _roomService.EditDetail(id, room));
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<List<ResponseRoomDetail>>> GetRoomByCustomer()
+        {
+            return Ok(await _roomService.GetRoomByCustomer());
+        }
     }
 }

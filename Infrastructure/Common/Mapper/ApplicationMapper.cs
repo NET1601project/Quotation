@@ -60,6 +60,14 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.Bargain, act => act.MapFrom(src => src.Bargain))
             .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName));
 
+
+            //-----------------------------------------------------------------------
+
+            CreateMap<UpdateProject, Project>()
+            .ForMember(p => p.EndDate, act => act.MapFrom(src => src.EndDate))
+            .ForMember(p => p.Bargain, act => act.MapFrom(src => src.Bargain))
+            .ForMember(p => p.ProjectName, act => act.MapFrom(src => src.ProjectName));
+
             //===============================================================
             CreateMap<CreateRoomDetail, RoomDetail>()
            .ForMember(p => p.Name, act => act.MapFrom(src => src.Name))

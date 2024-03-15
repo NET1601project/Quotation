@@ -12,5 +12,6 @@ namespace Application.IRepository
     {
         Task<List<Room>> GetAll();
         Task<Room> GetById(Guid id);
+        Task<List<Room>> GetRoomByCustmerId(Guid customerId);
     }
 }

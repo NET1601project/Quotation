@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="editProjectForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProjectID" />
             <div class="form-group">
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
+                <input asp-for="StartDate" class="form-control" readonly="true" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,13 +30,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <input asp-for="Status" class="form-control" readonly="true" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                <label asp-for="Bargain" class="control-label"></label>
+                <input asp-for="Bargain" class="form-control" />
+                <span asp-validation-for="Bargain" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -50,5 +50,73 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var token = localStorage.getItem('jwtToken');
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('projectId');
+            console.log(projectId);
+            getbyid(projectId);
+            $('#editProjectForm').submit(function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    projectName: $('#ProjectName').val(),
+                    endDate: $('#EndDate').val(),
+                    bargain: $('#Bargain').val(),
+
+                };
+                $.ajax({
+                    type: "PATCH",
+                    url: "https://localhost:7222/api/Projects/EditProject?id=" + projectId,
+                    accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
+                    contentType: 'application/json',
+
+                    // contentType: "multipart/form-data",
+                    // contentType: false,
+                    // processData: false,
+                    data: JSON.stringify(formData),
+                    // data: formData,
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response) {
+                        console.log("DUY", response);
+
+                        // window.location.href = '@Url.Action("Index", "Materials")';
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
+                    }
+                });
+                // console.log(formData);
+            });
+
+        })
+        function getbyid(projectId) {
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
+                success: function (qou) {
+                    $('#QuoteID').text(qou.projectID);
+                    // $('#QuoteNumber').val(qou.quoteNumber);
+                    $('#ProjectName').val(qou.projectName);
+                    $('#StartDate').val(qou.startDate);
+                    $('#EndDate').val(qou.endDate);
+                    $('#Status').val(qou.status);
+                    $('#Bargain').val(qou.bargain);
+
+                    console.log(qou);
+                },
+            })
+        }
+
+    </script>
+
 }

@@ -40,17 +40,17 @@ namespace QuotionSystemSolution.Controllers
 
         }
 
-        //[HttpPut]
-        //public async Task<IActionResult> PutMaterial(Guid id, Material material)
-        //{
-        //    return NoContent();
-        //}
+        
 
         [HttpPost]
         public async Task<ActionResult<ResponseMaterial>> PostMaterials([FromForm] CreateMaterial material)
         {
             return Ok(await _materialService.Add(material));
         }
-        
+        [HttpPut]
+        public async Task<ActionResult<Material>> PutMaterial(Guid id, [FromForm] CreateMaterial createMaterial)
+        {
+            return Ok(await _materialService.Edit(id, createMaterial));
+        }
     }
 }

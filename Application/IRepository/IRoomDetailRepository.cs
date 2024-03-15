@@ -10,5 +10,6 @@ namespace Application.IRepository
 {
     public interface IRoomDetailRepository : IGenericRepository<RoomDetail>
     {
+        Task<RoomDetail> GetRoomById(Guid id);
     }
 }

@@ -38,7 +38,7 @@ namespace QuotionSystemSolution.Controllers
         public async Task<ActionResult<IEnumerable<List<ResponseProjectV2>>>> GetProjectsWithStatusACTIVE()
         {
 
-            return Ok(await _projectService.GetProjects());
+            return Ok(await _projectService.GetProjectsStatusACTIVE());
         }
         
         [HttpGet]
@@ -72,6 +72,10 @@ namespace QuotionSystemSolution.Controllers
         {
             return Ok(await _projectService.AddV2(project));
         }
-
+        [HttpPatch]
+        public async Task<ActionResult<ResponseProjectV2>> EditProject(Guid id,UpdateProject update)
+        {
+            return Ok(await _projectService.Edit(id,update));
+        }
     }
 }

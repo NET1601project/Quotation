@@ -678,7 +678,7 @@
             $('#ProjectID').on('click', function () {
                 var projectId = $(this).val();
                 getRoomsByProjectId(projectId);
-
+                // loadProject();
             });
             $('#Room').on('click', function () {
                 var roomID = $(this).val();
@@ -714,7 +714,7 @@
         }
         function loadProject() {
             $.ajax({
-                url: 'https://localhost:7222/api/Projects/GetProjects',
+                url: 'https://localhost:7222/api/Projects/GetProjectsWithStatusACTIVE',
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -740,9 +740,11 @@
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
-                success: function (rooms) {
+                success: function (projects) {
+                    $('#Budget').html('<b>Budget:</b> ' + projects.bargain);
+
                     $('#Room').empty();
-                    rooms.roomList.forEach(function (room) {
+                    projects.roomList.forEach(function (room) {
                         $('#Room').append('<option value="' + room.roomID + '">' + 'Name: ' + room.roomName + ' - Size: ' + room.size + '</option>');
 
                         console.log(room.roomID);
@@ -773,7 +775,7 @@
                         $('#Detail').append(roomInfo);
                         console.log(room.roomDetailId);
                     });
-                },error: function(error) {
+                }, error: function (error) {
                     console.log(error.responseJSON);
                     alert(error.responseJSON.title);
                 }
@@ -822,26 +824,26 @@
             roomIndex++;
             var roomFieldsContainer = $('#materialFieldsContainer');
             var quotedetails = `
-                                                                                        <div class="materialField" id="room${roomIndex}">
-                                                                                            <div class="form-group">
-                                                                                                        <label for="CreateQuoteDetails[${roomIndex}].MaterialId" class="control-label"></label>
-                                                                                                <select class="form-control material-select"  name="CreateQuoteDetails[${roomIndex}].MaterialId">
-                                                                                        `;
+                                                                                                        <div class="materialField" id="room${roomIndex}">
+                                                                                                            <div class="form-group">
+                                                                                                                        <label for="CreateQuoteDetails[${roomIndex}].MaterialId" class="control-label"></label>
+                                                                                                                <select class="form-control material-select"  name="CreateQuoteDetails[${roomIndex}].MaterialId">
+                                                                                                        `;
 
             materialoptions.forEach(option => {
                 quotedetails += `<option value="${option.value}">${option.text}</option>`;
             });
 
             quotedetails += `
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div id="selectedImageContainer">
-                                                                                                <img class="selected-image" src="" alt="Selected Image" style="height:80px;width:150px">
-                                                                                                <span class="selected-material-info" id="selected-material-info${roomIndex}"></span>
-                                                                                                <label class="select-number">Number: </label>
-                                                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" />
-                                                                                            </div>
-                                                                                        </div>`;
+                                                                                                                </select>
+                                                                                                            </div>
+                                                                                                            <div id="selectedImageContainer">
+                                                                                                                <img class="selected-image" src="" alt="Selected Image" style="height:80px;width:150px">
+                                                                                                                <span class="selected-material-info" id="selected-material-info${roomIndex}"></span>
+                                                                                                                <label class="select-number">Number: </label>
+                                                                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" />
+                                                                                                            </div>
+                                                                                                        </div>`;
 
             roomFieldsContainer.append(quotedetails);
         }
@@ -921,7 +923,7 @@
                     window.location.href = "/Quotes/Index";
 
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error.responseJSON);
                     alert(error.responseJSON.title);
                 }
