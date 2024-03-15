@@ -23,12 +23,12 @@ var configuration = new ConfigurationBuilder()
 builder.Services.DependencyInjection(configuration);
 
 ODataConventionModelBuilder oData = new ODataConventionModelBuilder();
-//oData.EntitySet<Customer>("Customers");
-//oData.EntitySet<Account>("Accounts");
+oData.EntitySet<Customer>("Customers");
+oData.EntitySet<Account>("Accounts");
 oData.EntitySet<Project>("Projects");
-//oData.EntitySet<Quote>("Quotes");
-//oData.EntitySet<Room>("Rooms");
-//oData.EntitySet<Staff>("Staffs");
+oData.EntitySet<Quote>("Quotes");
+oData.EntitySet<Room>("Rooms");
+oData.EntitySet<Staff>("Staffs");
 
 var edmModel = oData.GetEdmModel();
 builder.Services.AddControllers().AddOData(c => c.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", edmModel));

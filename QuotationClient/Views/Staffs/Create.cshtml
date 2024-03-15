@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="formcreateStaff">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StaffName" class="control-label"></label>
@@ -22,18 +22,21 @@
                 <input asp-for="Contact" class="form-control" />
                 <span asp-validation-for="Contact" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
+                <label asp-for="Account.Username" class="control-label"></label>
+                <input asp-for="Account.Username" class="form-control" />
+                <span asp-validation-for="Account.Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <select asp-for="AccountId" class ="form-control" asp-items="ViewBag.AccountId"></select>
+                <label asp-for="Account.Password" class="control-label"></label>
+                <input asp-for="Account.Password" class="form-control" />
+                <span asp-validation-for="Account.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            
         </form>
     </div>
 </div>
@@ -43,5 +46,41 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#formcreateStaff').submit(function (e) {
+                e.preventDefault();
+                var form = {
+                    "username": $("#Account_Username").val(),
+                    "password": $("#Account_Password").val(),
+                    "staffName": $("#StaffName").val(),
+                    "contact": $("#Contact").val()
+                }
+                console.log(form);
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:7222/api/Staffs/PostStaffs",
+                    // contentType: "multipart/form-data",
+                    contentType: "application/json;odata.metadata=minimal;odata.streaming=true",
+                    accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
+                    // headers: {
+                    //     'Authorization': 'Bearer ' + token
+                    // },
+                    data: JSON.stringify(form),
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '@Url.Action("Index", "Staffs")';
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.Exception);
+                    }
+                });
+            });
+
+        });
+    </script>
 }
