@@ -48,7 +48,7 @@ namespace QuotionSystemSolution.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<ResponseQuote>> PostQuote(CreateQuoteV2 quoteDetail)
+        public async Task<ActionResult<ResponseQuote>> PostQuotes(CreateQuoteV2 quoteDetail)
         {
             return Ok(await _quoteService.AddV2(quoteDetail));
         }

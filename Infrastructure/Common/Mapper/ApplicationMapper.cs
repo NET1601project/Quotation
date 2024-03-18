@@ -128,8 +128,7 @@ namespace Infrastructure.Common.Mapper
             .ForMember(p => p.DateTime, act => act.MapFrom(src => src.DateTime));
 
             CreateMap<CreateQuote, Quote>()
-                .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
-                .ForMember(p => p.QuoteNumber, act => act.MapFrom(src => src.QuoteNumber));
+                .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID));
 
             CreateMap<CreateQuoteV2, Quote>()
                .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))

@@ -35,7 +35,6 @@ namespace Infrastructure.Service.Imp
             q.Status = "ACTIVE";
             q.QuoteDate = DateTime.Now;
             q.TotalAmount = 0;
-            q.QuoteNumber = 0;
             var uniqueRoomIds = new HashSet<Guid>();
 
             foreach (var i in q.QuoteDetails)
@@ -104,6 +103,7 @@ namespace Infrastructure.Service.Imp
             if (quote.Status.Equals("DONE"))
             {
                 var project = await _unitofWork.ProjectRepositoryImp.GetProjectById(quote.ProjectID);
+                project.Status = "DONE";
                 await _unitofWork.ProjectRepositoryImp.Update(project);
             }
             await _unitofWork.QuoteRepositoryImp.Update(quote);
