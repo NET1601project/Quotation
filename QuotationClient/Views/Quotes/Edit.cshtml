@@ -4,49 +4,52 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="all" id="checkRoleStaff" style="display: none;">
 
-<h4>QuoteDetail</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="QuoteID" />
+    <h1>Edit</h1>
+
+    <h4>QuoteDetail</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="QuoteID" />
+                <div class="form-group">
+                    <label asp-for="QuoteDate" class="control-label"></label>
+                    <input asp-for="QuoteDate" class="form-control" readonly="true" />
+                    <span asp-validation-for="QuoteDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input asp-for="Status" class="form-control" readonly="true" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalAmount" class="control-label"></label>
+                    <input asp-for="TotalAmount" class="form-control" readonly="true" />
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectID" class="control-label"></label>
+                    <input asp-for="ProjectID" class="form-control" readonly="true" />
+                    <span asp-validation-for="ProjectID" class="text-danger"></span>
+                </div>
+
+            </form>
             <div class="form-group">
-                <label asp-for="QuoteDate" class="control-label"></label>
-                <input asp-for="QuoteDate" class="form-control" readonly="true" />
-                <span asp-validation-for="QuoteDate" class="text-danger"></span>
+                <input type="submit" value="DONE" class="btn btn-primary" onclick="updateStatus('DONE')" />
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" readonly="true" />
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <input type="submit" value="INACTIVE" class="btn btn-danger" onclick="updateStatus('INACTIVE')" />
             </div>
-            <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" readonly="true" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectID" class="control-label"></label>
-                <input asp-for="ProjectID" class="form-control" readonly="true" />
-                <span asp-validation-for="ProjectID" class="text-danger"></span>
-            </div>
-            
-        </form>
-        <div class="form-group">
-            <input type="submit" value="DONE" class="btn btn-primary" onclick="updateStatus('DONE')" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input type="submit" value="INACTIVE" class="btn btn-danger" onclick="updateStatus('INACTIVE')" />
         </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {
@@ -54,46 +57,53 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        $(document).ready(function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const quoteDetailId = urlParams.get('quouteId');
-            console.log(quoteDetailId);
-            getbyid(quoteDetailId);
-        })
-        function getbyid(quoteDetailId) {
-            $.ajax({
-                method: "GET",
-                url: "https://localhost:7222/api/Quotes/GetQuote?id=" + quoteDetailId,
-                success: function (qou) {
-                    $('#QuoteID').text(qou.quoteID);
-                    // $('#QuoteNumber').val(qou.quoteNumber);
-                    $('#QuoteDate').val(qou.quoteDate);
-                    $('#Status').val(qou.status);
-                    $('#TotalAmount').val(qou.totalAmount);
-                    $('#ProjectID').val(qou.projectID);
-                    $('#MaterialID').val(qou.materialID);
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        if (role === 'STAFF') {
+            document.getElementById('checkRoleStaff').style.display = 'block';
 
-                    console.log(qou);
-                },
+            $(document).ready(function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const quoteDetailId = urlParams.get('quouteId');
+                console.log(quoteDetailId);
+                getbyid(quoteDetailId);
             })
+            function getbyid(quoteDetailId) {
+                $.ajax({
+                    method: "GET",
+                    url: "https://localhost:7222/api/Quotes/GetQuote?id=" + quoteDetailId,
+                    success: function (qou) {
+                        $('#QuoteID').text(qou.quoteID);
+                        // $('#QuoteNumber').val(qou.quoteNumber);
+                        $('#QuoteDate').val(qou.quoteDate);
+                        $('#Status').val(qou.status);
+                        $('#TotalAmount').val(qou.totalAmount);
+                        $('#ProjectID').val(qou.projectID);
+                        $('#MaterialID').val(qou.materialID);
+
+                        console.log(qou);
+                    },
+                })
+            }
+            function updateStatus(value) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const quoteDetailId = urlParams.get('quouteId');
+                console.log(quoteDetailId);
+                $.ajax({
+                    method: "PATCH",
+                    url: `https://localhost:7222/api/Quotes/UpdateQoute?id=${quoteDetailId}&status=${value}`,
+                    success: function (qou) {
+                        console.log(qou);
+                        alert('success');
+                        window.location.href = '@Url.Action("Index", "Quotes")';
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.Exception);
+                    }
+                })
+            }
         }
-        function updateStatus(value) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const quoteDetailId = urlParams.get('quouteId');
-            console.log(quoteDetailId);
-            $.ajax({
-                method: "PATCH",
-                url: `https://localhost:7222/api/Quotes/UpdateQoute?id=${quoteDetailId}&status=${value}`,
-                success: function (qou) {
-                    console.log(qou);
-                    alert('success');
-                    window.location.href = '@Url.Action("Index", "Quotes")';
-                },
-                error: function (error) {
-                    console.log(error.responseJSON);
-                    alert(error.responseJSON.Exception);
-                }
-            })
-        }
+
     </script>
 }

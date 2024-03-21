@@ -3,52 +3,52 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<div class="viewEditCustomer" id="token" style="display: none;">
+    <h1>Edit</h1>
 
-<h1>Edit</h1>
+    <h4>Project</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" id="editProjectForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ProjectID" />
+                <div class="form-group">
+                    <label asp-for="ProjectName" class="control-label"></label>
+                    <input asp-for="ProjectName" class="form-control" />
+                    <span asp-validation-for="ProjectName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" readonly="true" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input asp-for="Status" class="form-control" readonly="true" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bargain" class="control-label"></label>
+                    <input asp-for="Bargain" class="form-control" />
+                    <span asp-validation-for="Bargain" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-<h4>Project</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" id="editProjectForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProjectID" />
-            <div class="form-group">
-                <label asp-for="ProjectName" class="control-label"></label>
-                <input asp-for="ProjectName" class="form-control" />
-                <span asp-validation-for="ProjectName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" readonly="true" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" readonly="true" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Bargain" class="control-label"></label>
-                <input asp-for="Bargain" class="form-control" />
-                <span asp-validation-for="Bargain" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -57,66 +57,69 @@
     <script>
         var token = localStorage.getItem('jwtToken');
         var role = localStorage.getItem('role');
-        $(document).ready(function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const projectId = urlParams.get('projectId');
-            console.log(projectId);
-            getbyid(projectId);
-            $('#editProjectForm').submit(function (e) {
-                e.preventDefault();
+        if (role === "CUSTOMER") {
+            document.getElementById('token').style.display = "block";
 
-                const formData = {
-                    projectName: $('#ProjectName').val(),
-                    endDate: $('#EndDate').val(),
-                    bargain: $('#Bargain').val(),
+            $(document).ready(function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const projectId = urlParams.get('projectId');
+                console.log(projectId);
+                getbyid(projectId);
+                $('#editProjectForm').submit(function (e) {
+                    e.preventDefault();
 
-                };
-                $.ajax({
-                    type: "PATCH",
-                    url: "https://localhost:7222/api/Projects/EditProject?id=" + projectId,
-                    accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
-                    contentType: 'application/json',
+                    const formData = {
+                        projectName: $('#ProjectName').val(),
+                        endDate: $('#EndDate').val(),
+                        bargain: $('#Bargain').val(),
 
-                    // contentType: "multipart/form-data",
-                    // contentType: false,
-                    // processData: false,
-                    data: JSON.stringify(formData),
-                    // data: formData,
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
-                    success: function (response) {
-                        console.log("DUY", response);
+                    };
+                    $.ajax({
+                        type: "PATCH",
+                        url: "https://localhost:7222/api/Projects/EditProject?id=" + projectId,
+                        accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
+                        contentType: 'application/json',
 
-                        // window.location.href = '@Url.Action("Index", "Materials")';
-                    },
-                    error: function (error) {
-                        console.log(error.responseJSON);
-                        alert(error.responseJSON.Exception);
-                    }
+                        // contentType: "multipart/form-data",
+                        // contentType: false,
+                        // processData: false,
+                        data: JSON.stringify(formData),
+                        // data: formData,
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        success: function (response) {
+                            console.log("DUY", response);
+
+                            window.location.href = '@Url.Action("Index", "Projects")';
+                        },
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.Exception);
+                        }
+                    });
+                    // console.log(formData);
                 });
-                // console.log(formData);
-            });
 
-        })
-        function getbyid(projectId) {
-            $.ajax({
-                method: "GET",
-                url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
-                success: function (qou) {
-                    $('#QuoteID').text(qou.projectID);
-                    // $('#QuoteNumber').val(qou.quoteNumber);
-                    $('#ProjectName').val(qou.projectName);
-                    $('#StartDate').val(qou.startDate);
-                    $('#EndDate').val(qou.endDate);
-                    $('#Status').val(qou.status);
-                    $('#Bargain').val(qou.bargain);
-
-                    console.log(qou);
-                },
             })
-        }
+            function getbyid(projectId) {
+                $.ajax({
+                    method: "GET",
+                    url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
+                    success: function (qou) {
+                        $('#QuoteID').text(qou.projectID);
+                        // $('#QuoteNumber').val(qou.quoteNumber);
+                        $('#ProjectName').val(qou.projectName);
+                        $('#StartDate').val(qou.startDate);
+                        $('#EndDate').val(qou.endDate);
+                        $('#Status').val(qou.status);
+                        $('#Bargain').val(qou.bargain);
 
+                        console.log(qou);
+                    },
+                })
+            }
+        }
     </script>
 
 }

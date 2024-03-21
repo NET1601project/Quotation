@@ -1,0 +1,87 @@
+﻿@model Domain.RoomDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>RoomDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoomId" class="control-label"></label>
+                <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberEquipment" class="control-label"></label>
+                <input asp-for="NumberEquipment" class="form-control" />
+                <span asp-validation-for="NumberEquipment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        loadRoom();
+        $(document).ready(function () {
+            $('#RoomId').on('click', function () {
+                var roomID = $(this).val();
+                console.log(roomID);
+                // getRoomsDetailByRoomId(roomID);
+
+            });
+        });
+        function loadRoom() {
+            $.ajax({
+                url: 'https://localhost:7222/api/Projects/GetProjectsWithStatusACTIVE',
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    data.forEach(function (project) {
+                        project.roomList.forEach(function (room) {
+                            $('#RoomId').append('<option value="' + room.roomID + '">' + 'roomID ID: ' + room.roomID + ' -  Name: ' + room.roomName + '</option>');
+                            // $('#Budget').html('<b>Budget:</b> ' + room.bargain);
+
+                        });
+
+                    });
+                    console.log(data);
+                }, error: function (error) {
+                    console.log(error.responseJSON);
+                    alert(error.responseJSON.title);
+                }
+            });
+        }
+
+    </script>
+}

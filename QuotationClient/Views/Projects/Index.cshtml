@@ -35,6 +35,9 @@
                     Status
                 </th>
                 <th>
+                    Bargain
+                </th>
+                <th>
                     Customer
                 </th>
                 <th>
@@ -79,6 +82,9 @@
                 </th>
                 <th>
                     Status
+                </th>
+                <th>
+                    Bargain
                 </th>
                 <th>
                     Customer
@@ -143,6 +149,7 @@
                     tableHtml += '<td>' + project.startDate + '</td>';
                     tableHtml += '<td>' + project.endDate + '</td>';
                     tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.bargain + '</td>';
                     tableHtml += '<td>' + project.customerId + '</td>';
                     tableHtml += '<td><button class="btn btn-primary detail-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
 
@@ -214,6 +221,8 @@
                     tableHtml += '<td>' + project.startDate + '</td>';
                     tableHtml += '<td>' + project.endDate + '</td>';
                     tableHtml += '<td>' + project.status + '</td>';
+                    tableHtml += '<td>' + project.bargain + '</td>';
+
                     tableHtml += '<td>' + project.customerId + '</td>';
                     tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-project-id="' + project.projectID + '">Detail</button></td>';
 

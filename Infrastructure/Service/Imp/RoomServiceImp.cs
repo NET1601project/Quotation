@@ -82,5 +82,18 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<List<ResponseRoomV2>>(await _unitofWork.RoomRepositoryImp.GetRoomByCustmerId(customer.CustomerID));
 
         }
+
+        public async Task<ResponseRoomDetail> PostRoomDetail(CreateRoomDetailV2 createRoomDetail)
+        {
+            var roomdetail = _mapper.Map<RoomDetail>(createRoomDetail);
+            var room = await _unitofWork.RoomRepositoryImp.GetById(roomdetail.RoomId);
+            if (!room.Project.Status.Equals("ACTIVE"))
+            {
+                throw new Exception("can't Add this room");
+            }
+            await _unitofWork.RoomDetailRepositoryImp.Add(roomdetail);
+            await _unitofWork.Commit();
+            return _mapper.Map<ResponseRoomDetail>(roomdetail);
+        }
     }
 }

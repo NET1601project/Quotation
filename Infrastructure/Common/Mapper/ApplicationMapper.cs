@@ -74,6 +74,13 @@ namespace Infrastructure.Common.Mapper
            .ForMember(p => p.NumberEquipment, act => act.MapFrom(src => src.NumberEquipment))
            .ForMember(p => p.Description, act => act.MapFrom(src => src.Description));
 
+            //===============================================================
+            CreateMap<CreateRoomDetailV2, RoomDetail>()
+           .ForMember(p => p.Name, act => act.MapFrom(src => src.Name))
+           .ForMember(p => p.RoomId, act => act.MapFrom(src => src.RoomId))
+           .ForMember(p => p.NumberEquipment, act => act.MapFrom(src => src.NumberEquipment))
+           .ForMember(p => p.Description, act => act.MapFrom(src => src.Description));
+
             CreateMap<CreateRoomsV2, Room>()
             .ForMember(p => p.RoomName, act => act.MapFrom(src => src.RoomName))
             .ForMember(p => p.Description, act => act.MapFrom(src => src.Description))

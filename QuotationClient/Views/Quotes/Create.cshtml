@@ -660,7 +660,7 @@
     <script>
         var token = localStorage.getItem('jwtToken');
         var roomIndex = -1;
-        loadProject();
+            loadProject();
 
         var materialoptions = @Html.Raw(Json.Serialize(ViewBag.MaterialID));
 
@@ -732,6 +732,7 @@
                 }
             });
         }
+       
         function getRoomsByProjectId(projectId) {
             console.log(projectId);
             $.ajax({
@@ -841,7 +842,7 @@
                                                                                                                 <img class="selected-image" src="" alt="Selected Image" style="height:80px;width:150px">
                                                                                                                 <span class="selected-material-info" id="selected-material-info${roomIndex}"></span>
                                                                                                                 <label class="select-number">Number: </label>
-                                                                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" />
+                                                                                                                <input type="number" name="Number" id="CreateQuoteDetails[${roomIndex}].numberMaterial" class="number-material" style="margin-left:10px" min="1"/>
                                                                                                             </div>
                                                                                                         </div>`;
 
@@ -909,7 +910,7 @@
 
             console.log(formQuoteDetails);
             $.ajax({
-                url: "https://localhost:7222/api/Quotes/PostQuote",
+                url: "https://localhost:7222/api/Quotes/PostQuotes",
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },

@@ -3,103 +3,120 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="viewEditCustomer" id="token" style="display: none;">
+    <h1>Details</h1>
 
-<h1>Details</h1>
+    <div>
+        <h4>Project</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Project ID
+            </dt>
+            <dd class="col-sm-10" id="ProjectId">
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Project ID
-        </dt>
-        <dd class="col-sm-10" id="ProjectId">
+            </dd>
+            <dt class="col-sm-2">
+                ProjectName
+            </dt>
+            <dd class="col-sm-10" id="ProjectName">
 
-        </dd>
-        <dt class="col-sm-2">
-            ProjectName
-        </dt>
-        <dd class="col-sm-10" id="ProjectName">
+            </dd>
+            <dt class="col-sm-2">
+                StartDate
+            </dt>
+            <dd class="col-sm-10" id="StartDate">
 
-        </dd>
-        <dt class="col-sm-2">
-            StartDate
-        </dt>
-        <dd class="col-sm-10" id="StartDate">
+            </dd>
+            <dt class="col-sm-2">
+                EndDate
+            </dt>
+            <dd class="col-sm-10" id="EndDate">
 
-        </dd>
-        <dt class="col-sm-2">
-            EndDate
-        </dt>
-        <dd class="col-sm-10" id="EndDate">
+            </dd>
+            <dt class="col-sm-2">
+                Status
+            </dt>
+            <dd class="col-sm-10" id="Status">
 
-        </dd>
-        <dt class="col-sm-2">
-            Status
-        </dt>
-        <dd class="col-sm-10" id="Status">
+            </dd>
+            <dt class="col-sm-2">
+                Bargain
+            </dt>
+            <dd class="col-sm-10" id="Bargain">
 
-        </dd>
-        <dt class="col-sm-2">
-            Customer
-        </dt>
-        <dd class="col-sm-10" id="Customer">
-        </dd>
-    </dl>
-    <div id="bookingDetails">
+            </dd>
+            </dd>
+            <dt class="col-sm-2">
+                Customer
+            </dt>
+            <dd class="col-sm-10" id="Customer">
+            </dd>
+        </dl>
+        <div id="bookingDetails">
+        </div>
     </div>
-</div>
-<div>
-    <a href="#" id="editproject">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a href="#" id="editproject" style="display:none;">Edit</a>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 @section scripts {
     <script>
+        var token = localStorage.getItem('jwtToken');
+        var role = localStorage.getItem('role');
+        if (role.length != null) {
 
-        $(document).ready(function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const projectId = urlParams.get('projectId');
+            document.getElementById('token').style.display = "block";
+            $(document).ready(function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const projectId = urlParams.get('projectId');
 
-            $.ajax({
-                method: "GET",
-                url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
-                success: function (booking) {
-                    $('#ProjectId').text(booking.projectID);
-                    $('#ProjectName').text(booking.projectName);
-                    $('#StartDate').text(booking.startDate);
-                    $('#EndDate').text(booking.endDate);
-                    $('#Status').text(booking.status);
-                    $('#Customer').text(booking.customerId);
-                    $('#editproject').attr('href', '/Projects/Edit?projectId=' + booking.projectID);
-                    // $('#editLink').attr('href', '/Materials/Edit?materialId=' + qou.materialID);
+                $.ajax({
+                    method: "GET",
+                    url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
+                    success: function (booking) {
+                        $('#ProjectId').text(booking.projectID);
+                        $('#ProjectName').text(booking.projectName);
+                        $('#StartDate').text(booking.startDate);
+                        $('#EndDate').text(booking.endDate);
+                        $('#Status').text(booking.status);
+                        $('#Customer').text(booking.customerId);
+                        $('#Bargain').text(booking.bargain);
+                        if (role === 'CUSTOMER') {
+                            document.getElementById('editproject').style.display = "block";
 
-                    if (booking.roomList.length > 0) {
-                        var detailsHtml = '<h4>Booking Details</h4><table class="table"><thead><tr><th>Room ID</th><th>Room Type Name</th><th>Size</th><th>Description</th></tr></thead><tbody>';
+                            $('#editproject').attr('href', '/Projects/Edit?projectId=' + booking.projectID);
+                        }
+                        // $('#editLink').attr('href', '/Materials/Edit?materialId=' + qou.materialID);
 
-                        booking.roomList.forEach(function (detail) {
-                            detailsHtml += '<tr>';
-                            detailsHtml += '<td>' + detail.roomID + '</td>';
-                            detailsHtml += '<td>' + detail.roomName + '</td>';
-                            detailsHtml += '<td>' + detail.size + '</td>';
-                            detailsHtml += '<td>' + detail.description + '</td>';
-                            detailsHtml += '</tr>';
-                        });
+                        if (booking.roomList.length > 0) {
+                            var detailsHtml = '<h4>Booking Details</h4><table class="table"><thead><tr><th>Room ID</th><th>Room Type Name</th><th>Size</th><th>Description</th></tr></thead><tbody>';
 
-                        detailsHtml += '</tbody></table>';
-                        $('#bookingDetails').html(detailsHtml);
+                            booking.roomList.forEach(function (detail) {
+                                detailsHtml += '<tr>';
+                                detailsHtml += '<td>' + detail.roomID + '</td>';
+                                detailsHtml += '<td>' + detail.roomName + '</td>';
+                                detailsHtml += '<td>' + detail.size + '</td>';
+                                detailsHtml += '<td>' + detail.description + '</td>';
+                                detailsHtml += '</tr>';
+                            });
+
+                            detailsHtml += '</tbody></table>';
+                            $('#bookingDetails').html(detailsHtml);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.title);
                     }
-                },
-                error: function (error) {
-                    console.log(error.responseJSON);
-                    alert(error.responseJSON.title);
-                }
-            });
-            $('#edit-link').click(function () {
-                localStorage.setItem('bookingId', bookingId);
+                });
+                $('#edit-link').click(function () {
+                    localStorage.setItem('bookingId', bookingId);
 
-                console.log(bookingId)
+                    console.log(bookingId)
+                });
             });
-        });
-
+        }
     </script>
 }
