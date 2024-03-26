@@ -9,12 +9,13 @@ using Application;
 using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class RoomDetailsController : ControllerBase
+    public class RoomDetailsController : ODataController
     {
         private readonly IRoomService _roomService;
 
@@ -23,11 +24,12 @@ namespace QuotionSystemSolution.Controllers
             _roomService = roomService;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<RoomDetail>>> GetRoomDetails()
-        //{
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RoomDetail>>> GetRoomDetails()
+        {
+            return Ok(await _roomService.GetAll());
 
-        //}
+        }
 
         //[HttpGet]
         //public async Task<ActionResult<RoomDetail>> GetRoomDetail(Guid id)
@@ -58,25 +60,13 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _roomService.PostRoomDetail(roomDetail));
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteRoomDetail(Guid id)
-        //{
-        //    if (_context.RoomDetails == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var roomDetail = await _context.RoomDetails.FindAsync(id);
-        //    if (roomDetail == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRoomDetail(Guid id)
+        {
+            return Ok(await _roomService.RemoveDetailRoom(id));
 
-        //    _context.RoomDetails.Remove(roomDetail);
-        //    await _context.SaveChangesAsync();
+        }
 
-        //    return NoContent();
-        //}
 
-       
     }
 }

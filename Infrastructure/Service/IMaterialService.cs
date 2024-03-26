@@ -1,4 +1,5 @@
-﻿using Infrastructure.Common.Model.Request;
+﻿using Domain;
+using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -16,6 +17,7 @@ namespace Infrastructure.Service
         Task<ResponseMaterial> GetMaterialById(Guid id);
         Task<ResponseMaterial> Edit(Guid id,CreateMaterial createMaterial);
         //Task<string> UploadImage(IFormFile imageFile);
+        Task<List<ResponseMaterial>> GetMaterialsWithGTStock0();
 
     }
 }

@@ -147,8 +147,8 @@ namespace Infrastructure.Common.Mapper
 
             CreateMap<Quote, ResponseQuote>()
                 .ForMember(p => p.QuoteID, act => act.MapFrom(src => src.QuoteID))
-                .ForMember(p => p.QuoteDate, act => act.MapFrom(src => src.QuoteDate))
                 .ForMember(p => p.Status, act => act.MapFrom(src => src.Status))
+                .ForMember(p => p.NameProject, act => act.MapFrom(src => src.Project.ProjectName))
                 .ForMember(p => p.ProjectID, act => act.MapFrom(src => src.ProjectID))
                 .ForMember(p => p.TotalAmount, act => act.MapFrom(src => src.TotalAmount))
                 .ForMember(p => p.ResponseQuoteDetails, act => act.MapFrom(src => src.QuoteDetails))

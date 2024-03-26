@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace Infrastructure.Common.Model.Response
 {
     public class ResponseMaterial
     {
+        [Key]
+
         public Guid MaterialID { get; set; }
         public string MaterialName { get; set; }
         public string Description { get; set; }

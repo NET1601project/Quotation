@@ -14,6 +14,7 @@ namespace Infrastructure.Service
         Task<ResponseProject> Add(CreateProject project);
         Task<ResponseProjectV2> AddV2(CreateProjectV2 project);
         Task<ResponseProjectV2> Edit(Guid id,UpdateProject project);
+        Task<ResponseProjectV2> Delete(Guid id);
 
         Task<List<ResponseProjectV2>> GetProjects();
         Task<List<ResponseProjectV2>> GetProjectsStatusACTIVE();

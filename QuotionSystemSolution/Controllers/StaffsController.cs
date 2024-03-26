@@ -10,12 +10,14 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class StaffsController : ControllerBase
+    public class StaffsController : ODataController
     {
         private readonly IStaffService _staffService;
 
@@ -25,6 +27,8 @@ namespace QuotionSystemSolution.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
+
         public async Task<ActionResult<List<ResponseStaff>>> GetStaffs()
         {
             return Ok(await _staffService.GetStaff());

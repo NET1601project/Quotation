@@ -10,12 +10,14 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.Common.Model.Request;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class QuotesController : ControllerBase
+    public class QuotesController : ODataController
     {
         private readonly IQuoteService _quoteService;
 
@@ -26,6 +28,8 @@ namespace QuotionSystemSolution.Controllers
 
 
         [HttpGet]
+        [EnableQuery]
+
         public async Task<ActionResult<IEnumerable<ResponseQuote>>> GetQuotes()
         {
             return Ok(await _quoteService.GetQuotes());

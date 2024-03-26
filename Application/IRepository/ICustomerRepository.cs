@@ -13,5 +13,6 @@ namespace Application.IRepository
         Task<List<Customer>> GetAll();
         Task<Customer> GetCustomerById(Guid id);
         Task<Customer> GetCustomerByUsername(string username);
+        Task<Customer> CheckEmail(string email);
     }
 }

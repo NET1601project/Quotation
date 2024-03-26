@@ -58,6 +58,8 @@
     </div>
     <div>
         <a href="#" id="editproject" style="display:none;">Edit</a>
+        <a href="#" id="deleteproject" >Delete</a>
+        <br/>
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
@@ -114,7 +116,21 @@
                 $('#edit-link').click(function () {
                     localStorage.setItem('bookingId', bookingId);
 
-                    console.log(bookingId)
+                    console.log(bookingId);
+                });
+                $('#deleteproject').click(function () {
+                    console.log("projectId", projectId);
+                    $.ajax({
+                        method: "Delete",
+                        url: "https://localhost:7222/api/Projects/DeleteProject?id=" + projectId,
+                        success: function (booking) {
+                            window.location.href = "/Projects/Index";
+                        },
+                        error: function (error) {
+                            console.log(error.responseJSON);
+                            alert(error.responseJSON.Exception);
+                        }
+                    });
                 });
             });
         }

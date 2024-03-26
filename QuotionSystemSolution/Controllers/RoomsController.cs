@@ -11,12 +11,14 @@ using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class RoomsController : ControllerBase
+    public class RoomsController : ODataController
     {
         private readonly IRoomService _roomService;
 
@@ -25,6 +27,8 @@ namespace QuotionSystemSolution.Controllers
             _roomService = roomService;
         }
         [HttpGet]
+        [EnableQuery]
+
         public async Task<ActionResult<ResponseRoomV2>> GetRooms()
         {
             return Ok(await _roomService.GetAll());

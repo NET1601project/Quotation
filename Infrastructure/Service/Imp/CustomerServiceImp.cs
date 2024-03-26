@@ -41,7 +41,8 @@ namespace Infrastructure.Service.Imp
                 Role = "CUSTOMER",
                 Customer = c
             };
-
+            await _unitofWork.CustomerRepositoryImp.CheckEmail(c.Email);
+            await _unitofWork.AccountRepositoryImp.CheckUsername(a.Username);
             var ass = await _unitofWork.CustomerRepositoryImp.Add(c);
             await _unitofWork.AccountRepositoryImp.Add(a);
 

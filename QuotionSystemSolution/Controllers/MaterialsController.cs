@@ -12,12 +12,14 @@ using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MaterialsController : ControllerBase
+    public class MaterialsController : ODataController
     {
 
         private IMaterialService _materialService;
@@ -28,19 +30,26 @@ namespace QuotionSystemSolution.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
+
         public async Task<ActionResult<IEnumerable<ResponseMaterial>>> GetMaterials()
         {
             return Ok(await _materialService.GetMaterial());
         }
 
         [HttpGet]
-        public async Task<ActionResult<Material>> GetMaterialById(Guid id)
+        public async Task<ActionResult<ResponseMaterial>> GetMaterialById(Guid id)
         {
             return Ok(await _materialService.GetMaterialById(id));
 
         }
+        [HttpGet]
+        public async Task<ActionResult<ResponseMaterial>> GetMaterialsWithGTStock0()
+        {
+            return Ok(await _materialService.GetMaterialsWithGTStock0());
 
-        
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<ResponseMaterial>> PostMaterials([FromForm] CreateMaterial material)
@@ -48,7 +57,7 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _materialService.Add(material));
         }
         [HttpPut]
-        public async Task<ActionResult<Material>> PutMaterial(Guid id, [FromForm] CreateMaterial createMaterial)
+        public async Task<ActionResult<ResponseMaterial>> PutMaterial(Guid id, [FromForm] CreateMaterial createMaterial)
         {
             return Ok(await _materialService.Edit(id, createMaterial));
         }

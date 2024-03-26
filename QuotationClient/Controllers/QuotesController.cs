@@ -60,19 +60,22 @@ namespace QuotationClient.Controllers
         private async Task LoadMaterial()
         {
 
-            HttpResponseMessage roomResponse = await client.GetAsync("https://localhost:7222/api/Materials/GetMaterials");
+            HttpResponseMessage roomResponse = await client.GetAsync("https://localhost:7222/api/Materials/GetMaterialsWithGTStock0");
             string roomData = await roomResponse.Content.ReadAsStringAsync();
 
             var roomOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
+
             List<ResponseMaterial> materials = JsonSerializer.Deserialize<List<ResponseMaterial>>(roomData, roomOptions);
+
             ViewData["MaterialID"] = new SelectList(materials.Select(c => new
             {
                 Text = $"Name: {c.MaterialName} - UnitPrice: {c.UnitPrice} - Stock: {c.Stock}",
                 Value = c.MaterialID
             }), "Value", "Text");
+
         }
     }
 }

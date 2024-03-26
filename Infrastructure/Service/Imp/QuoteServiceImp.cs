@@ -52,9 +52,17 @@ namespace Infrastructure.Service.Imp
                 details.DateTime = DateTime.Now;
 
                 var material = await _unitofWork.MaterialRepositoryImp.GetMaterialById(details.MaterialId);
+                if (material.Stock < details.numberMaterial)
+                {
+                    throw new Exception($"Số lượng không thể lớn hơn giá trị {material.Stock}");
+                }
                 details.Price = material.UnitPrice * details.numberMaterial;
                 q.TotalAmount += details.Price;
+
+
+
                 await _unitofWork.QuoteDetailRepositoryImp.Add(details);
+
             }
             var quote = await _unitofWork.QuoteRepositoryImp.Add(q);
 
@@ -105,6 +113,12 @@ namespace Infrastructure.Service.Imp
                 var project = await _unitofWork.ProjectRepositoryImp.GetProjectById(quote.ProjectID);
                 project.Status = "DONE";
                 await _unitofWork.ProjectRepositoryImp.Update(project);
+                foreach (var i in quote.QuoteDetails)
+                {
+                    var material = await _unitofWork.MaterialRepositoryImp.GetMaterialById(i.MaterialId);
+                    material.Stock -= i.numberMaterial;
+                    await _unitofWork.MaterialRepositoryImp.Update(material);
+                }
             }
             await _unitofWork.QuoteRepositoryImp.Update(quote);
             await _unitofWork.Commit();

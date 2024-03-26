@@ -81,9 +81,9 @@
             document.getElementById('checkRole').style.display = "block";
             $(document).ready(function () {
                 $.ajax({
-                    url: 'https://localhost:7222/odata/Quotes',
+                    url: 'https://localhost:7222/api/Quotes/GetQuotes',
                     type: 'GET',
-                    dataType: 'json',
+                    contentType:false,
                     headers: {
                         'Authorization': 'Bearer ' + token
                     },
@@ -105,7 +105,7 @@
                     tableHtml += '<td>' + project.quoteDate + '</td>';
                     tableHtml += '<td>' + project.status + '</td>';
                     tableHtml += '<td>' + project.totalAmount + '</td>';
-                    tableHtml += '<td>' + project.projectID + '</td>';
+                    tableHtml += '<td>' + project.nameProject + '</td>';
                     tableHtml += '<td>' + project.staffId + '</td>';
                     tableHtml += '<td><button class="btn btn-primary detail-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
 
@@ -123,7 +123,7 @@
                         },
                         error: function (error) {
                             console.log(error.responseJSON);
-                            alert(error.responseJSON.title);
+                            alert(error.responseJSON);
                         }
                     });
                 });
@@ -164,37 +164,37 @@
                     }
                 });
             }
-            function displayProjects(data) {
-                var tableHtml = '';
-                data.forEach(function (project) {
-                    tableHtml += '<tr>';
-                    tableHtml += '<td>' + project.quoteID + '</td>';
-                    tableHtml += '<td>' + project.quoteDate + '</td>';
-                    tableHtml += '<td>' + project.status + '</td>';
-                    tableHtml += '<td>' + project.totalAmount + '</td>';
-                    tableHtml += '<td>' + project.projectID + '</td>';
-                    tableHtml += '<td>' + project.staffId + '</td>';
-                    tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
+            // function displayProjects(data) {
+            //     var tableHtml = '';
+            //     data.forEach(function (project) {
+            //         tableHtml += '<tr>';
+            //         tableHtml += '<td>' + project.quoteID + '</td>';
+            //         tableHtml += '<td>' + project.quoteDate + '</td>';
+            //         tableHtml += '<td>' + project.status + '</td>';
+            //         tableHtml += '<td>' + project.totalAmount + '</td>';
+            //         tableHtml += '<td>' + project.nameProject + '</td>';
+            //         tableHtml += '<td>' + project.staffId + '</td>';
+            //         tableHtml += '<td><button class="btn btn-primary detailCustomer-btn" data-qoute-id="' + project.quoteID + '">Detail</button></td>';
 
-                    tableHtml += '</tr>';
-                });
-                $('#quotetCustomerList').html(tableHtml);
-                $('.detailCustomer-btn').click(function () {
-                    var qouteid = $(this).data('qoute-id');
-                    $.ajax({
-                        type: "GET",
-                        url: "https://localhost:7222/api/Quotes/GetQuote?id=" + qouteid,
-                        success: function (response) {
-                            console.log(response);
-                            window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
-                        },
-                        error: function (error) {
-                            console.log(error.responseJSON);
-                            alert(error.responseJSON.title);
-                        }
-                    });
-                });
-            }
+            //         tableHtml += '</tr>';
+            //     });
+            //     $('#quotetCustomerList').html(tableHtml);
+            //     $('.detailCustomer-btn').click(function () {
+            //         var qouteid = $(this).data('qoute-id');
+            //         $.ajax({
+            //             type: "GET",
+            //             url: "https://localhost:7222/api/Quotes/GetQuote?id=" + qouteid,
+            //             success: function (response) {
+            //                 console.log(response);
+            //                 window.location.href = '/Quotes/Details?QuoteDetailId=' + qouteid;
+            //             },
+            //             error: function (error) {
+            //                 console.log(error.responseJSON);
+            //                 alert(error.responseJSON.title);
+            //             }
+            //         });
+            //     });
+            // }
         }
 
     </script>

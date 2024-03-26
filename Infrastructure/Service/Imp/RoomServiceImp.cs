@@ -70,6 +70,11 @@ namespace Infrastructure.Service.Imp
             return _mapper.Map<List<ResponseRoomV2>>(await _unitofWork.RoomRepositoryImp.GetAll());
         }
 
+        public async Task<List<ResponseRoomDetail>> GetAllDetails()
+        {
+            return _mapper.Map<List<ResponseRoomDetail>>(await _unitofWork.RoomDetailRepositoryImp.GetAll());
+        }
+
         public async Task<ResponseRoomV2> GetById(Guid id)
         {
             return _mapper.Map<ResponseRoomV2>(await _unitofWork.RoomRepositoryImp.GetById(id));
@@ -94,6 +99,17 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.RoomDetailRepositoryImp.Add(roomdetail);
             await _unitofWork.Commit();
             return _mapper.Map<ResponseRoomDetail>(roomdetail);
+        }
+
+        public async Task<ResponseRoomDetail> RemoveDetailRoom(Guid id)
+        {
+            var room = await _unitofWork.RoomDetailRepositoryImp.GetRoomById(id);
+            _unitofWork.RoomDetailRepositoryImp.Remove(room);
+            if (!room.Room.Project.Status.Equals("ACTIVE"))
+            {
+                throw new Exception("Khong the Delete");
+            }
+            return _mapper.Map<ResponseRoomDetail>(room);
         }
     }
 }

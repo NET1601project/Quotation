@@ -16,6 +16,18 @@ namespace Application.IRepository.Imp
         {
         }
 
+        public async Task<Account> CheckUsername(string username)
+        {
+            var check = await _context.Set<Account>()
+                .Include(c => c.Staff)
+                .Include(c => c.Customer)
+                .FirstOrDefaultAsync(c => c.Username.ToLower().Equals(username.ToLower()));
+            if (check != null)
+            {
+                throw new Exception("exist");
+            }
+            return check;
+        }
 
         public async Task<List<Account>> GetAll()
         {
@@ -24,8 +36,9 @@ namespace Application.IRepository.Imp
 
         public async Task<Account> Login(string username, string password)
         {
-            var check= await _context.Set<Account>().FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
-            if(check == null) {
+            var check = await _context.Set<Account>().FirstOrDefaultAsync(c => c.Username == username && c.Password == password);
+            if (check == null)
+            {
                 throw new Exception("Sai password");
             }
             return check;

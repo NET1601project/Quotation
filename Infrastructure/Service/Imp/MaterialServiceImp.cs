@@ -91,5 +91,10 @@ namespace Infrastructure.Service.Imp
             await _unitofWork.Commit();
             return _mapper.Map<ResponseMaterial>(material);
         }
+
+        public async Task<List<ResponseMaterial>> GetMaterialsWithGTStock0()
+        {
+            return _mapper.Map<List<ResponseMaterial>>(await _unitofWork.MaterialRepositoryImp.GetMaterialsWithGTStock0());
+        }
     }
 }

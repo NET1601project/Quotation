@@ -29,5 +29,10 @@ namespace Application.IRepository.Imp
             }
             return check;
         }
+
+        public async Task<List<Material>> GetMaterialsWithGTStock0()
+        {
+            return await _context.Set<Material>().Where(c => c.Stock > 0).ToListAsync();
+        }
     }
 }

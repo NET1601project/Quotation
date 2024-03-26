@@ -15,6 +15,16 @@ namespace Application.IRepository.Imp
         {
         }
 
+        public async Task<Customer> CheckEmail(string email)
+        {
+            var check = await _context.Set<Customer>().Include(c => c.Account).FirstOrDefaultAsync(c => c.Email.ToLower().Equals(email.ToLower()));
+            if (check != null)
+            {
+                throw new Exception("exist");
+            }
+            return check;
+        }
+
         public async Task<List<Customer>> GetAll()
         {
             return await _context.Set<Customer>().Include(c => c.Account).ToListAsync();

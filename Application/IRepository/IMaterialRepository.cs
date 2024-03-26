@@ -12,6 +12,7 @@ namespace Application.IRepository
     {
         Task<List<Material>> GetAll();
         Task<Material> GetMaterialById(Guid id);
+        Task<List<Material>> GetMaterialsWithGTStock0();
     }
 }
 

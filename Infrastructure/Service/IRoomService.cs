@@ -20,5 +20,7 @@ namespace Infrastructure.Service
         Task<ResponseRoomV2> Edit(Guid id, CreateRoom createRoom);
         Task<ResponseRoomDetail> EditDetail(Guid id, CreateRoomDetail createRoomDetail);
         Task<ResponseRoomDetail> PostRoomDetail(CreateRoomDetailV2 createRoomDetail);
+        Task<List<ResponseRoomDetail>> GetAllDetails();
+        Task<ResponseRoomDetail> RemoveDetailRoom(Guid id);
     }
 }

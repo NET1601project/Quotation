@@ -12,6 +12,7 @@ using AutoMapper;
 using Infrastructure.Service.Security;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Service.Imp
 {
@@ -75,6 +76,21 @@ namespace Infrastructure.Service.Imp
 
             await _unitofWork.Commit();
             return _mapper.Map<ResponseProjectV2>(projects);
+        }
+
+        public async Task<ResponseProjectV2> Delete(Guid id)
+        {
+            var project = await _unitofWork.ProjectRepositoryImp.GetProjectById(id);
+            if (!project.Status.Equals("ACTIVE"))
+            {
+                throw new Exception("Khong the delete dc nua");
+            }
+            project.Status = "INACTIVE";
+            await _unitofWork.ProjectRepositoryImp.Update(project);
+            await _unitofWork.Commit();
+
+            return _mapper.Map<ResponseProjectV2>(project);
+
         }
 
         public async Task<ResponseProjectV2> Edit(Guid id, UpdateProject up)

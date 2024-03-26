@@ -10,12 +10,14 @@ using Domain;
 using Infrastructure.Service;
 using Infrastructure.Common.Model.Response;
 using Infrastructure.Common.Model;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class AccountsController : ODataController
     {
         private readonly IAccountService _accountService;
 
@@ -26,7 +28,8 @@ namespace QuotionSystemSolution.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseAccount>>> GetAccounts()
+        [EnableQuery]
+        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
             return Ok(await _accountService.GetAll());
         }

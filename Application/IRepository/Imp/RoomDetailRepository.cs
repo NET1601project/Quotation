@@ -15,6 +15,11 @@ namespace Application.IRepository.Imp
         {
         }
 
+        public Task<List<RoomDetail>> GetAll()
+        {
+            return _context.Set<RoomDetail>().ToListAsync();
+        }
+
         public async Task<RoomDetail> GetRoomById(Guid id)
         {
             var roomDetail = await _context.Set<RoomDetail>()

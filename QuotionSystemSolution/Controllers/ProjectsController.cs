@@ -11,12 +11,14 @@ using Infrastructure.Service;
 using Infrastructure.Common.Model.Request;
 using Infrastructure.Common.Model.Response;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace QuotionSystemSolution.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class ProjectsController : ODataController
     {
         private readonly IProjectService _projectService;
 
@@ -27,6 +29,7 @@ namespace QuotionSystemSolution.Controllers
 
         [HttpGet]
         //[Authorize]
+        [EnableQuery]
 
         public async Task<ActionResult<IEnumerable<List<ResponseProjectV2>>>> GetProjects()
         {
@@ -40,7 +43,7 @@ namespace QuotionSystemSolution.Controllers
 
             return Ok(await _projectService.GetProjectsStatusACTIVE());
         }
-        
+
         [HttpGet]
 
         public async Task<ActionResult<ResponseProject>> GetProjectById(Guid projectId)
@@ -73,9 +76,14 @@ namespace QuotionSystemSolution.Controllers
             return Ok(await _projectService.AddV2(project));
         }
         [HttpPatch]
-        public async Task<ActionResult<ResponseProjectV2>> EditProject(Guid id,UpdateProject update)
+        public async Task<ActionResult<ResponseProjectV2>> EditProject(Guid id, UpdateProject update)
         {
-            return Ok(await _projectService.Edit(id,update));
+            return Ok(await _projectService.Edit(id, update));
+        }
+        [HttpDelete]
+        public async Task<ActionResult<ResponseProjectV2>> DeleteProject(Guid id)
+        {
+            return Ok(await _projectService.Delete(id));
         }
     }
 }
