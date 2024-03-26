@@ -1,17 +1,284 @@
 ﻿<h1>HomePage</h1>
 
-<div id="adminSection"></div>
+@* <div id="adminSection"></div>
 
 <div id="customerSection"></div>
-<button id="logoutButton" type="submit">Logout</button>
+<button id="logoutButton" type="submit">Logout</button> *@
+<!DOCTYPE html>
+<html lang="en">
 
 
-<script>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Plot Listing HTML5 Website Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="assets/css/animated.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <!--
+    -->
+</head>
+
+<body>
+
+
+    <style>
+        .main-banner1 {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-image: url(https://iili.io/JWNzCN4.jpg);
+            padding: 290px 0px 180px 0px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .main-banner1 .top-text {
+                text-align: center;
+            }
+
+                .main-banner1 .top-text h6 {
+                    color: #fff;
+                    font-size: 15px;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+
+                .main-banner1 .top-text h2 {
+                    color: #fff;
+                    font-size: 45px;
+                    font-weight: 800;
+                    text-transform: capitalize;
+                    margin-top: 15px;
+                    margin-bottom: 45px;
+                }
+
+            .main-banner1 ul.categories {
+                width: 100%;
+                margin-top: 60px;
+                text-align: center;
+            }
+
+                .main-banner1 ul.categories li {
+                    display: inline-block;
+                    text-align: center;
+                    width: 18%;
+                }
+
+                    .main-banner1 ul.categories li a {
+                        color: #fff;
+                        text-align: center;
+                        font-size: 15px;
+                        margin-top: 15px;
+                    }
+
+                    .main-banner1 ul.categories li .icon {
+                        display: block;
+                        margin: 0 auto 12px auto;
+                        width: 66px;
+                        height: 66px;
+                        border-radius: 50%;
+                        text-align: center;
+                        line-height: 62px;
+                        color: #8d99af;
+                        background-color: #fff;
+                        transition: all .5s;
+                    }
+
+                    .main-banner1 ul.categories li a:hover .icon {
+                        background-color: #2b2d42;
+                    }
+
+                    .main-banner1 ul.categories li .icon img {
+                        max-width: 27px;
+                    }
+                    ----------------------------
+        .main-banner {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-image: url(https://iili.io/JWNzCN4.jpg);
+            padding: 290px 0px 180px 0px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .main-banner .top-text {
+                text-align: center;
+            }
+
+                .main-banner .top-text h6 {
+                    color: #fff;
+                    font-size: 15px;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+
+                .main-banner .top-text h2 {
+                    color: #fff;
+                    font-size: 45px;
+                    font-weight: 800;
+                    text-transform: capitalize;
+                    margin-top: 15px;
+                    margin-bottom: 45px;
+                }
+
+            .main-banner ul.categories {
+                width: 100%;
+                margin-top: 60px;
+                text-align: center;
+            }
+
+                .main-banner ul.categories li {
+                    display: inline-block;
+                    text-align: center;
+                    width: 18%;
+                }
+
+                    .main-banner ul.categories li a {
+                        color: #fff;
+                        text-align: center;
+                        font-size: 15px;
+                        margin-top: 15px;
+                    }
+
+                    .main-banner ul.categories li .icon {
+                        display: block;
+                        margin: 0 auto 12px auto;
+                        width: 66px;
+                        height: 66px;
+                        border-radius: 50%;
+                        text-align: center;
+                        line-height: 62px;
+                        color: #8d99af;
+                        background-color: #fff;
+                        transition: all .5s;
+                    }
+
+                    .main-banner ul.categories li a:hover .icon {
+                        background-color: #2b2d42;
+                    }
+
+                    .main-banner ul.categories li .icon img {
+                        max-width: 27px;
+                    }
+    </style>
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                     @*    <ul class="nav">
+                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="listing.html">Listing</a></li>
+                            <li><a href="login.html">LOGIN</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a> *@
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+   @*  <div class="main-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="top-text header-text text-center">
+                        <div id="adminSection"></div>
+                        
+
+                        <div id="customerSection"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ *@
+    <div class="main-banner" id="staffBanner" style="display:none">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="top-text header-text text-center">
+                        @* <div id="adminSection"></div> *@
+                        @* <div id="customerSection"></div> *@
+
+                        <!-- Các nút ở đây -->
+                        <button id="customerButton" type="submit">Go to Customer</button>
+                        <button id="projectButton" type="submit">Go to Projects</button>
+                        <button id="materialButton" type="submit">Go to Materials</button>
+                        <button id="quotesButton" type="submit">Go to QuoteDetails</button>
+                        <button id="staffButton" type="submit">Go to Staffs</button>
+                        <button id="logoutButton" type="submit">Go to Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-banner1 " id="customerBanner" style="display:none">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="top-text header-text text-center">
+                        @* <div id="adminSection"></div> *@
+                        @* <div id="customerSection"></div> *@
+
+                        <!-- Các nút ở đây -->
+                        <button id="projectButton1" type="submit">Go to Projects</button>
+                        <button id="materialButton1" type="submit">Go to Materials</button>
+                        <button id="quotesButton1" type="submit">Go to QuoteDetails</button>
+                        <button id="staffButton1" type="submit">Go to Staffs</button>
+                        <button id="logoutButton1" type="submit">Go to Logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+@* <script>
     var token = localStorage.getItem("jwtToken");
     var role = localStorage.getItem("role");
     console.log(role);
 
-    document.getElementById('logoutButton').addEventListener('click', function (){
+    document.getElementById('logoutButton').addEventListener('click', function () {
         localStorage.clear();
         window.location.href = "/";
     });
@@ -19,17 +286,17 @@
     if (token.length >= 312 && role === "STAFF") {
         console.log(role);
 
-        var adminSection = document.getElementById('adminSection');
-        adminSection.innerHTML = "<p>Information:</p>";
+        // var adminSection = document.getElementById('adminSection');
+        // adminSection.innerHTML = "<p>Information:</p>";
 
-        var adminFormsHTML = `
-                                        <button id="customerButton" type="submit">Go to Customer</button>
-                                                <button id="projectButton" type="submit">Go to Projects</button>
-                                                <button id="materialButton"type="submit">Go to Materials</button>
-                                                                <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-                                                                        <button id="staffButton"type="submit">Go to Staffs</button>
-                                `;
-        adminSection.innerHTML += adminFormsHTML;
+        // var adminFormsHTML = `
+        //                                         <button id="customerButton" type="submit">Go to Customer</button>
+        //                                                 <button id="projectButton" type="submit">Go to Projects</button>
+        //                                                 <button id="materialButton"type="submit">Go to Materials</button>
+        //                                                                 <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+        //                                                                         <button id="staffButton"type="submit">Go to Staffs</button>
+        //                                 `;
+        // adminSection.innerHTML += adminFormsHTML;
         document.getElementById('customerButton').addEventListener('click', function () {
             window.location.href = "/Customers/Index";
         });
@@ -53,16 +320,16 @@
     }
     else if (token.length >= 312 && role === "CUSTOMER") {
         console.log("XIN CHAO");
-        var adminSection = document.getElementById('adminSection');
-        adminSection.innerHTML = "<p>Information:</p>";
+        // var adminSection = document.getElementById('adminSection');
+        // adminSection.innerHTML = "<p>Information:</p>";
 
-        var adminFormsHTML = `
-                                                    <button id="projectButton" type="submit">Go to Projects</button>
-                                                    <button id="materialButton"type="submit">Go to Materials</button>
-                                                                    <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-                                                                            <button id="staffButton"type="submit">Go to Staffs</button>
-                                    `;
-        adminSection.innerHTML += adminFormsHTML;
+        // var adminFormsHTML = `
+        //                                                     <button id="projectButton" type="submit">Go to Projects</button>
+        //                                                     <button id="materialButton"type="submit">Go to Materials</button>
+        //                                                                     <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+        //                                                                             <button id="staffButton"type="submit">Go to Staffs</button>
+        //                                     `;
+        // adminSection.innerHTML += adminFormsHTML;
 
         document.getElementById('projectButton').addEventListener('click', function () {
             window.location.href = "/Projects/Index";
@@ -80,4 +347,59 @@
             window.location.href = "/Staffs/Index";
         });
     }
-</script>
+</script> *@
+
+    <script>
+        var token = localStorage.getItem("jwtToken");
+        var role = localStorage.getItem("role");
+
+        // Phân quyền cho nhóm nhân viên
+        if (token && role === "STAFF") {
+            var staffBanner = document.getElementById('staffBanner');
+            staffBanner.style.display = "block";
+
+            document.getElementById('customerButton').addEventListener('click', function () {
+                window.location.href = "/Customers/Index";
+            });
+            document.getElementById('projectButton').addEventListener('click', function () {
+                window.location.href = "/Projects/Index";
+            });
+            document.getElementById('materialButton').addEventListener('click', function () {
+                window.location.href = "/Materials/Index";
+            });
+            document.getElementById('quotesButton').addEventListener('click', function () {
+                window.location.href = "/Quotes/Index";
+            });
+            document.getElementById('staffButton').addEventListener('click', function () {
+                window.location.href = "/Staffs/Index";
+            });
+            document.getElementById('logoutButton').addEventListener('click', function () {
+                localStorage.clear();
+                window.location.href = "/";
+            });
+        }
+        // Phân quyền cho nhóm khách hàng
+        else if (token && role === "CUSTOMER") {
+            var customerBanner = document.getElementById('customerBanner');
+            customerBanner.style.display = "block";
+
+            document.getElementById('projectButton1').addEventListener('click', function () {
+                window.location.href = "/Projects/Index";
+            });
+            document.getElementById('materialButton1').addEventListener('click', function () {
+                window.location.href = "/Materials/Index";
+            });
+            document.getElementById('quotesButton1').addEventListener('click', function () {
+                window.location.href = "/Quotes/Index";
+            });
+            document.getElementById('staffButton1').addEventListener('click', function () {
+                window.location.href = "/Staffs/Index";
+            });
+            document.getElementById('logoutButton1').addEventListener('click', function () {
+                localStorage.clear();
+                window.location.href = "/";
+            });
+        }
+    </script>
+</body>
+</html>
