@@ -353,7 +353,7 @@
         var token = localStorage.getItem("jwtToken");
         var role = localStorage.getItem("role");
 
-        // Phân quyền cho nhóm nhân viên
+        
         if (token && role === "STAFF") {
             var staffBanner = document.getElementById('staffBanner');
             staffBanner.style.display = "block";
@@ -378,7 +378,7 @@
                 window.location.href = "/";
             });
         }
-        // Phân quyền cho nhóm khách hàng
+        
         else if (token && role === "CUSTOMER") {
             var customerBanner = document.getElementById('customerBanner');
             customerBanner.style.display = "block";
