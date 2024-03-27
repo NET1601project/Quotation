@@ -23,7 +23,7 @@ namespace QuotationClient.Controllers
 
         }
 
-        public IActionResult Create()
+        public IActionResult Create(Guid? id)
         {
             return View();
         }

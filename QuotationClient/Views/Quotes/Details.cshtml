@@ -47,23 +47,17 @@
                                     </ol>
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="custom-img" src="https://static-6.happynest.vn/storage/uploads/2023/12/danh-sach-nhung-mon-do-noi-that-thiet-bi-nen-dau-tu-cho-nha-moi_0.jpg" alt="" />
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="custom-img" src="https://iili.io/JhiBd11.jpg" alt="" />
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="custom-img" src="https://static-4.happynest.vn/storage/uploads/2023/12/danh-sach-nhung-mon-do-noi-that-thiet-bi-nen-dau-tu-cho-nha-moi_3.jpg" alt="" />
+                                            <img class="custom-img" src="" alt="" />
                                         </div>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    @* <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
                                     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
-                                    </a>
+                                    </a> *@
 
                                 </div>
 
@@ -106,7 +100,7 @@
                                     </dd>
                                 </dl>
                                 <div id="qouteDetails"></div>
-                                </br>
+                                <br/>
                                 <h3 id="ProjectName" style="color:red"></h3>
                                 <p id="detailQouteTest"></p>
                             </div>
@@ -131,13 +125,13 @@
         if (role.length != null) {
             document.getElementById('checkRoleStaff').style.display = 'block';
 
-
+            // $('.carousel').carousel({
+            //     interval: 2000
+            // });
             $(document).ready(function () {
                 const urlParams = new URLSearchParams(window.location.search);
                 const quoteDetailId = urlParams.get('QuoteDetailId');
-                // $('.carousel').carousel({
-                //     interval: 2000
-                // })
+
                 console.log(quoteDetailId);
                 $.ajax({
                     method: "GET",
@@ -177,8 +171,15 @@
 
 
                             var quoteDetailhtml = '';
-                            qou.responseQuoteDetails.forEach(function (detail) {
+                            qou.responseQuoteDetails.forEach(function (detail, index) {
                                 quoteDetailhtml += '<p><strong>Material :</strong> ' + detail.materialName + ' <strong>Number :</strong> ' + detail.numberMaterial + ' <strong>Price :</strong> ' + detail.price + ' VND </p>';
+                                quoteDetailhtml += '<td>' + "<img src=" + detail.image + " style='height: 80px; width: 150px;' alt='Alternate Text' />" + '</td>';
+                                
+                                var carouselItem = $('.carousel-item').eq(index);
+                                var imgElement = carouselItem.find('img.custom-img');
+                                imgElement.attr('src', detail.image);
+                                carouselItem.next(index);
+
                             });
                             $('#detailQouteTest').html(quoteDetailhtml);
 

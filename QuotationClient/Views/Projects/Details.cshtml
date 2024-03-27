@@ -58,8 +58,8 @@
     </div>
     <div>
         <a href="#" id="editproject" style="display:none;">Edit</a>
-        <a href="#" id="deleteproject" >Delete</a>
-        <br/>
+        <a href="#" id="deleteproject">Delete</a>
+        <br />
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
@@ -78,7 +78,7 @@
                     method: "GET",
                     url: "https://localhost:7222/api/Projects/GetProjectById?projectId=" + projectId,
                     success: function (booking) {
-                        $('#ProjectId').text(booking.projectID);
+                        $('#ProjectId').text(projectId);
                         $('#ProjectName').text(booking.projectName);
                         $('#StartDate').text(booking.startDate);
                         $('#EndDate').text(booking.endDate);
@@ -93,7 +93,7 @@
                         // $('#editLink').attr('href', '/Materials/Edit?materialId=' + qou.materialID);
 
                         if (booking.roomList.length > 0) {
-                            var detailsHtml = '<h4>Booking Details</h4><table class="table"><thead><tr><th>Room ID</th><th>Room Type Name</th><th>Size</th><th>Description</th></tr></thead><tbody>';
+                            var detailsHtml = '<h4>Booking Details</h4><table class="table"><thead><tr><th>Room ID</th><th>Room Type Name</th><th>Size</th><th>Description</th><th>Create</th><th>RoomDetails</th></tr></thead><tbody>';
 
                             booking.roomList.forEach(function (detail) {
                                 detailsHtml += '<tr>';
@@ -101,6 +101,8 @@
                                 detailsHtml += '<td>' + detail.roomName + '</td>';
                                 detailsHtml += '<td>' + detail.size + '</td>';
                                 detailsHtml += '<td>' + detail.description + '</td>';
+                                detailsHtml += '<td>' + '<a href="/RoomDetails/Create?id=' + detail.roomID + '">Create</a>' + '</td>';
+                                detailsHtml += '<td>' + '<a href="/RoomDetails/Details?id=' + detail.roomID + '">Room Details</a>' + '</td>';
                                 detailsHtml += '</tr>';
                             });
 

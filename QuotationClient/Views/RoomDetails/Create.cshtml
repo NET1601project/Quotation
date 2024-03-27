@@ -10,11 +10,14 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="formCreateRoomDetail">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RoomId" class="control-label"></label>
-                <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
+               @*  <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
+                <label asp-for="RoomId" class="control-label"></label> *@
+                <input asp-for="RoomId" class="form-control" readonly="true" />
+                <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -40,7 +43,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="/Projects/Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -50,38 +53,76 @@
     <script>
         var token = localStorage.getItem('jwtToken');
         var role = localStorage.getItem('role');
-        loadRoom();
+        // loadRoom();
         $(document).ready(function () {
-            $('#RoomId').on('click', function () {
-                var roomID = $(this).val();
-                console.log(roomID);
-                // getRoomsDetailByRoomId(roomID);
 
-            });
-        });
-        function loadRoom() {
-            $.ajax({
-                url: 'https://localhost:7222/api/Projects/GetProjectsWithStatusACTIVE',
-                type: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                success: function (data) {
-                    data.forEach(function (project) {
-                        project.roomList.forEach(function (room) {
-                            $('#RoomId').append('<option value="' + room.roomID + '">' + 'roomID ID: ' + room.roomID + ' -  Name: ' + room.roomName + '</option>');
-                            // $('#Budget').html('<b>Budget:</b> ' + room.bargain);
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomId = urlParams.get('id');
+            console.log("RoomId: ", roomId);
+            $('#RoomId').val(roomId);
+            // $('#RoomId').on('click', function () {
+            //     var roomID = $(this).val();
+            //     console.log(roomID);
+            //     // getRoomsDetailByRoomId(roomID);
 
-                        });
+            // });
 
-                    });
-                    console.log(data);
-                }, error: function (error) {
-                    console.log(error.responseJSON);
-                    alert(error.responseJSON.title);
+            $('#formCreateRoomDetail').submit(function (e) {
+                e.preventDefault();
+                var form = {
+                    "roomId": $('#RoomId').val(),
+                    "name": $("#Name").val(),
+                    "numberEquipment": $("#NumberEquipment").val(),
+                    "description": $("#Description").val()
+
                 }
+                console.log(form);
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:7222/api/RoomDetails/PostRoomDetail",
+                    // contentType: "multipart/form-data",
+                    contentType: "application/json;odata.metadata=minimal;odata.streaming=true",
+                    accepts: 'application/json;odata.metadata=minimal;odata.streaming=true',
+
+                    data: JSON.stringify(form),
+
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = '@Url.Action("Index", "Projects")';
+                        alert("done");
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON);
+                        alert(error.responseJSON.Exception);
+                    }
+                });
             });
-        }
+
+
+        });
+        // function loadRoom() {
+        //     $.ajax({
+        //         url: 'https://localhost:7222/api/Projects/GetProjectsWithStatusACTIVE',
+        //         type: 'GET',
+        //         headers: {
+        //             'Authorization': 'Bearer ' + token
+        //         },
+        //         success: function (data) {
+        //             data.forEach(function (project) {
+        //                 project.roomList.forEach(function (room) {
+        //                     $('#RoomId').append('<option value="' + room.roomID + '">' + 'roomID ID: ' + room.roomID + ' -  Name: ' + room.roomName + '</option>');
+        //                     // $('#Budget').html('<b>Budget:</b> ' + room.bargain);
+
+        //                 });
+
+        //             });
+        //             console.log(data);
+        //         }, error: function (error) {
+        //             console.log(error.responseJSON);
+        //             alert(error.responseJSON.title);
+        //         }
+        //     });
+        // }
 
     </script>
 }

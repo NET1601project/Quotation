@@ -259,9 +259,12 @@
 
                         <!-- Các nút ở đây -->
                         <button id="projectButton1" type="submit">Go to Projects</button>
-                        <button id="materialButton1" type="submit">Go to Materials</button>
+                        @* <button id="roomButton1" type="submit">Go to Room</button> *@
+                        @* <button id="roomdetailButton1" type="submit">Go to RoomDetail</button> *@
+
+                        @* <button id="materialButton1" type="submit">Go to Materials</button> *@
                         <button id="quotesButton1" type="submit">Go to QuoteDetails</button>
-                        <button id="staffButton1" type="submit">Go to Staffs</button>
+                        @* <button id="staffButton1" type="submit">Go to Staffs</button> *@
                         <button id="logoutButton1" type="submit">Go to Logout</button>
 
                     </div>
@@ -386,15 +389,15 @@
             document.getElementById('projectButton1').addEventListener('click', function () {
                 window.location.href = "/Projects/Index";
             });
-            document.getElementById('materialButton1').addEventListener('click', function () {
-                window.location.href = "/Materials/Index";
-            });
+            // document.getElementById('materialButton1').addEventListener('click', function () {
+            //     window.location.href = "/Materials/Index";
+            // });
             document.getElementById('quotesButton1').addEventListener('click', function () {
                 window.location.href = "/Quotes/Index";
             });
-            document.getElementById('staffButton1').addEventListener('click', function () {
-                window.location.href = "/Staffs/Index";
-            });
+            // document.getElementById('staffButton1').addEventListener('click', function () {
+            //     window.location.href = "/Staffs/Index";
+            // });
             document.getElementById('logoutButton1').addEventListener('click', function () {
                 localStorage.clear();
                 window.location.href = "/";
