@@ -27,46 +27,6 @@
 
         <div>
             <h1>Details</h1>
-
-            <div>
-                <h4>QuoteDetail</h4>
-                <hr />
-                <dl class="row">
-                    <dt class="col-sm-2">
-                        Quote ID
-                    </dt>
-                    <dd class="col-sm-10" id="QuoteID">
-
-                    </dd>
-                    <dt class="col-sm-2">
-                        QuoteDate
-                    </dt>
-                    <dd class="col-sm-10" id="QuoteDate">
-                    </dd>
-                    <dt class="col-sm-2">
-                        Status
-                    </dt>
-                    <dd class="col-sm-10" id="Status">
-                    </dd>
-                    <dt class="col-sm-2">
-                        TotalAmount
-                    </dt>
-                    <dd class="col-sm-10" id="TotalAmount">
-                    </dd>
-                    <dt class="col-sm-2">
-                        Project
-                    </dt>
-                    <dd class="col-sm-10" id="Project">
-                    </dd>
-                    <dt class="col-sm-2">
-                        Staff
-                    </dt>
-                    <dd class="col-sm-10" id="Staff">
-
-                    </dd>
-                </dl>
-                <div id="qouteDetails"></div>
-            </div>
             <style>
                 .custom-img {
                     width: 700px;
@@ -104,34 +64,51 @@
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>
+
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="single-product-content">
-                                <h3>Phòng Khách Sang Trọng</h3>
-                                <div id="qouteDetails"></div>
+                                <dl>
+                                    <dt class="col-sm-2">
+                                        Quote ID
+                                    </dt>
+                                    <dd class="col-sm-10" id="QuoteID">
 
-                                <p class="single-product-pricing"><span>Diện Tích 200m vuông</span></p>
-                                <p>1. Hồ Cá Thủy Sinh </p>
-                                <p>2. Ghế Sofa Da Bò </p>
-                                <p>3. Bàn Kính Trong Suốt </p>
-                                <p>4. Kệ Đựng Đồ</p>
-                                <p>5. Đèn Treo Thả Trần </p>
-                                <p>6. Sàn Nhà Gỗ </p>
-                                <div class="single-product-form">
-                                    <form action="index.html">
-                                        <input type="color" placeholder="0">
-                                    </form>
-                                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Tạo Project</a>
-                                </div>
-                                <h4>Share:</h4>
-                                <ul class="product-share">
-                                    <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href=""><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-                                    <li><a href=""><i class="fab fa-linkedin"></i></a></li>
-                                </ul>
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        QuoteDate
+                                    </dt>
+                                    <dd class="col-sm-10" id="QuoteDate">
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        Status
+                                    </dt>
+                                    <dd class="col-sm-10" id="Status">
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        TotalAmount
+                                    </dt>
+                                    <dd class="col-sm-10" id="TotalAmount">
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        Project
+                                    </dt>
+                                    <dd class="col-sm-10" id="Project">
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        Staff
+                                    </dt>
+                                    <dd class="col-sm-10" id="Staff">
+
+                                    </dd>
+                                </dl>
+                                <div id="qouteDetails"></div>
+                                </br>
+                                <h3 id="ProjectName" style="color:red"></h3>
+                                <p id="detailQouteTest"></p>
                             </div>
                         </div>
                     </div>
@@ -139,13 +116,13 @@
             </div>
         </div>
     </div>
-
-    <div>
-        <a href="#" id="editLink" style="display:none;">Edit</a>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
 </body>
+<div>
+    <a href="#" id="editLink" style="display:none;">Edit</a>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
 @section scripts {
     <script>
         var token = localStorage.getItem('jwtToken');
@@ -158,9 +135,9 @@
             $(document).ready(function () {
                 const urlParams = new URLSearchParams(window.location.search);
                 const quoteDetailId = urlParams.get('QuoteDetailId');
-                $('.carousel').carousel({
-                    interval: 2000
-                })
+                // $('.carousel').carousel({
+                //     interval: 2000
+                // })
                 console.log(quoteDetailId);
                 $.ajax({
                     method: "GET",
@@ -172,6 +149,8 @@
                         $('#Status').text(qou.status);
                         $('#TotalAmount').text(qou.totalAmount);
                         $('#Project').text(qou.projectID);
+                        $('#ProjectName').text(qou.nameProject);
+
                         $('#Material').text(qou.materialID);
                         $('#Staff').text(qou.staffId);
                         if (role === 'STAFF') {
@@ -181,20 +160,28 @@
                         console.log(qou);
                         if (qou.responseQuoteDetails.length > 0) {
                             // var detailsHtml = '<h4>Qoute Details</h4><table class="table"><thead><tr><th>Material ID</th><th>Material Name</th><th>Number</th><th>Price</th></tr></thead><tbody>';
-                            var detailsHtml = '';
+                            // qou.responseQuoteDetails.forEach(function (detail) {
+                            //     detailsHtml += '<tr>';
+                            //     detailsHtml += '<td>' + "<img src=" + detail.image + " style='height: 80px; width: 150px;' alt='Alternate Text' />" + '</td>';
+                            //     // $('img#ImageQuoteDetail').attr('src', detail.image);
+
+                            //     detailsHtml += '<td>' + detail.materialName + '</td>';
+                            //     detailsHtml += '<td>' + detail.numberMaterial + '</td>';
+                            //     detailsHtml += '<td>' + detail.price + '</td>';
+                            //     detailsHtml += '</tr>';
+                            // });
+
+
+                            // detailsHtml += '</tbody></table>';
+                            // $('#qouteDetails').html(detailsHtml);
+
+
+                            var quoteDetailhtml = '';
                             qou.responseQuoteDetails.forEach(function (detail) {
-                                detailsHtml += '<tr>';
-                                detailsHtml += '<td>' + "<img src=" + detail.image + " style='height: 80px; width: 150px;' alt='Alternate Text' />" + '</td>';
-                                // $('img#ImageQuoteDetail').attr('src', detail.image);
-
-                                detailsHtml += '<td>' + detail.materialName + '</td>';
-                                detailsHtml += '<td>' + detail.numberMaterial + '</td>';
-                                detailsHtml += '<td>' + detail.price + '</td>';
-                                detailsHtml += '</tr>';
+                                quoteDetailhtml += '<p><strong>Material :</strong> ' + detail.materialName + ' <strong>Number :</strong> ' + detail.numberMaterial + ' <strong>Price :</strong> ' + detail.price + ' VND </p>';
                             });
+                            $('#detailQouteTest').html(quoteDetailhtml);
 
-                            detailsHtml += '</tbody></table>';
-                            $('#qouteDetails').html(detailsHtml);
                         }
                     },
                     error: function (xhr, status, error) {
@@ -226,4 +213,5 @@
     <!-- main js -->
     <script src="assetss/js/main.js"></script>
 }
+
 </html>
