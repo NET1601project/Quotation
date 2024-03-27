@@ -104,7 +104,9 @@
                     .main-banner1 ul.categories li .icon img {
                         max-width: 27px;
                     }
+                    </style>
                     ----------------------------
+                    <style>
         .main-banner {
             background-repeat: no-repeat;
             background-position: center center;
@@ -250,7 +252,7 @@
         </div>
     </div>
     <div class="main-banner1 " id="customerBanner" style="display:none">
-        <div class="container">
+        <div class="container1">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="top-text header-text text-center">
@@ -356,7 +358,7 @@
         var token = localStorage.getItem("jwtToken");
         var role = localStorage.getItem("role");
 
-        // Phân quyền cho nhóm nhân viên
+        
         if (token && role === "STAFF") {
             var staffBanner = document.getElementById('staffBanner');
             staffBanner.style.display = "block";
@@ -381,7 +383,7 @@
                 window.location.href = "/";
             });
         }
-        // Phân quyền cho nhóm khách hàng
+        
         else if (token && role === "CUSTOMER") {
             var customerBanner = document.getElementById('customerBanner');
             customerBanner.style.display = "block";
