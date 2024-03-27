@@ -104,9 +104,8 @@
                     .main-banner1 ul.categories li .icon img {
                         max-width: 27px;
                     }
-                    </style>
-                    ----------------------------
-                    <style>
+    </style>
+    <style>
         .main-banner {
             background-repeat: no-repeat;
             background-position: center center;
@@ -200,13 +199,13 @@
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
-                     @*    <ul class="nav">
-                            <li><a href="index.html" class="active">Home</a></li>
-                            <li><a href="listing.html">Listing</a></li>
-                            <li><a href="login.html">LOGIN</a></li>
+                        @*    <ul class="nav">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="listing.html">Listing</a></li>
+                        <li><a href="login.html">LOGIN</a></li>
                         </ul>
                         <a class='menu-trigger'>
-                            <span>Menu</span>
+                        <span>Menu</span>
                         </a> *@
                         <!-- ***** Menu End ***** -->
                     </nav>
@@ -215,22 +214,21 @@
         </div>
     </header>
     <!-- ***** Header Area End ***** -->
+    @*  <div class="main-banner">
+    <div class="container">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="top-text header-text text-center">
+    <div id="adminSection"></div>
 
-   @*  <div class="main-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="top-text header-text text-center">
-                        <div id="adminSection"></div>
-                        
 
-                        <div id="customerSection"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="customerSection"></div>
     </div>
- *@
+    </div>
+    </div>
+    </div>
+    </div>
+    *@
     <div class="main-banner" id="staffBanner" style="display:none">
         <div class="container">
             <div class="row">
@@ -278,87 +276,87 @@
 
 
 
-@* <script>
+    @* <script>
     var token = localStorage.getItem("jwtToken");
     var role = localStorage.getItem("role");
     console.log(role);
 
     document.getElementById('logoutButton').addEventListener('click', function () {
-        localStorage.clear();
-        window.location.href = "/";
+    localStorage.clear();
+    window.location.href = "/";
     });
 
     if (token.length >= 312 && role === "STAFF") {
-        console.log(role);
+    console.log(role);
 
-        // var adminSection = document.getElementById('adminSection');
-        // adminSection.innerHTML = "<p>Information:</p>";
+    // var adminSection = document.getElementById('adminSection');
+    // adminSection.innerHTML = "<p>Information:</p>";
 
-        // var adminFormsHTML = `
-        //                                         <button id="customerButton" type="submit">Go to Customer</button>
-        //                                                 <button id="projectButton" type="submit">Go to Projects</button>
-        //                                                 <button id="materialButton"type="submit">Go to Materials</button>
-        //                                                                 <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-        //                                                                         <button id="staffButton"type="submit">Go to Staffs</button>
-        //                                 `;
-        // adminSection.innerHTML += adminFormsHTML;
-        document.getElementById('customerButton').addEventListener('click', function () {
-            window.location.href = "/Customers/Index";
-        });
-        document.getElementById('projectButton').addEventListener('click', function () {
-            window.location.href = "/Projects/Index";
-        });
-        document.getElementById('materialButton').addEventListener('click', function () {
-            window.location.href = "/Materials/Index";
-        });
-        // document.getElementById('roomInforButton').addEventListener('click', function () {
-        //     window.location.href = "/Rooms/Index";
-        // });
-        document.getElementById('quotesButton').addEventListener('click', function () {
-            window.location.href = "/Quotes/Index";
-        });
-        document.getElementById('staffButton').addEventListener('click', function () {
-            window.location.href = "/Staffs/Index";
-        });
+    // var adminFormsHTML = `
+    //                                         <button id="customerButton" type="submit">Go to Customer</button>
+    //                                                 <button id="projectButton" type="submit">Go to Projects</button>
+    //                                                 <button id="materialButton"type="submit">Go to Materials</button>
+    //                                                                 <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+    //                                                                         <button id="staffButton"type="submit">Go to Staffs</button>
+    //                                 `;
+    // adminSection.innerHTML += adminFormsHTML;
+    document.getElementById('customerButton').addEventListener('click', function () {
+    window.location.href = "/Customers/Index";
+    });
+    document.getElementById('projectButton').addEventListener('click', function () {
+    window.location.href = "/Projects/Index";
+    });
+    document.getElementById('materialButton').addEventListener('click', function () {
+    window.location.href = "/Materials/Index";
+    });
+    // document.getElementById('roomInforButton').addEventListener('click', function () {
+    //     window.location.href = "/Rooms/Index";
+    // });
+    document.getElementById('quotesButton').addEventListener('click', function () {
+    window.location.href = "/Quotes/Index";
+    });
+    document.getElementById('staffButton').addEventListener('click', function () {
+    window.location.href = "/Staffs/Index";
+    });
 
 
     }
     else if (token.length >= 312 && role === "CUSTOMER") {
-        console.log("XIN CHAO");
-        // var adminSection = document.getElementById('adminSection');
-        // adminSection.innerHTML = "<p>Information:</p>";
+    console.log("XIN CHAO");
+    // var adminSection = document.getElementById('adminSection');
+    // adminSection.innerHTML = "<p>Information:</p>";
 
-        // var adminFormsHTML = `
-        //                                                     <button id="projectButton" type="submit">Go to Projects</button>
-        //                                                     <button id="materialButton"type="submit">Go to Materials</button>
-        //                                                                     <button id="quotesButton"type="submit">Go to QuoteDetails</button>
-        //                                                                             <button id="staffButton"type="submit">Go to Staffs</button>
-        //                                     `;
-        // adminSection.innerHTML += adminFormsHTML;
+    // var adminFormsHTML = `
+    //                                                     <button id="projectButton" type="submit">Go to Projects</button>
+    //                                                     <button id="materialButton"type="submit">Go to Materials</button>
+    //                                                                     <button id="quotesButton"type="submit">Go to QuoteDetails</button>
+    //                                                                             <button id="staffButton"type="submit">Go to Staffs</button>
+    //                                     `;
+    // adminSection.innerHTML += adminFormsHTML;
 
-        document.getElementById('projectButton').addEventListener('click', function () {
-            window.location.href = "/Projects/Index";
-        });
-        document.getElementById('materialButton').addEventListener('click', function () {
-            window.location.href = "/Materials/Index";
-        });
-        // document.getElementById('roomInforButton').addEventListener('click', function () {
-        //     window.location.href = "/Rooms/Index";
-        // });
-        document.getElementById('quotesButton').addEventListener('click', function () {
-            window.location.href = "/Quotes/Index";
-        });
-        document.getElementById('staffButton').addEventListener('click', function () {
-            window.location.href = "/Staffs/Index";
-        });
+    document.getElementById('projectButton').addEventListener('click', function () {
+    window.location.href = "/Projects/Index";
+    });
+    document.getElementById('materialButton').addEventListener('click', function () {
+    window.location.href = "/Materials/Index";
+    });
+    // document.getElementById('roomInforButton').addEventListener('click', function () {
+    //     window.location.href = "/Rooms/Index";
+    // });
+    document.getElementById('quotesButton').addEventListener('click', function () {
+    window.location.href = "/Quotes/Index";
+    });
+    document.getElementById('staffButton').addEventListener('click', function () {
+    window.location.href = "/Staffs/Index";
+    });
     }
-</script> *@
+    </script> *@
 
     <script>
         var token = localStorage.getItem("jwtToken");
         var role = localStorage.getItem("role");
 
-        
+
         if (token && role === "STAFF") {
             var staffBanner = document.getElementById('staffBanner');
             staffBanner.style.display = "block";
@@ -383,7 +381,7 @@
                 window.location.href = "/";
             });
         }
-        
+
         else if (token && role === "CUSTOMER") {
             var customerBanner = document.getElementById('customerBanner');
             customerBanner.style.display = "block";

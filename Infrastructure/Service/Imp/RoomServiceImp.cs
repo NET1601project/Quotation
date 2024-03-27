@@ -92,6 +92,7 @@ namespace Infrastructure.Service.Imp
         {
             var roomdetail = _mapper.Map<RoomDetail>(createRoomDetail);
             var room = await _unitofWork.RoomRepositoryImp.GetById(roomdetail.RoomId);
+            roomdetail.DateTime = DateTime.Now;
             if (!room.Project.Status.Equals("ACTIVE"))
             {
                 throw new Exception("can't Add this room");
